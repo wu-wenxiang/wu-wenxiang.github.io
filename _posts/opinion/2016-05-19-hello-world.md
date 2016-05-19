@@ -1,8 +1,10 @@
 ---
 layout:         post
-title:          Hello World
+title:          Hello Opinion
 category:       opinion
 description:    Say "Hello World" to the world means you're a programmer
 ---
 
-## Hello, World
+## Hello, Opinion
+Rain图
+![rain](/images/other/rain.jpg)
