@@ -53,7 +53,7 @@ Unittest一共包含4个概念：
 
 一些实战中需要用到的技巧：
 
-- 用Assert，不要用FailUnless
+- 用Assert，**不要**用FailUnless（它们已经被废弃）
 
 	![Deprecated.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-Deprecated.png) 
 
@@ -166,6 +166,18 @@ Mock类库是一个专门用于在unittest过程中伪造和篡改测试对象�
 
 ### Unittest2
 
+Unittest2致力于将Python2.7及以后版本上unittest框架的新特性移植（backport）到Python2.4~Python2.6平台中。
+
+Backport是将一个软件补丁应用到比该补丁所对应的版本更老的版本的行为。
+
+你知道这些就可以了，基本上**你不会用到它**。
+
+[*The new features in unittest backported to Python 2.4+. unittest2 is a backport of the new features added to the unittest testing framework in Python 2.7 and onwards.*](https://pypi.python.org/pypi/unittest2)
+
+[*unittest2 is a backport of Python 2.7’s unittest module which has an improved API and better assertions over the one available in previous versions of Python.*](http://docs.python-guide.org/en/latest/writing/tests/)
+
+[*unittest2py3k is the Python 3 compatible version of unittest2*](https://pypi.python.org/pypi/unittest2py3k)
+
 ### py.test
 
 ### Nose
@@ -207,7 +219,7 @@ doctest还有一些高级用法，但基本上用不到，用到的时候再去�
 
 ### Mox
 
-Mox是一个过时的，很像mock的类库。从现在开始，你应该放弃学习Mox，在任何情况下都用Mock就对了。
+Mox是一个过时的，很像mock的类库。从现在开始，你**应该放弃学习Mox，在任何情况下都用Mock**就对了。
 
 参考 [Mox的官方文档](https://pypi.python.org/pypi/mox)：
 
