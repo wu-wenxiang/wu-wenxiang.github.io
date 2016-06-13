@@ -44,7 +44,7 @@ Unittest框架的单元测试类用例通过继承unittest.TestCase来实现，�
 	        self.assertEqual(fun(3), 4)
 
 
-Unittest一共包含4个理念Concepts：
+Unittest一共包含4个概念：
 
 1. Test Fixture，就是Setup()和TearDown()
 1. Test Case，一个Test Case就是一个测试用例，他们都是unittest.TestCase类的子类的方法
@@ -53,27 +53,112 @@ Unittest一共包含4个理念Concepts：
 
 一些实战中需要用到的技巧：
 
-1. Skip，处于各种原因，可能你需要暂时跳过一些测试用例（而不是删除它们）
+- 用Assert，不要用FailUnless
 
-	class MyTestCase(unittest.TestCase):
-	
-	    @unittest.skip("demonstrating skipping")
-	    def test_nothing(self):
-	        self.fail("shouldn't happen")
-	
-	    @unittest.skipIf(mylib.__version__ < (1, 3),
-	                     "not supported in this library version")
-	    def test_format(self):
-	        # Tests that work for only a certain version of the library.
-	        pass
-	
-	    @unittest.skipUnless(sys.platform.startswith("win"), "requires Windows")
-	    def test_windows_support(self):
-	        # windows specific testing code
-	        pass
+	![Deprecated.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-Deprecated.png) 
 
-1. AssertException
-1. Deprecated aliases 
+- 常用的Assert
+
+	![NormalAssert.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-NormalAssert.png)
+
+- 特殊的Assert
+
+	![SpecificAssert.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-SpecificAssert.png)
+
+	For example:
+
+		assertAlmostEqual(1.1, 3.3-2.15, places=1)
+
+	![SpecificEqual.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-SpecificEqual.png)
+
+- AssertException
+
+	![AssertException.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-AssertException.png)
+
+	- assertRaises
+
+		1. `assertRaises(exception, callable, *args, **kwds)`
+
+				def raisesIOError(*args, **kwds):
+				    raise IOError("TestIOError")
+				
+				class FixtureTest(unittest.TestCase):
+				    def test1(self):
+				        self.asertRaises(IOError, raisesIOError)
+				
+				if __name__ == '__main__':
+				    unittest.main()
+
+
+		1. `assertRaises(exception)`
+			
+				# If only the exception argument is given,
+				# returns a context manager so that the code 
+				# under test can be written inline rather 
+				# than as a function
+				with self.assertRaises(SomeException):
+					do_something()
+					
+				# The context manager will store the caught 
+				# exception object in its exception attribute. 
+				# This can be useful if the intention is to 
+				# perform additional checks on the exception raised
+				with self.assertRaises(SomeException) as cm:
+					do_something()
+				
+				the_exception = cm.exception
+				self.assertEqual(the_exception.error_code, 3)
+	
+	- assertRaisesRegexp
+		
+			self.assertRaisesRegexp(ValueError, "invalid literal for.*XYZ'$", int, 'XYZ')
+
+			# or
+
+			with self.assertRaisesRegexp(ValueError, 'literal'):
+				int('XYZ')
+
+- Skip，出于各种原因，你可能需要暂时跳过一些测试用例（而不是删除它们）
+
+		class MyTestCase(unittest.TestCase):
+		
+			@unittest.skip("demonstrating skipping")
+			def test_nothing(self):
+			    self.fail("shouldn't happen")
+			
+			@unittest.skipIf(mylib.__version__ < (1, 3),
+			                 "not supported in this library version")
+			def test_format(self):
+			    # Tests that work for only a certain version of the library.
+			    pass
+			
+			@unittest.skipUnless(sys.platform.startswith("win"), "requires Windows")
+			def test_windows_support(self):
+			    # windows specific testing code
+			    pass
+
+- Class level fixtures
+
+		import unittest
+
+		class Test(unittest.TestCase):
+		    @classmethod
+		    def setUpClass(cls):
+		        cls._connection = createExpensiveConnectionObject()
+		
+		    @classmethod
+		    def tearDownClass(cls):
+		        cls._connection.destroy()
+
+- Module level fixtures
+
+		# These should be implemented as functions:
+		
+		def setUpModule():
+		    createConnection()
+		
+		def tearDownModule():
+		    closeConnection()
 
 ### Mock
 
