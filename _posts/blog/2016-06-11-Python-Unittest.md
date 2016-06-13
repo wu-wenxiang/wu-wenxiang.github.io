@@ -19,7 +19,7 @@ description:    总结了关于Python单元测试的最佳实践的一些例子
 - [英文版](http://docs.python-guide.org/en/latest/writing/tests/)
 - [中文版](http://pythonguidecn.readthedocs.io/zh/latest/writing/tests.html)
 
-本文在该文档的基础上删减了入门部分，增加了实战案例。
+本文在该文档的基础上删减了入门部分，增加了深入讲解和实战案例。
 
 ## 类库
 
@@ -32,12 +32,52 @@ Unittest的标准文档在这里：
 
 Unittest是Python标准库的一部分。它是目前最流行的固件测试框架XUnit在Python中的实现，如果你接触过Junit，nUnit，或者CppUnit，你会非常熟悉它的API。
 
-Unittest提供的feature包括：
+Unittest框架的单元测试类用例通过继承unittest.TestCase来实现，看起来像是这样：
 
+	import unittest
+	
+	def fun(x):
+	    return x + 1
+	
+	class MyTest(unittest.TestCase):
+	    def test(self):
+	        self.assertEqual(fun(3), 4)
+
+
+Unittest一共包含4个理念Concepts：
+
+1. Test Fixture，就是Setup()和TearDown()
+1. Test Case，一个Test Case就是一个测试用例，他们都是unittest.TestCase类的子类的方法
+1. Test Suite，Test Suite是一个测试用例集合，**基本上你用不到它**，用unittest.main()或者其它发现机制来运行所有的测试用例就对了。 :)
+1. Test runner，这是单元测试结果的呈现接口，你可以定制自己喜欢的呈现方式，比如GUI界面，**基本上你也用不到它**。
+
+一些实战中需要用到的技巧：
+
+1. Skip，处于各种原因，可能你需要暂时跳过一些测试用例（而不是删除它们）
+
+	class MyTestCase(unittest.TestCase):
+	
+	    @unittest.skip("demonstrating skipping")
+	    def test_nothing(self):
+	        self.fail("shouldn't happen")
+	
+	    @unittest.skipIf(mylib.__version__ < (1, 3),
+	                     "not supported in this library version")
+	    def test_format(self):
+	        # Tests that work for only a certain version of the library.
+	        pass
+	
+	    @unittest.skipUnless(sys.platform.startswith("win"), "requires Windows")
+	    def test_windows_support(self):
+	        # windows specific testing code
+	        pass
+
+1. AssertException
+1. Deprecated aliases 
 
 ### Mock
 
-Mock类库是一个专门用于在unittest过程中伪造和篡改测试对象的类库，伪造和篡改的目的是避免这些对象在单元测试过程中依赖外部资源（网络资源，数据库连接，其它服务以及耗时过长等）。Mock是一个如此重要的类库，如果没有它，Unittest框架从功能上来说就是不完整的。所以我不能理解为何它没有出现在Python2的标准库里，不过万幸，在Python3中mock以及是unittest框架的一部分。
+Mock类库是一个专门用于在unittest过程中伪造和篡改测试对象的类库，伪造和篡改的目的是避免这些对象在单元测试过程中依赖外部资源（网络资源，数据库连接，其它服务以及耗时过长等）。Mock是一个如此重要的类库，如果没有它，Unittest框架从功能上来说就是不完整的。所以不能理解为何它没有出现在Python2的标准库里，不过我们可以很高兴地看到在Python3中mock已经是unittest框架的一部分。
 
 ### Unittest2
 
