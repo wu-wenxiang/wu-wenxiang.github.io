@@ -2,7 +2,7 @@
 layout:         post
 title:          Python Unittest
 category:       blog
-description:    总结了关于Python单元测试的最佳实践的一些例子
+description:    总结了Python单元测试中常见的单元测试框架，比较他们的适用场景，并给出使用和选择建议。
 ---
 
 ## Startup
@@ -12,7 +12,7 @@ description:    总结了关于Python单元测试的最佳实践的一些例子
 1. 更加精确地定义某段代码的作用，从而使代码的耦合性更低
 1. 避免程序员写出不符合预期的代码，以及因新增功能而带来的Regression Bug
 
-随着Test-Driven方法论的流行，测试类库对于高级语言来说变得不可或缺。Python的单元测试类库种类繁多（Unittest / Unitest2 / Mock / Mox / Nose / Doctest / py.test / tox），他们彼此之间有什么样的联系和区别？什么情况下应该用哪种类库？这些问题足以让开发者感到困惑，本文因此总结了这些类库在实战中的作用和最佳实践，以供读者参考。
+随着Test-Driven方法论的流行，测试类库对于高级语言来说变得不可或缺。Python生态圈中的unit testing framework相当多，不同于Java几乎只有JUnit与TestNG二选一，Python unittest框架中较为活跃并也有较多使用者的framework就有unittest、unittest2、nose、nose2与py.test等。不计其他较小众的工具，光是要搞懂这些工具并从中挑选一个合适的出来使用就让人头大了。本文因此总结了这些类库在实战中的作用，以便读者在选择时方便比对参考。
 
 这里是介绍Python测试的官方文档：
 
@@ -169,7 +169,45 @@ Unittest一共包含4个概念：
 
 ### Mock
 
-Mock类库是一个专门用于在unittest过程中制作（伪造）和修改（篡改）测试对象的类库，制作和修改的目的是避免这些对象在单元测试过程中依赖外部资源（网络资源，数据库连接，其它服务以及耗时过长等）。Mock是一个如此重要的类库，如果没有它，Unittest框架从功能上来说就是不完整的。所以不能理解为何它没有出现在Python2的标准库里，不过我们可以很高兴地看到在Python3中mock已经是unittest框架的一部分。
+[Mock](http://www.voidspace.org.uk/python/mock/)类库是一个专门用于在unittest过程中制作（伪造）和修改（篡改）测试对象的类库，制作和修改的目的是避免这些对象在单元测试过程中依赖外部资源（网络资源，数据库连接，其它服务以及耗时过长等）。Mock是一个如此重要的类库，如果没有它，Unittest框架从功能上来说就是不完整的。所以不能理解为何它没有出现在Python2的标准库里，不过我们可以很高兴地看到在Python3中mock已经是unittest框架的一部分。
+
+猴子补丁，[Monkey-patching](https://en.wikipedia.org/wiki/Monkey_patch) is the technique of swapping functions or methods with others in order to change a module, library or class behavior.
+
+	>>> class Class():
+	...    def add(self, x, y):
+	...       return x + y
+	...
+	>>> inst = Class()
+	>>> def not_exactly_add(self, x, y):
+	...    return x * y
+	...
+	>>> Class.add = not_exactly_add
+	>>> inst.add(3, 3)
+	9
+
+Magic Mock
+
+	from mock import MagicMock
+	thing = ProductionClass()
+	thing.method = MagicMock(return_value=3)
+	thing.method(3, 4, 5, key='value')	# return 3
+	
+	thing.method.assert_called_with(3, 4, 5, key='value')
+
+在测试环境下，对于模型中的mock类或对象，使用补丁修饰器。在下面这个例子中，一直返回相同结果的外部查询系统使用mock替换（但仅用在测试期间）。
+
+	def mock_search(self):
+	    class MockSearchQuerySet(SearchQuerySet):
+	        def __iter__(self):
+	            return iter(["foo", "bar", "baz"])
+	    return MockSearchQuerySet()
+	
+	# SearchForm here refers to the imported class reference in myapp,
+	# not where the SearchForm class itself is imported from
+	@mock.patch('myapp.SearchForm.search', mock_search)
+	def test_new_watchlist_activities(self):
+	    # get_search_results runs a search and iterates over the result
+	    self.assertEqual(len(myapp.get_search_results(q="fish")), 3)
 
 ### Unittest2
 
@@ -282,7 +320,7 @@ pytest创建固件测试环境（fixture）的方式如上例所示，通过显�
 
 ### Nose
 
-nose需要pip install，它主要用于配置和运行各种框架下的测试用例，有更简洁友好的测试用例发现功能。nose的自动发现策略是会遍历文件夹，搜索特征文件（默认是搜索文件名中带test的文件）
+nose广为流传，它主要用于配置和运行各种框架下的测试用例，有更简洁友好的测试用例发现功能。nose的自动发现策略是会遍历文件夹，搜索特征文件（默认是搜索文件名中带test的文件）
 
 	$ nosetests
 	F.
@@ -305,6 +343,21 @@ nose需要pip install，它主要用于配置和运行各种框架下的测试�
 
 Nose2是Nose的原班人马开发。[nose2 is being developed by the same people who maintain nose.](http://nose2.readthedocs.io/en/latest/differences.html)
 Nose2是基于unittest2 plugins分支开发的，但并不支持python2.6之前的版本。Nose2致力于做更好的Nose，它的Plugin API并不兼容之前Nose的API，所以如果你migration from Nose，必须重写这些plugin。*nose2 implements a new plugin API based on the work done by Michael Foord in unittest2’s plugins branch. This API is greatly superior to the one in nose, especially in how it allows plugins to interact with each other. But it is different enough from the API in nose that supporting nose plugins in nose2 will not be practical: plugins must be rewritten to work with nose2.*
+
+然而……
+Nose2的更新……也很有限……
+
+其作者Jason Pellerin先生坦言他目前(2014年)并没有多余的时间进行personal projects的开发，每周对nose与nose2的实际开发时间大概只有30分钟，在这种情况下，nose与nose2都将很难再有大的改版与修正。
+
+### Green
+
+不同与nose/nose2，[green](https://github.com/CleanCut/green)是单纯为了强化unittest中test runner功能而出现的工具。green所提供的只有一个功能强大、使用方便、测试报告美观的test runner。如果你的项目中的测试都是以传统unittest module撰写而成的话，green会是一个很好的test runner选择。
+
+使用green执行测试：
+
+	pip install green
+	cd path/to/project
+	green
 
 ### Doctest
 
@@ -358,10 +411,10 @@ Mox是Java EasyMock框架在Python中的实现。它一个过时的，很像mock
 
 ### 其它
 
-- tox
 
-## 实战案例
+## 建议和总结
+- 在项目中尽量不要mix多种功能类似的框架。
 
-### 案例1
+	你可以选unittest + green，或者nose/nose2(依使用Python版本和项目的历史遗留而定) ，或者pytest，但是尽量不要混合使用。 
 
-### 案例2
+- 如果没有特别的原因（比如你们就是喜欢pytest），unittest是最优解。
