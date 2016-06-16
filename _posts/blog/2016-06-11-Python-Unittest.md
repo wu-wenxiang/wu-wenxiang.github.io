@@ -53,6 +53,13 @@ Unittest一共包含4个概念：
 
 一些实战中需要用到的技巧：
 
+- 发现机制
+
+		python -m unittest discover -s Project/Test/Directory -p "*test*"
+		
+		# 等同于
+		python -m unittest discover -s Project/Test/Directory
+
 - 用Assert，**不要**用FailUnless（它们已经被废弃）
 
 	![Deprecated.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-Deprecated.png) 
@@ -182,11 +189,39 @@ Backport是将一个软件补丁应用到比该补丁所对应的版本更老的
 
 [pytest](http://pytest.org)是另一种固件测试框架，它的API设计非常简洁优雅，完全脱离了XUnit的窠臼（unittest是XUnit在Python中的实现）。但这也正是它的缺点，unittest是标准库的一部分，用者甚众，与之大异难免曲高和寡。
 
-[官方文档中入门的例子在这里](http://pytest.org/latest/example/simple.html)
+py.test功能完备，并且可扩展，但是它语法很简单。创建一个测试组件和写一个带有诸多函数的模块一样容易，来看一个例子
 
-[pytest也给出了unittest Style的兼容写法示例](https://pytest.org/latest/unittest.html)，然并X，圈子不同，不必强融，这句话有道理。
+	# content of test_sample.py
+	def func(x):
+	    return x + 1
+	
+	def test_answer():
+	    assert func(3) == 5
 
-与nose相比，py.test的setup/teardown语法与unittest的兼容性不如nose高，实现方式也不如nose直观。
+运行一下：
+
+	$ py.test 
+	============= test session starts =============
+	platform darwin -- Python 2.7.11, pytest-2.9.2, py-1.4.31, pluggy-0.3.1
+	rootdir: /Users/wuwenxiang/Documents/workspace/testPyDev, inifile: 
+	collected 1 items 
+	
+	some_test.py F
+	
+	================== FAILURES ===================
+	_________________ test_answer _________________
+	
+	    def test_answer():
+	>       assert func(3) == 5
+	E       assert 4 == 5
+	E        +  where 4 = func(3)
+	
+	some_test.py:6: AssertionError
+	========== 1 failed in 0.01 seconds ===========
+
+官方文档中入门的例子在[这里](http://pytest.org/latest/example/simple.html)，pytest也给出了unittest Style的兼容写法[示例](https://pytest.org/latest/unittest.html)，然并X，看完之后你会发现：圈子不同，不必强融，这句话还真TM有道理。
+
+py.test的setup/teardown语法与unittest的兼容性不高，实现方式也不直观。
 
 我们来看一下setup/teardown的例子：
 
@@ -247,9 +282,29 @@ pytest创建固件测试环境（fixture）的方式如上例所示，通过显�
 
 ### Nose
 
+nose需要pip install，它主要用于配置和运行各种框架下的测试用例，有更简洁友好的测试用例发现功能。nose的自动发现策略是会遍历文件夹，搜索特征文件（默认是搜索文件名中带test的文件）
 
+	$ nosetests
+	F.
+	======================================================================
+	FAIL: some_test.test_answer
+	----------------------------------------------------------------------
+	Traceback (most recent call last):
+	  File "/usr/local/lib/python2.7/site-packages/nose/case.py", line 197, in runTest
+	    self.test(*self.arg)
+	  File "/Users/wuwenxiang/Documents/workspace/testPyDev/some_test.py", line 6, in test_answer
+	    assert func(3) == 5
+	AssertionError
+	
+	----------------------------------------------------------------------
+	Ran 2 tests in 0.004s
+	
+	FAILED (failures=1)
 
-### tox
+很可惜，[官网](https://nose.readthedocs.io/en/latest/)说：Nose has been in maintenance mode for the past several years and will **likely cease** without a new person/team to take over maintainership. New projects should consider using [Nose2](http://nose2.readthedocs.io/en/latest/), py.test, or just plain unittest/unittest2.
+
+Nose2是Nose的原班人马开发。[nose2 is being developed by the same people who maintain nose.](http://nose2.readthedocs.io/en/latest/differences.html)
+Nose2是基于unittest2 plugins分支开发的，但并不支持python2.6之前的版本。Nose2致力于做更好的Nose，它的Plugin API并不兼容之前Nose的API，所以如果你migration from Nose，必须重写这些plugin。*nose2 implements a new plugin API based on the work done by Michael Foord in unittest2’s plugins branch. This API is greatly superior to the one in nose, especially in how it allows plugins to interact with each other. But it is different enough from the API in nose that supporting nose plugins in nose2 will not be practical: plugins must be rewritten to work with nose2.*
 
 ### Doctest
 
@@ -300,6 +355,10 @@ Mox是Java EasyMock框架在Python中的实现。它一个过时的，很像mock
 	It was meant to be as compatible with mox as possible, but small enhancements have been made. 
 	The library was tested on Python version 3.2, 2.7 and 2.6.
 	Use at your own risk ;)
+
+### 其它
+
+- tox
 
 ## 实战案例
 
