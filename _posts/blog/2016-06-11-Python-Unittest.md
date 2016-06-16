@@ -162,7 +162,7 @@ Unittest一共包含4个概念：
 
 ### Mock
 
-Mock类库是一个专门用于在unittest过程中伪造和篡改测试对象的类库，伪造和篡改的目的是避免这些对象在单元测试过程中依赖外部资源（网络资源，数据库连接，其它服务以及耗时过长等）。Mock是一个如此重要的类库，如果没有它，Unittest框架从功能上来说就是不完整的。所以不能理解为何它没有出现在Python2的标准库里，不过我们可以很高兴地看到在Python3中mock已经是unittest框架的一部分。
+Mock类库是一个专门用于在unittest过程中制作（伪造）和修改（篡改）测试对象的类库，制作和修改的目的是避免这些对象在单元测试过程中依赖外部资源（网络资源，数据库连接，其它服务以及耗时过长等）。Mock是一个如此重要的类库，如果没有它，Unittest框架从功能上来说就是不完整的。所以不能理解为何它没有出现在Python2的标准库里，不过我们可以很高兴地看到在Python3中mock已经是unittest框架的一部分。
 
 ### Unittest2
 
@@ -180,7 +180,74 @@ Backport是将一个软件补丁应用到比该补丁所对应的版本更老的
 
 ### py.test
 
+[pytest](http://pytest.org)是另一种固件测试框架，它的API设计非常简洁优雅，完全脱离了XUnit的窠臼（unittest是XUnit在Python中的实现）。但这也正是它的缺点，unittest是标准库的一部分，用者甚众，与之大异难免曲高和寡。
+
+[官方文档中入门的例子在这里](http://pytest.org/latest/example/simple.html)
+
+[pytest也给出了unittest Style的兼容写法示例](https://pytest.org/latest/unittest.html)，然并X，圈子不同，不必强融，这句话有道理。
+
+与nose相比，py.test的setup/teardown语法与unittest的兼容性不如nose高，实现方式也不如nose直观。
+
+我们来看一下setup/teardown的例子：
+
+	# some_test.py
+	
+	import pytest
+	
+	@pytest.fixture(scope='function')
+	def setup_function(request):
+	    def teardown_function():
+	        print("teardown_function called.")
+	    request.addfinalizer(teardown_function)
+	    print('setup_function called.')
+	
+	@pytest.fixture(scope='module')
+	def setup_module(request):
+	    def teardown_module():
+	        print("teardown_module called.")
+	    request.addfinalizer(teardown_module)
+	    print('setup_module called.')
+	
+	
+	def test_1(setup_function):
+	    print('Test_1 called.')
+	
+	def test_2(setup_module):
+	    print('Test_2 called.')
+	
+	def test_3(setup_module):
+	    print('Test_3 called.')
+
+pytest创建固件测试环境（fixture）的方式如上例所示，通过显式指定`scope=''`参数来选择需要使用的`pytest.fixture`装饰器。即一个fixture函数的类型从你定义它的时候就确定了，这与使用`@nose.with_setup()`不同。对于`scope='function'`的fixture函数，它就是会在测试用例的前后分别调用setup/teardown。测试用例的参数如`def test_1(setup_function)`只负责引用具体的对象，它并不关心对方的作用域是函数级的还是模块级的。
+
+有效的 scope 参数限于：**function, module, class, session**，默认为function。
+
+运行上例：`$ py.test some_test.py -s`。**-s**用于显示`print()`函数
+
+执行效果：
+
+	$ py.test -s some_test.py
+	============= test session starts =============
+	platform darwin -- Python 2.7.11, pytest-2.9.2, py-1.4.31, pluggy-0.3.1
+	rootdir: /Users/wuwenxiang/Documents/workspace/testPyDev, inifile: 
+	collected 3 items 
+	
+	some_test.py setup_function called.
+	Test_1 called.
+	.teardown_function called.
+	setup_module called.
+	Test_2 called.
+	.Test_3 called.
+	.teardown_module called.
+	
+	
+	========== 3 passed in 0.01 seconds ===========
+
+这里需要注意的地方是：setup_module被调用的位置。
+
 ### Nose
+
+
 
 ### tox
 
@@ -219,7 +286,7 @@ doctest还有一些高级用法，但基本上用不到，用到的时候再去�
 
 ### Mox
 
-Mox是一个过时的，很像mock的类库。从现在开始，你**应该放弃学习Mox，在任何情况下都用Mock**就对了。
+Mox是Java EasyMock框架在Python中的实现。它一个过时的，很像mock的类库。从现在开始，你**应该放弃学习Mox，在任何情况下都用Mock**就对了。
 
 参考 [Mox的官方文档](https://pypi.python.org/pypi/mox)：
 
