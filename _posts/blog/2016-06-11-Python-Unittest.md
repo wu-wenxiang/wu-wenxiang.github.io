@@ -699,7 +699,7 @@ To sdist-package, install and test your project against Python2.6 and Python2.7,
 - 关于Unittest
 	- 如果没有特别的原因，新项目应该用unittest。
 	- Unittest中要用Assert，不要用FailUnless
-	- Django和Flask中都用unittest框架，并提供了一个unittest.TestCase的子类以便于做WebServer测试
+	- Django和Flask中都应该用unittest框架，他们也都提供了一个unittest.TestCase的子类以便于做与WebServer相关的测试
 - 关于Mock
 	- 如果要Mock一个对象，用MagicMock
 	- 如果要在函数或者with-statment中Mock一个对象，用patch
