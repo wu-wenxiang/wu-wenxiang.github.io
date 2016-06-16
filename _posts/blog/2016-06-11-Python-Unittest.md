@@ -171,43 +171,244 @@ Unittest一共包含4个概念：
 
 [Mock](http://www.voidspace.org.uk/python/mock/)类库是一个专门用于在unittest过程中制作（伪造）和修改（篡改）测试对象的类库，制作和修改的目的是避免这些对象在单元测试过程中依赖外部资源（网络资源，数据库连接，其它服务以及耗时过长等）。Mock是一个如此重要的类库，如果没有它，Unittest框架从功能上来说就是不完整的。所以不能理解为何它没有出现在Python2的标准库里，不过我们可以很高兴地看到在Python3中mock已经是unittest框架的一部分。
 
-猴子补丁，[Monkey-patching](https://en.wikipedia.org/wiki/Monkey_patch) is the technique of swapping functions or methods with others in order to change a module, library or class behavior.
+- **猴子补丁**，[Monkey-patching](https://en.wikipedia.org/wiki/Monkey_patch) is the technique of swapping functions or methods with others in order to change a module, library or class behavior.
 
-	>>> class Class():
-	...    def add(self, x, y):
-	...       return x + y
-	...
-	>>> inst = Class()
-	>>> def not_exactly_add(self, x, y):
-	...    return x * y
-	...
-	>>> Class.add = not_exactly_add
-	>>> inst.add(3, 3)
-	9
+		>>> class Class():
+		...    def add(self, x, y):
+		...       return x + y
+		...
+		>>> inst = Class()
+		>>> def not_exactly_add(self, x, y):
+		...    return x * y
+		...
+		>>> Class.add = not_exactly_add
+		>>> inst.add(3, 3)
+		9
 
-Magic Mock
+- **Mock对象**
+	- return_value: 设置Mock方法的返回值
 
-	from mock import MagicMock
-	thing = ProductionClass()
-	thing.method = MagicMock(return_value=3)
-	thing.method(3, 4, 5, key='value')	# return 3
+			>>> from mock import Mock
+			>>> class ProductionClass(): pass
+			... 
+			>>> real = ProductionClass()
+			>>> real.method = Mock(return_value=3)
+			>>> real.method(3, 4, 5, key='value')
+			3
+			>>> real.method.assert_called_with(3, 4, 5, key='value')
+			>>> real.method.assert_called_with(3, 4, key='value')
+			Traceback (most recent call last):
+			  File "<stdin>", line 1, in <module>
+			  File "/usr/local/lib/python2.7/site-packages/mock/mock.py", line 937, in assert_called_with
+			    six.raise_from(AssertionError(_error_message(cause)), cause)
+			  File "/usr/local/lib/python2.7/site-packages/six.py", line 718, in raise_from
+			    raise value
+			AssertionError: Expected call: mock(3, 4, key='value')
+			Actual call: mock(3, 4, 5, key='value')
 	
-	thing.method.assert_called_with(3, 4, 5, key='value')
+	- side_effect: 
+		- 调用Mock方法时，抛出异常
 
-在测试环境下，对于模型中的mock类或对象，使用补丁修饰器。在下面这个例子中，一直返回相同结果的外部查询系统使用mock替换（但仅用在测试期间）。
+				>>> mock = Mock(side_effect=KeyError('foo'))
+				>>> mock()
+				Traceback (most recent call last):
+				 ...
+				KeyError: 'foo'
 
-	def mock_search(self):
-	    class MockSearchQuerySet(SearchQuerySet):
-	        def __iter__(self):
-	            return iter(["foo", "bar", "baz"])
-	    return MockSearchQuerySet()
+				>>> mock = Mock()
+				>>> mock.return_value = 42
+				>>> mock()
+				42
+
+		- 调用Mock方法时，根据参数得到不同的返回值
+
+				>>> values = {'a': 1, 'b': 2, 'c': 3}
+				>>> def side_effect(arg):
+				...     return values[arg]
+				...
+				>>> mock.side_effect = side_effect
+				>>> mock('a'), mock('b'), mock('c')
+				(1, 2, 3)
+
+		- 模拟生成器
+
+				>>> mock.side_effect = [5, 4, 3, 2, 1]
+				>>> mock()
+				5
+				>>> mock(), mock(), mock(), mock()
+				(4, 3, 2, 1)
+				>>> mock()
+				Traceback (most recent call last):
+				  File "<stdin>", line 1, in <module>
+				  File "/usr/local/lib/python2.7/site-packages/mock/mock.py", line 1062, in __call__
+				    return _mock_self._mock_call(*args, **kwargs)
+				  File "/usr/local/lib/python2.7/site-packages/mock/mock.py", line 1121, in _mock_call
+				    result = next(effect)
+				  File "/usr/local/lib/python2.7/site-packages/mock/mock.py", line 109, in next
+				    return _next(obj)
+				StopIteration
+
+
+	- patch：在函数（function）或者环境管理协议（with）中模拟对象，离开函数或者环境管理器范围后模拟行为结束。
+		- 在函数中
+		
+				from mock import patch
+				
+				class AClass(object): pass
+				class BClass(object): pass
+				
+				print id(AClass), id(BClass)
+				
+				@patch('__main__.AClass')
+				@patch('__main__.BClass')
+				def test(x, MockClass2, MockClass1):
+				    print id(AClass), id(BClass)
+				    print id(MockClass1), id(MockClass2)
+				    print AClass
+				    print AClass()
+				    assert MockClass1.called
+				    print x
+				
+				test(42)
+				
+				# output:
+				"""
+				140254580491744 140254580492688
+				4525648336 4517777552
+				4525648336 4517777552
+				<MagicMock name='AClass' id='4525648336'>
+				<MagicMock name='AClass()' id='4525719824'>
+				42
+				"""
+		
+		- 在环境管理协议中
+
+				>>> class Class(object):
+				...     def method(self):
+				...         pass
+				...
+				>>> with patch('__main__.Class') as MockClass:
+				...     instance = MockClass.return_value
+				...     instance.method.return_value = 'foo'
+				...     assert Class() is instance
+				...     assert Class().method() == 'foo'
+				...
+
+		- Spec Set的写法，**你应该用不到**
+
+				>>> Original = Class
+				>>> patcher = patch('__main__.Class', spec=True)
+				>>> MockClass = patcher.start()
+				>>> instance = MockClass()
+				>>> assert isinstance(instance, Original)
+				>>> patcher.stop()
+
+	- patch.object: 在函数或者环境管理协议中模拟对象，但只mock其中一个attribute
+
+			from mock import patch
+			
+			class AClass():
+			    def method(self, *arg):
+			        return 42
+			
+			with patch.object(AClass, 'method') as mock_method:
+			    mock_method.return_value = "Fake"
+			    real = AClass()
+			    print real.method(1, 2, 3)   # Fake
+			
+			mock_method.assert_called_once_with(1, 2, 3)
+			print real.method(1, 2, 3) # 42
+
+	- patch.dict: patch.dict can be used to add members to a dictionary, or simply let a test change a dictionary, and ensure the dictionary is restored when the test ends.
+
+		patch.dict(in_dict, values=(), clear=False, **kwargs)
+		
+		If clear is True then the dictionary will be cleared before the new values are set.
+
+
+			>>> from mock import patch
+			>>> foo = {}
+			>>> with patch.dict(foo, {'newkey': 'newvalue'}):
+			...     assert foo == {'newkey': 'newvalue'}
+			...
+			>>> assert foo == {}
+			
+			>>> import os
+			>>> with patch.dict('os.environ', {'newkey': 'newvalue'}):
+			...     print os.environ['newkey']
+			...
+			newvalue
+			>>> assert 'newkey' not in os.environ
+
+	- patch.multiple: Perform multiple patches in a single call.
 	
-	# SearchForm here refers to the imported class reference in myapp,
-	# not where the SearchForm class itself is imported from
-	@mock.patch('myapp.SearchForm.search', mock_search)
-	def test_new_watchlist_activities(self):
-	    # get_search_results runs a search and iterates over the result
-	    self.assertEqual(len(myapp.get_search_results(q="fish")), 3)
+			>>> thing = object()
+			>>> other = object()
+			
+			>>> @patch.multiple('__main__', thing=DEFAULT, other=DEFAULT)
+			... def test_function(thing, other):
+			...     assert isinstance(thing, MagicMock)
+			...     assert isinstance(other, MagicMock)
+			...
+			>>> test_function()
+			
+			>>> @patch('sys.exit')
+			... @patch.multiple('__main__', thing=DEFAULT, other=DEFAULT)
+			... def test_function(mock_exit, other, thing):
+			...     assert 'other' in repr(other)
+			...     assert 'thing' in repr(thing)
+			...     assert 'exit' in repr(mock_exit)
+			...
+			>>> test_function()
+
+- **MagicMock**: MagicMock是Mock的子类。MagicMock is a subclass of Mock with default implementations of most of the magic methods. You can use MagicMock without having to configure the magic methods yourself.
+
+	- MagicMock的功能完全cover Mock，比如：
+
+			from mock import MagicMock
+			thing = ProductionClass()
+			thing.method = MagicMock(return_value=3)
+			thing.method(3, 4, 5, key='value')	# return 3
+			
+			thing.method.assert_called_with(3, 4, 5, key='value')
+
+	- MagicMock相对于Mock的优势：
+
+			>>> from mock import MagicMock
+			>>> mock = MagicMock()
+			>>> mock.__str__.return_value = 'foobarbaz'
+			>>> str(mock)
+			'foobarbaz'
+			>>> mock.__str__.assert_called_once_with()
+		
+		原来需要：
+		
+			>>> from mock import Mock
+			>>> mock = Mock()
+			>>> mock.__str__ = Mock(return_value = 'wheeeeee')
+			>>> str(mock)
+			'wheeeeee'
+
+- **create_autospec**: 使Mock对象拥有和原对象相同的字段和方法，对于方法对象，则拥有相同的签名
+
+		>>> from mock import create_autospec
+		>>> def function(a, b, c):
+		...     pass
+		...
+		>>> mock_function = create_autospec(function, return_value='fishy')
+		>>> mock_function(1, 2, 3)
+		'fishy'
+		>>> mock_function.assert_called_once_with(1, 2, 3)
+		>>> mock_function('wrong arguments')
+		Traceback (most recent call last):
+		 ...
+		TypeError: <lambda>() takes exactly 3 arguments (1 given)
+		
+		>>> from mock import create_autospec
+		>>> 
+		>>> mockStr = create_autospec(str)
+		>>> print mockStr.__add__("d", "e")
+		<MagicMock name='mock.__add__()' id='4537473552'>
 
 ### Unittest2
 
@@ -411,10 +612,98 @@ Mox是Java EasyMock框架在Python中的实现。它一个过时的，很像mock
 
 ### 其它
 
+- **tox**([官方文档](https://tox.readthedocs.io/en/latest/)): 一个自动化测试框架
+	- checking your package installs correctly with different Python versions and interpreters
+	- running your tests in each of the environments, configuring your test tool of choice
+	- acting as a frontend to Continuous Integration servers, greatly reducing boilerplate and merging CI and shell-based testing.
+
+	Basic example:
+	
+		# content of: tox.ini , put in same dir as setup.py
+		[tox]
+		envlist = py26,py27
+		[testenv]
+		deps=pytest       # install pytest in the venvs
+		commands=py.test  # or 'nosetests' or ...
+
+	You can also try generating a tox.ini file automatically, by running tox-quickstart and then answering a few simple questions.
+To sdist-package, install and test your project against Python2.6 and Python2.7, just type: `tox`
+
+- **testr**([官方文档](http://testrepository.readthedocs.io/en/latest/)): 是一个test runner。
+
+- **Django的Unittest**([官方文档](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/unit-tests/))
+	- [官方文档](https://docs.djangoproject.com/ja/1.9/topics/testing/)推荐用Unittest：The preferred way to write tests in Django is using the unittest module built in to the Python standard library. 
+	- [django.test.TestCase](https://docs.djangoproject.com/ja/1.9/topics/testing/overview/)继承了unittest.TestCase
+
+		Here is an example which subclasses from django.test.TestCase, which is a subclass of unittest.TestCase that runs each test inside a transaction to provide isolation:
+
+			from django.test import TestCase
+			from myapp.models import Animal
+			
+			class AnimalTestCase(TestCase):
+			    def setUp(self):
+			        Animal.objects.create(name="lion", sound="roar")
+			        Animal.objects.create(name="cat", sound="meow")
+			
+			    def test_animals_can_speak(self):
+			        """Animals that can speak are correctly identified"""
+			        lion = Animal.objects.get(name="lion")
+			        cat = Animal.objects.get(name="cat")
+			        self.assertEqual(lion.speak(), 'The lion says "roar"')
+			        self.assertEqual(cat.speak(), 'The cat says "meow"')
+
+- **Flask的Unittest**
+	- [官方文档](http://flask.pocoo.org/docs/0.11/testing/)中介绍：Flask provides a way to test your application by exposing the Werkzeug test Client and handling the context locals for you. You can then use that with your favourite testing solution. In this documentation we will use the unittest package that comes pre-installed with Python.
+	
+		app.test_client()
+
+			app = flask.Flask(__name__)
+			
+			with app.test_client() as c:
+			    rv = c.get('/?tequila=42')
+			    assert request.args['tequila'] == '42'
+
+		Unittest with Flask
+
+			class FlaskrTestCase(unittest.TestCase):
+			
+			    def setUp(self):
+			        self.db_fd, flaskr.app.config['DATABASE'] = tempfile.mkstemp()
+			        self.app = flaskr.app.test_client()
+			        flaskr.init_db()
+			
+			    def tearDown(self):
+			        os.close(self.db_fd)
+			        os.unlink(flaskr.app.config['DATABASE'])
+			
+			    def test_empty_db(self):
+			        rv = self.app.get('/')
+			        assert b'No entries here so far' in rv.data
+
+	- 扩展：[Flask-Testing](https://pythonhosted.org/Flask-Testing/)
+
+			@app.route("/ajax/")
+			def some_json():
+			    return jsonify(success=True)
+			
+			class TestViews(TestCase):
+			    def test_some_json(self):
+			        response = self.client.get("/ajax/")
+			        self.assertEquals(response.json, dict(success=True))
 
 ## 建议和总结
 - 在项目中尽量不要mix多种功能类似的框架。
 
 	你可以选unittest + green，或者nose/nose2(依使用Python版本和项目的历史遗留而定) ，或者pytest，但是尽量不要混合使用。 
 
-- 如果没有特别的原因（比如你们就是喜欢pytest），unittest是最优解。
+- 关于Unittest
+	- 如果没有特别的原因，新项目应该用unittest。
+	- Unittest中要用Assert，不要用FailUnless
+	- Django和Flask中都用unittest框架，并提供了一个unittest.TestCase的子类以便于做WebServer测试
+- 关于Mock
+	- 如果要Mock一个对象，用MagicMock
+	- 如果要在函数或者with-statment中Mock一个对象，用patch
+	- 如果要在函数或者with-statement中Mock一个对象的属性，用patch.object
+	- 如果要在函数或者with-statement中Mock一个字典（增加或重建一个键值对），用patch.dict
+	- 如果要在函数或者with-statement中一次Patch多个Mock对象，用patch.multiple
+	- 如果希望Mock对象拥有和原对象相同的字段和方法（对于方法对象，则拥有相同的签名），用create_autospec。
