@@ -84,7 +84,7 @@ Unittest一共包含4个概念：
 
 	- assertRaises
 
-		1. `assertRaises(exception, callable, *args, **kwds)`
+		- `assertRaises(exception, callable, *args, **kwds)`
 
 				def raisesIOError(*args, **kwds):
 				    raise IOError("TestIOError")
@@ -97,7 +97,7 @@ Unittest一共包含4个概念：
 				    unittest.main()
 
 
-		1. `assertRaises(exception)`
+		- `assertRaises(exception)`
 			
 				# If only the exception argument is given,
 				# returns a context manager so that the code 
@@ -612,48 +612,56 @@ Mox是Java EasyMock框架在Python中的实现。它一个过时的，很像mock
 
 ### 其它
 
-- **tox**([官方文档](https://tox.readthedocs.io/en/latest/)): 一个自动化测试框架
-	- checking your package installs correctly with different Python versions and interpreters
-	- running your tests in each of the environments, configuring your test tool of choice
-	- acting as a frontend to Continuous Integration servers, greatly reducing boilerplate and merging CI and shell-based testing.
+#### tox
 
-	Basic example:
+[官方文档](https://tox.readthedocs.io/en/latest/): 一个自动化测试框架
+
+- checking your package installs correctly with different Python versions and interpreters
+- running your tests in each of the environments, configuring your test tool of choice
+- acting as a frontend to Continuous Integration servers, greatly reducing boilerplate and merging CI and shell-based testing.
+
+Basic example:
 	
-		# content of: tox.ini , put in same dir as setup.py
-		[tox]
-		envlist = py26,py27
-		[testenv]
-		deps=pytest       # install pytest in the venvs
-		commands=py.test  # or 'nosetests' or ...
+	# content of: tox.ini , put in same dir as setup.py
+	[tox]
+	envlist = py26,py27
+	[testenv]
+	deps=pytest       # install pytest in the venvs
+	commands=py.test  # or 'nosetests' or ...
 
-	You can also try generating a tox.ini file automatically, by running tox-quickstart and then answering a few simple questions.
+You can also try generating a tox.ini file automatically, by running tox-quickstart and then answering a few simple questions.
 To sdist-package, install and test your project against Python2.6 and Python2.7, just type: `tox`
 
-- **testr**([官方文档](http://testrepository.readthedocs.io/en/latest/)): 是一个test runner。
+#### testr
 
-- **Django的Unittest**([官方文档](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/unit-tests/))
-	- [官方文档](https://docs.djangoproject.com/ja/1.9/topics/testing/)推荐用Unittest：The preferred way to write tests in Django is using the unittest module built in to the Python standard library. 
-	- [django.test.TestCase](https://docs.djangoproject.com/ja/1.9/topics/testing/overview/)继承了unittest.TestCase
+[官方文档](http://testrepository.readthedocs.io/en/latest/): 是一个test runner。
 
-		Here is an example which subclasses from django.test.TestCase, which is a subclass of unittest.TestCase that runs each test inside a transaction to provide isolation:
+#### Django的Unittest
 
-			from django.test import TestCase
-			from myapp.models import Animal
+- [官方文档](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/unit-tests/)
+- [官方文档](https://docs.djangoproject.com/ja/1.9/topics/testing/)推荐用Unittest：The preferred way to write tests in Django is using the unittest module built in to the Python standard library. 
+- [django.test.TestCase](https://docs.djangoproject.com/ja/1.9/topics/testing/overview/)继承了unittest.TestCase
+
+	Here is an example which subclasses from django.test.TestCase, which is a subclass of unittest.TestCase that runs each test inside a transaction to provide isolation:
+
+		from django.test import TestCase
+		from myapp.models import Animal
 			
-			class AnimalTestCase(TestCase):
-			    def setUp(self):
-			        Animal.objects.create(name="lion", sound="roar")
-			        Animal.objects.create(name="cat", sound="meow")
+		class AnimalTestCase(TestCase):
+		    def setUp(self):
+		        Animal.objects.create(name="lion", sound="roar")
+		        Animal.objects.create(name="cat", sound="meow")
 			
-			    def test_animals_can_speak(self):
-			        """Animals that can speak are correctly identified"""
-			        lion = Animal.objects.get(name="lion")
-			        cat = Animal.objects.get(name="cat")
-			        self.assertEqual(lion.speak(), 'The lion says "roar"')
-			        self.assertEqual(cat.speak(), 'The cat says "meow"')
+		    def test_animals_can_speak(self):
+		        """Animals that can speak are correctly identified"""
+		        lion = Animal.objects.get(name="lion")
+		        cat = Animal.objects.get(name="cat")
+		        self.assertEqual(lion.speak(), 'The lion says "roar"')
+		        self.assertEqual(cat.speak(), 'The cat says "meow"')
 
-- **Flask的Unittest**
-	- [官方文档](http://flask.pocoo.org/docs/0.11/testing/)中介绍：Flask provides a way to test your application by exposing the Werkzeug test Client and handling the context locals for you. You can then use that with your favourite testing solution. In this documentation we will use the unittest package that comes pre-installed with Python.
+#### Flask的Unittest
+
+- [官方文档](http://flask.pocoo.org/docs/0.11/testing/)中介绍：Flask provides a way to test your application by exposing the Werkzeug test Client and handling the context locals for you. You can then use that with your favourite testing solution. In this documentation we will use the unittest package that comes pre-installed with Python.
 	
 		app.test_client()
 
@@ -680,16 +688,16 @@ To sdist-package, install and test your project against Python2.6 and Python2.7,
 			        rv = self.app.get('/')
 			        assert b'No entries here so far' in rv.data
 
-	- 扩展：[Flask-Testing](https://pythonhosted.org/Flask-Testing/)
+- 扩展：[Flask-Testing](https://pythonhosted.org/Flask-Testing/)
 
-			@app.route("/ajax/")
-			def some_json():
-			    return jsonify(success=True)
+		@app.route("/ajax/")
+		def some_json():
+		    return jsonify(success=True)
 			
-			class TestViews(TestCase):
-			    def test_some_json(self):
-			        response = self.client.get("/ajax/")
-			        self.assertEquals(response.json, dict(success=True))
+		class TestViews(TestCase):
+		    def test_some_json(self):
+		        response = self.client.get("/ajax/")
+		        self.assertEquals(response.json, dict(success=True))
 
 ## 建议和总结
 - 在项目中尽量不要mix多种功能类似的框架。
