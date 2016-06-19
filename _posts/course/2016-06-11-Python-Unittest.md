@@ -1,7 +1,7 @@
 ---
 layout:         post
-title:          Python Unittest
-category:       blog
+title:          Python教程-单元测试
+category:       course
 description:    总结了Python单元测试中常见的单元测试框架，比较他们的适用场景，并给出使用和选择建议。
 ---
 
@@ -21,7 +21,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 
 本文在该文档的基础上删减了入门部分，增加了深入讲解和实战案例。
 
-## 类库
+## 常见类库
 
 ### Unittest
 
@@ -610,9 +610,9 @@ Mox是Java EasyMock框架在Python中的实现。它一个过时的，很像mock
 	The library was tested on Python version 3.2, 2.7 and 2.6.
 	Use at your own risk ;)
 
-### 其它
+## 其它类库
 
-#### tox
+### tox
 
 [官方文档](https://tox.readthedocs.io/en/latest/): 一个自动化测试框架
 
@@ -632,11 +632,11 @@ Basic example:
 You can also try generating a tox.ini file automatically, by running tox-quickstart and then answering a few simple questions.
 To sdist-package, install and test your project against Python2.6 and Python2.7, just type: `tox`
 
-#### testr
+### testr
 
 [官方文档](http://testrepository.readthedocs.io/en/latest/): 是一个test runner。
 
-#### Django的Unittest
+### Django的Unittest
 
 - [官方文档](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/unit-tests/)
 - [官方文档](https://docs.djangoproject.com/ja/1.9/topics/testing/)推荐用Unittest：The preferred way to write tests in Django is using the unittest module built in to the Python standard library. 
@@ -659,7 +659,7 @@ To sdist-package, install and test your project against Python2.6 and Python2.7,
 		        self.assertEqual(lion.speak(), 'The lion says "roar"')
 		        self.assertEqual(cat.speak(), 'The cat says "meow"')
 
-#### Flask的Unittest
+### Flask的Unittest
 
 - [官方文档](http://flask.pocoo.org/docs/0.11/testing/)中介绍：Flask provides a way to test your application by exposing the Werkzeug test Client and handling the context locals for you. You can then use that with your favourite testing solution. In this documentation we will use the unittest package that comes pre-installed with Python.
 	
