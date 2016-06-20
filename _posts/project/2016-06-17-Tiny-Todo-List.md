@@ -2,14 +2,14 @@
 layout:         post
 title:          Tiny Todo List
 category:       project
-description:    Tiny Todo List
+description:    Tiny Items Todo List
 ---
 
-## .NET
+## DotNet
 
-### .NET CRL
+### DotNet CRL
 - 问题现象
-	- .NET应用程序初次访问时较慢
+	- DotNet应用程序初次访问时较慢
 	- 从Dump中可以看当时服务进程在等CRL(Certificate Revocation List) Check的返回
 	- Netmon中可以印证Dump中看到的现象
 - 问题需求
@@ -18,5 +18,5 @@ description:    Tiny Todo List
 	- 除此之外，还有哪些方法可以避免此问题？
 		- generatePublisherEvidence ?
 		- Strong name signature
-		- gpedit.msc -> Computer Configuration -> Windows Settings -> Security Settings -> Public Key Policies，双击打开右侧的"Certificate Path Validation Settings" -> Default Retrive Timeout Setting两个值设置为1？
-		- 取消勾选"Automatically update certificates in the Microsoft Root Certificate Program" ？
+		- gpedit.msc -> Computer Configuration -> Windows Settings -> Security Settings -> Public Key Policies，双击打开右侧的"Certificate Path Validation Settings" -> Default Retrive Timeout Setting两个值设置为1 ?
+		- 取消勾选"Automatically update certificates in the Microsoft Root Certificate Program" ?
