@@ -47,6 +47,10 @@ description:    一个微信公众号的项目原型
 	![SAE-Site-Articles.png](http://7xudfs.com1.z0.glb.clouddn.com/c5b735854b244f629923cd3c4b2715cc-SAE-Site-Articles.png)
 
 	部署完成后，要过几分钟才生效。如果不生效的话，可以打开SAE站点的实时Log，看微信有没有把请求发过来。
+	
+	![SAE-Realtime-Log-Show.png](http://7xudfs.com1.z0.glb.clouddn.com/c5b735854b244f629923cd3c4b2715cc-SAE-Realtime-Log-Show.png)
+	
+	上图中可以看到，第一次通过向微信公众号发请求时，微信公众号会发两条GET请求，随后每次请求都是POST。这些HTTP请求的顺序，方法类型，以及数据内容，都是微信开发者接口的一部分，你可以在[这里](http://mp.weixin.qq.com/debug/)调试确认你的后台服务是否满足这些借口。
 
 ### Wechat-个人站点-Tuling
 
