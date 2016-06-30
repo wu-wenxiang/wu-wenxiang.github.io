@@ -10,6 +10,17 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 ## 常用工具和方法
 
 ### Network Monitor
+- 常规的收集步骤
+	1. Download & Install netmon from [Microsoft](http://www.microsoft.com/en-us/download/details.aspx?id=4865)
+	1. Restart Machine 
+	1. `md d:\mstest`
+	1. `nmcap /network * /capture /file d:\mstest\MS_Date_Symptom.cap`
+	1. Ctrl+C, collect logs.
+- 原理
+	- Netmon的抓包在NDIS层（The Netmon driver sits in NDIS which is a wrapper for filter drivers），是在TCP协议栈和NIC驱动之间
+	
+		![Netmon-Layer.jpg](http://7xudfs.com1.z0.glb.clouddn.com/9e7c39ba1fa54c17b394a1918e4a0f3d-Netmon-Layer.jpg)
+		![Windows-OSI.jpg](http://7xudfs.com1.z0.glb.clouddn.com/9e7c39ba1fa54c17b394a1918e4a0f3d-Windows-OSI.jpg)
 
 ### Wireshark
 
@@ -61,8 +72,22 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 			24	3:48:54 PM 6/29/2016	4.3800516	iexplore.exe	10.194.212.86	10.1.15.119	HTTP	HTTP:HTTP Payload, URL: /uservices/services/UTTSService	{HTTP:15, TCP:14, IPv4:13}
 			25	3:48:54 PM 6/29/2016	4.3800516	iexplore.exe	10.194.212.86	10.1.15.119	HTTP	HTTP:Response, HTTP/1.1, Status: Ok, URL: /uservices/services/UTTSService	{HTTP:15, TCP:14, IPv4:13}
 	
-	- 客户测试了：带网络连接的安全模式启动2012依然无法访问WebService。
 	- 鉴于对端没有回复的现象，我们也希望客户端在下一跳交换机抓包，但是客户不方便执行此步操作。
+		- 2012上发出的HTTP Request有没有发送到下一跳？
+		- 如果发送到了，有没有服务端回复？
+		- 如果服务端回复了，有没有发送到2012上？
+	- 另一可能是网卡丢包
+		- 客户测试了：带网络连接的安全模式启动2012依然无法访问WebService。这基本排除了第三方软件的影响
+		- Netmon的抓包在NDIS层（The Netmon driver sits in NDIS which is a wrapper for filter drivers），是在TCP协议栈和NIC驱动之间，如果我们在网络包中看到这个请求，但是这个请求没有从网卡发出去；或者下一跳把回复发给2012，但是没有到Netmon，这只有2种可能：网卡有问题，或者，网卡驱动有问题
+		- 但是因为：2012上的虚拟机2008R2可以正常访问站点（同一块网卡），所以，如果真是这种情况，只有可能是网卡驱动有问题，可以尝试更新驱动。鉴于2012上访问其他的Web Server或者Web Service可以正常访问，所以驱动有问题的可能性也很小。
+	- 建议客户：
+		- 下一跳抓包
+		- 升级驱动
+		- 禁用TCP SNPFeature（以admin权限打开cmd窗口，运行如下命令）：
+
+				netsh interface tcp set global chimney=disabled 
+				netsh interface tcp set global rss=disabled 
+				netsh interface tcp set global autotuning=disabled
 
 - Conclusion
 	-  在2012 Server上的一个TCP参数[ECN](https://tools.ietf.org/html/rfc3168#page-6)（显式拥塞通告），默认是Enable的。
