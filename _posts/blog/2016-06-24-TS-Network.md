@@ -88,11 +88,13 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 				netsh interface tcp set global chimney=disabled 
 				netsh interface tcp set global rss=disabled 
 				netsh interface tcp set global autotuning=disabled
+		
+	- 实施后问题依旧，Review网络包，发现ECN位异常（对端一直发EAS而不是AS，停留在三次握手阶段），禁用ECN，问题不再重现。
 
 - Conclusion
 	-  在2012 Server上的一个TCP参数[ECN](https://tools.ietf.org/html/rfc3168#page-6)（显式拥塞通告），默认是Enable的。
 	- 但在这个Case中，对端的Web Service服务器或者中间网络设备看起来对ECN的支持有问题（3次握手之后，对端还认为握手没有完成，持续发EAS），所以2012这边发了HTTP请求之后，没有回复。
 	- 在2008R2上，ECN是默认关闭的，所以2008R2是可以正常访问Web Service的。
-	- 使用命令：`netsh int tcp set global ecncapability=disabled`可以禁用2012上的ECN属性。BTW，可以使用如下命令检查TCP各项属性：`Get-NetTCPSetting`
+	- 使用命令：`netsh int tcp set global ecncapability=disabled`可以禁用2012上的ECN属性，参考[Technet](http://social.technet.microsoft.com/wiki/contents/articles/20204.how-to-enable-and-disable-explicit-congestion-notification-in-windows.aspx)。BTW，可以使用如下命令检查TCP各项属性：`Get-NetTCPSetting`
 	- 2012 Server上禁用TCP ECN后问题解决。
 
