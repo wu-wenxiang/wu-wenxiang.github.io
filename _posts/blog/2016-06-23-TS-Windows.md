@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          TroubleShooting-Windows Platform
+title:          TS-Windows-Platform
 category:       blog
 description:    介绍排查问题的若干简单有效的方法
 ---

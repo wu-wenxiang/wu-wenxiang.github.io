@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          述而不作_社会学
+title:          述而不作-社会学
 category:       blog
 description:    关于社会学的读书笔记，述而不作
 ---

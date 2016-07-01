@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          TroubleShooting-WinForm
+title:          TS-WinForm
 category:       blog
 description:    小结了若干个WinForm程序的排查步骤和解决办法
 ---

@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          Learning JavaScript-ES6-尚未完成
+title:          JavaScript-ES6-尚未完成
 category:       course
 description:    涵盖ES6标准的JavaScript入门教程
 ---

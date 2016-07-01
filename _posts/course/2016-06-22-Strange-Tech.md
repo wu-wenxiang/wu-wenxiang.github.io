@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          Learning 稀奇古怪的技术
+title:          稀奇古怪的技术
 category:       course
 description:    专门收集一些稀奇古怪的技术，说不定有用呢 :)
 ---
