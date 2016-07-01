@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          应用程序遇到网络问题的排查思路
+title:          TroubleShooting-Network Issue
 category:       blog
 description:    总结了应用程序在遇到网络问题时的排查思路和常见的案例分析
 ---

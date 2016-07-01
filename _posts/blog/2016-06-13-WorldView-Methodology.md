@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          世界观和方法论
+title:          About My WorldView
 category:       blog
 description:    记录我当下的世界观和方法论
 ---

@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          Windows问题排查思路
+title:          TroubleShooting-Windows Platform
 category:       blog
 description:    介绍排查问题的若干简单有效的方法
 ---

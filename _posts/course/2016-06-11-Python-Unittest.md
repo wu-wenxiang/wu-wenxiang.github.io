@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          Python教程-单元测试
+title:          Learning Python-Unittest
 category:       course
 description:    总结了Python单元测试中常见的单元测试框架，比较他们的适用场景，并给出使用和选择建议。
 ---
