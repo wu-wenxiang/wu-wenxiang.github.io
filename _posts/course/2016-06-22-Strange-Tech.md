@@ -18,6 +18,12 @@ description:    专门收集一些稀奇古怪的技术，说不定有用呢 :)
 - 入门项目可以参见：[这里](https://msdn.microsoft.com/en-us/library/ee943825.aspx?f=255&MSPPError=-2147217396)
 
 ### DSL问题排查
+- Case 103092415160611
+	- Symptom: VS2015-DSL-Toolbox-不显示图标
+	- 比较图标，发现用户制作的图标是32×32的，Demo中16×16的（online icon generator）
+		- http://www.picresize.com/
+		- http://resizeimage.net/
+	- 换成16×16的图标，可以正常显示
 
 ## AppFabric
 
@@ -27,3 +33,8 @@ description:    专门收集一些稀奇古怪的技术，说不定有用呢 :)
 - AppFabric通过IIS Extension的方式来实现管理功能。
 - [Fast QA](http://social.technet.microsoft.com/wiki/contents/articles/609.appfabric-faq-hosting.aspx)
 - Prem cases pass through to US now.
+
+## Side By Side COM
+
+### 简介
+
