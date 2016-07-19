@@ -37,4 +37,5 @@ description:    专门收集一些稀奇古怪的技术，说不定有用呢 :)
 ## Side By Side COM
 
 ### 简介
+- 参考[blog](https://weblog.west-wind.com/posts/2011/oct/09/an-easy-way-to-create-side-by-side-registrationless-com-manifests-with-visual-studio)
 
