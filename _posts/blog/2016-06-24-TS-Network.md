@@ -30,6 +30,24 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 
 ## 分析思路
 
+### TLS 1.2/1.1 Enable/Disable
+
+TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
+如果希望禁用它，改下注册表，重启就可以了。
+参考：[BLog](https://blogs.msdn.microsoft.com/kaushal/2011/10/02/support-for-ssltls-protocols-on-windows/)，[Technet](https://technet.microsoft.com/en-us/library/dn786418%28v=ws.11%29.aspx?f=255&MSPPError=-2147217396#BKMK_SchannelTR_TLS12)，[KB245030](https://support.microsoft.com/en-us/kb/245030)
+
+		Windows Registry Editor Version 5.00
+		
+		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1]
+		
+		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server]
+		"Enabled"=dword:00000000
+		
+		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2]
+		
+		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server]
+		"Enabled"=dword:00000000
+
 ## 案例小结
 
 ### Case 892443418260611
