@@ -116,3 +116,21 @@ TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
 	- 使用命令：`netsh int tcp set global ecncapability=disabled`可以禁用2012上的ECN属性，参考[Technet](http://social.technet.microsoft.com/wiki/contents/articles/20204.how-to-enable-and-disable-explicit-congestion-notification-in-windows.aspx)。BTW，可以使用如下命令检查TCP各项属性：`Get-NetTCPSetting`
 	- 2012 Server上禁用TCP ECN后问题解决。
 
+### Case: 317234419170611
+- 问题现象：
+	- 客户端访问IIS Https站点正常
+	- 手机端访问IIS Http站点正常，部分安卓收集访问Https站点下载不了apk文件
+	- 第一台安卓手机端 + 内网，访问IIS站点下载文件，失败，同一台安卓手机端 + 外网（4G热点或者2G网络），访问IIS站点下载文件，能成功
+	- 第二台安卓客户端使用Chrome/Oppo浏览器，无论内外网，访问IIS站点，均不能下载成功，但是同一台机器，同网络，UC浏览器可以下载成功
+	- 第三台安卓客户端使用Chrome浏览器访问IIS-A站点，可以下载成功，使用同一台设备，同网络，同浏览器，访问另一个同构的IIS-B站点，不能下载成功
+- 问题分析
+	- IIS Log 200.0.995，WSA_OPERATION_ABORTED（995）：An overlapped operation was canceled due to the closure of the socket, or the execution of the SIO_FLUSH command in WSAIoctl. 参考 [MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/ms740668(v=vs.85).aspx)
+	- 从网络包中，我们能验证1中的结论，确实是Socket意外关闭导致了传输apk文件失败。可以看到TLS 1.2 握手能正常完成，并开始传输数据。传输了约0.1秒后，IIS Server的对端（客户端）在收到了IIS发出的Application Data帧后，主动发了FIN/RST包，断开了TCP会话。
+	- 考虑到在2008R2中TLS 1.2/1.1是默认禁用的，所以我们建议客户在2012R2上也禁用TLS1.2/1.1，看问题是否依然重现。测试发现，禁用TLS1.2后，问题依然重现，根据客户进一步测试发现，此问题在08R2上也有发生。并且正常环境中的TLS版本也是1.2。所以，看起来问题与TLS版本无关
+	- 鉴于造成下载失败的直接原因是客户端主动断开了TCP 会话，所以我们建议您架设代理，并在代理上收集网络包：
+		- 如果RST/FIN是从手机端发出，则需要您Involve手机设备相关工程师作进一步支持
+		- 反之，需要请贵方网络工程师逐级排查网络包
+- 结论
+	- 因为握手可以完成，数据开始传输（双边都开始传输SSL Application Data），所以我没有考虑可能是证书问题。
+	- 但更换证书后，问题确实解决了……
+	- 下次遇到此类问题，**TLS降级**和**更换证书**都要试试。
