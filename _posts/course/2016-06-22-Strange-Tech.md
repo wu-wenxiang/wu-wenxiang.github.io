@@ -38,4 +38,28 @@ description:    专门收集一些稀奇古怪的技术，说不定有用呢 :)
 
 ### 简介
 - 参考[blog](https://weblog.west-wind.com/posts/2011/oct/09/an-easy-way-to-create-side-by-side-registrationless-com-manifests-with-visual-studio)
+- Demo：
+- 加载过程：
+	- After ConsoleExeCS.exe launched, CreateProcess/CreateActCtx is called
+	- CreateProcess/CreateActCtx does some validation, constructs a message, sends the message to CSRSS.exe, and waits for CSRSS.exe to return
+	- CSRSS.exe would probe all the manifest files list in ConsoleExeCS.exe.manifest. This step cost the most time (10+ seconds)
+	- After CSRSS.exe finished the probe jobs, it would cache all the manifest files to memory, so that no more probe-cost if you run ConsoleExeCS.exe later
+- About the cache:
+	- The cache key is the path of ConsoleExeCS.exe.manifest & its last modification time. 
+	- So if you modified ConsoleExeCS.exe.manifest file, then re-run ConsoleExeCS.exe, CSRSS.exe will recheck all the sxs dlls’ manifest files. Besides, If you modified a sxs manifest file while keeping the ConsoleExeCS.exe.manifest file, the changes of sxs manifest will be ignored since CSRSS.exe would use caches instead of re-check all sxs manifest files.
+	- The cache was host in the memory of the CSRSS.exe process, & each session has independent CSRSS.exe process, so cache couldn’t across the sessions
+	- With machine reboot, CSRSS.exe process will also restart, the cache would lost in this case.
+- About your questions: If there’s a way to delay that context validation & cached in coding way?
+	- Answer:
+		- I’m afraid the quick answer is no.
+		- Because:
+			- The context validation & caching logic would process before your application assembly images being loaded.
+			- The context validation & caching logic was host in CSRSS.exe rather than you application. We could hook additional logics to OpenProcess/ CreateActCtx API, however we couldn’t remove the the original logics.
+		- So, it seems the only way is building the caches before our customers running the ConsoleExeCS.exe
 
+- 参考
+	- [sxs-activation-context-activate-and-deactivate](https://blogs.msdn.microsoft.com/junfeng/2006/03/19/sxs-activation-context-activate-and-deactivate/)
+	- [windows-vista-sxs-activation-context-cache](https://blogs.msdn.microsoft.com/junfeng/2007/10/01/windows-vista-sxs-activation-context-cache/)
+	- [activation-context-creation-flow](https://blogs.msdn.microsoft.com/junfeng/2007/06/12/activation-context-creation-flow/)
+	- [Find-out-why-your-external-manifest-is-being-ignored](http://csi-windows.com/blog/all/27-csi-news-general/245-find-out-why-your-external-manifest-is-being-ignored)
+	- [AppCache](http://www.html5rocks.com/en/tutorials/appcache/beginner/)
