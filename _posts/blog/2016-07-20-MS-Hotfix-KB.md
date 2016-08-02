@@ -17,10 +17,16 @@ description:    整理了一些当下常见的Hotfix和KB，会持续更新
 ### WPAD (Web Proxy Auto Discovery) 
 - [KB 3161949](https://support.microsoft.com/en-sg/kb/3161949)
 	- 这个KB是为了修复一个WPAD漏洞，这个漏洞是在使用代理时有潜在的权限提升的可能，请参考文档：
-		- [KB 3161949](https://support.microsoft.com/en-sg/kb/3161949)：The default behavior of PAC file download is changed so that the client's domain credentials are not automatically sent in response to an NTLM or Negotiate Authentication challenge when WinHTTP requests the PAC file. This occurs regardless of the value of the fAutoLogonIfChallenged flag that is specified in WINHTTP\_AUTOPROXY\_OPTIONS.
-		- [Security Patch](https://technet.microsoft.com/library/security/MS16-077)：This security update resolves vulnerabilities in Microsoft Windows. The vulnerabilities could allow elevation of privilege if the Web Proxy Auto Discovery (WPAD) protocol falls back to a vulnerable proxy discovery process on a target system.
+		- [KB 3161949](https://support.microsoft.com/en-sg/kb/3161949)
+		
+			The default behavior of PAC file download is changed so that the client's domain credentials are not automatically sent in response to an NTLM or Negotiate Authentication challenge when WinHTTP requests the PAC file. This occurs regardless of the value of the fAutoLogonIfChallenged flag that is specified in WINHTTP\_AUTOPROXY\_OPTIONS.
+
+		- [Security Patch](https://technet.microsoft.com/library/security/MS16-077)
+
+			This security update resolves vulnerabilities in Microsoft Windows. The vulnerabilities could allow elevation of privilege if the Web Proxy Auto Discovery (WPAD) protocol falls back to a vulnerable proxy discovery process on a target system.
+
  	- 客户PAC代理脚本，在勾选上自动检测设置后，会偶尔出现不能访问外网的情况。
  	- 处理方法：
 	 	- 不要勾选“自动检测设置”项
-	 	- 在已安装更新中删除KB3161949补丁
+	 	- s在已安装更新中删除KB3161949补丁
 
