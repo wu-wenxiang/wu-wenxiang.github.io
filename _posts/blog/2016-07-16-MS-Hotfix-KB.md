@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          当前常用的MS Hotfix和KB
+title:          当前MS问题常用的Hotfix和KB
 category:       blog
 description:    整理了一些当下常见的Hotfix和KB，会持续更新
 ---
