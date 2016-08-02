@@ -25,8 +25,8 @@ description:    整理了一些当下常见的Hotfix和KB，会持续更新
 
 			This security update resolves vulnerabilities in Microsoft Windows. The vulnerabilities could allow elevation of privilege if the Web Proxy Auto Discovery (WPAD) protocol falls back to a vulnerable proxy discovery process on a target system.
 
- 	- 客户PAC代理脚本，在勾选上自动检测设置后，会偶尔出现不能访问外网的情况。
- 	- 处理方法：
-	 	- 不要勾选“自动检测设置”项
-	 	- s在已安装更新中删除KB3161949补丁
+	- 客户PAC代理脚本，在勾选上自动检测设置后，会偶尔出现不能访问外网的情况。
+	- 处理方法：
+		- 不要勾选“自动检测设置”项
+		- 在已安装更新中删除KB3161949补丁
 
