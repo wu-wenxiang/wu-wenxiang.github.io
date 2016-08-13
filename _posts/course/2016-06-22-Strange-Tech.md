@@ -75,11 +75,14 @@ description:    专门收集一些稀奇古怪的技术，说不定有用呢 :)
 			    </file>
 			</assembly>
 
-- 加载过程：
+- 加载过程（Case 849774419270611）：
 	- After ConsoleExeCS.exe launched, CreateProcess/CreateActCtx is called
 	- CreateProcess/CreateActCtx does some validation, constructs a message, sends the message to CSRSS.exe, and waits for CSRSS.exe to return
 	- CSRSS.exe would probe all the manifest files list in ConsoleExeCS.exe.manifest. This step cost the most time (10+ seconds)
 	- After CSRSS.exe finished the probe jobs, it would cache all the manifest files to memory, so that no more probe-cost if you run ConsoleExeCS.exe later
+
+		![SideBySide-Cache.jpg](http://7xudfs.com1.z0.glb.clouddn.com/b3f0f5669f8c42149d004c1bad126796-SideBySide-Cache.jpg)
+
 - About the cache:
 	- The cache key is the path of ConsoleExeCS.exe.manifest & its last modification time. 
 	- So if you modified ConsoleExeCS.exe.manifest file, then re-run ConsoleExeCS.exe, CSRSS.exe will recheck all the sxs dlls’ manifest files. Besides, If you modified a sxs manifest file while keeping the ConsoleExeCS.exe.manifest file, the changes of sxs manifest will be ignored since CSRSS.exe would use caches instead of re-check all sxs manifest files.
