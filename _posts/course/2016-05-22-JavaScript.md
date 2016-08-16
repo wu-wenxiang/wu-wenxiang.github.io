@@ -91,6 +91,13 @@ JavaScript语言是在10天时间内设计出来的，虽然语言的设计者�
 			- Also, SublimeCodeInter，代码提示插件，支持多种编程语言
 			- Alignment: 等号对齐（Ctrl+Alt+A）
 			- CSScomb: CSS属性排序
+		- 另一个[插件参考](https://vinta.ws/code/must-have-sublime-text-packages.html)
+			- [AngularJS](https://github.com/angular-ui/AngularJS-sublime-package)
+			- [Java​Script Completions](https://sublime.wbond.net/packages/JavaScript%20Completions)
+			- [JavaScript Next](https://github.com/Benvie/JavaScriptNext.tmLanguage)
+			- [JQuery](https://github.com/SublimeText/jQuery)
+		- [配置](http://guowenfh.github.io/2015/12/26/SublimeText/)
+		- [快捷键](https://github.com/jikeytang/sublime-text)
 
 ### 基本语法
 
