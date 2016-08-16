@@ -81,8 +81,8 @@ JavaScript语言是在10天时间内设计出来的，虽然语言的设计者�
 	- [Sublime Text](https://www.sublimetext.com/)
 		- 对于后缀名是html的文件，写html标签后按tab可以自动补全。
 		- [插件](http://www.cnblogs.com/hykun/p/sublimeText3.html)介绍
-			- Install [Package Control](https://sublime.wbond.net/packages/Package%20Control)
-			- Install [Emmet](http://docs.emmet.io/) with Package Control, [Quick Ref](http://docs.emmet.io/cheat-sheet/)，输入标签简写形式，然后按Tab键
+			- Install [Package Control](https://sublime.wbond.net/packages/Package%20Control)，先Ctrl+`，贴Python代码，然后按Command+Shift+P，在出现的文本框中输入Install Package(或直接输入ip)选中Install Package并回车，然后输入你需要的插件名即可
+			- Install [Emmet](http://docs.emmet.io/) with Package Control, [Quick Ref](http://docs.emmet.io/cheat-sheet/)，输入标签简写形式(nav>ul>li)，然后按Tab键试试
 			- Also, JsFormat，Ctrl+Alt+F对JS进行格式化
 			- Also, SideBarEnhancements，强化的侧边栏右键
 			- Also, TrailingSpaces，行尾空格
