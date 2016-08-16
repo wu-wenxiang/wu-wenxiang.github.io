@@ -76,6 +76,22 @@ JavaScript语言是在10天时间内设计出来的，虽然语言的设计者�
 
 ## 快速入门
 
+### 工具集合
+- 编辑器
+	- [Sublime Text](https://www.sublimetext.com/)
+		- 对于后缀名是html的文件，写html标签后按tab可以自动补全。
+		- [插件](http://www.cnblogs.com/hykun/p/sublimeText3.html)介绍
+			- Install [Package Control](https://sublime.wbond.net/packages/Package%20Control)
+			- Install [Emmet](http://docs.emmet.io/) with Package Control, [Quick Ref](http://docs.emmet.io/cheat-sheet/)，输入标签简写形式，然后按Tab键
+			- Also, JsFormat，Ctrl+Alt+F对JS进行格式化
+			- Also, SideBarEnhancements，强化的侧边栏右键
+			- Also, TrailingSpaces，行尾空格
+			- Also, Tag，HTML/XML标签缩进、补全、排版和校验工具
+			- Also, Terminal, Ctrl+Shift+T
+			- Also, SublimeCodeInter，代码提示插件，支持多种编程语言
+			- Alignment: 等号对齐（Ctrl+Alt+A）
+			- CSScomb: CSS属性排序
+
 ### 基本语法
 
 ### 数据类型和变量
