@@ -131,6 +131,6 @@ description:    本文整理了SQLServer 2012的基本知识点
 
 ### 数据挖掘
 
-### BI语意模型
+### PowerPivot
 
 ### PowerView
