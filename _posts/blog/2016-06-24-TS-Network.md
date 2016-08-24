@@ -116,6 +116,8 @@ TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
 	- 使用命令：`netsh int tcp set global ecncapability=disabled`可以禁用2012上的ECN属性，参考[Technet](http://social.technet.microsoft.com/wiki/contents/articles/20204.how-to-enable-and-disable-explicit-congestion-notification-in-windows.aspx)。BTW，可以使用如下命令检查TCP各项属性：`Get-NetTCPSetting`
 	- 2012 Server上禁用TCP ECN后问题解决。
 
+### Case: 080553410360611
+
 ### Case: 317234419170611
 - 问题现象：
 	- 客户端访问IIS Https站点正常
