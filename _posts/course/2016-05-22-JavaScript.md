@@ -144,6 +144,44 @@ description:    涵盖ES6标准的JavaScript入门教程
 ### 操作文件
 
 ### AJAX
+- Example:
+
+		<!DOCTYPE html>
+		<html>
+		<head>
+		  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+		  <script>
+		$(document).ready(function(){
+		  $("#signin").click(function(){
+		    $.post("http://abbydemo.cloudapp.net/api/signin",
+		    {
+		      email:"test1@test.com",
+		      password:"test1@test.com",
+		      remember:"true"
+		    },
+		    function(data,status){
+		      alert("Data: " + data + "\nStatus: " + status);
+		    });
+		  });
+		  $("#signout").click(function(){
+		    $.get("http://abbydemo.cloudapp.net/api/signout", function(data,status){
+		      alert("Data: " + data + "\nStatus: " + status);
+		    });
+		  });
+		  $("#getusers").click(function(){
+		    $.get("http://abbydemo.cloudapp.net/api/users", function(data,status){
+		      alert("Data: " + data + "\nStatus: " + status);
+		    });
+		  });
+		});
+		</script>
+		</head>
+		<body>
+		  <button id=signin>SignIn</button>
+		  <button id=signout>SignOut</button>
+		  <button id=getusers>GetUsers</button>
+		</body>
+		</html>
 
 ### Promise
 
