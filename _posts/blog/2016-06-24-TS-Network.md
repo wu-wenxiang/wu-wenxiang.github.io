@@ -32,6 +32,9 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 - 参考[使用方法](http://www.labviewcraftsmen.com/blog/simple-way-to-monitor-localhost-network-traffic-on-windows)
 - 可以收集Windows平台上的Localhost(Loopback) Network traffic
 
+### Procmon
+- Procmon也可以看到Socket状态的变化，包括本机，可以在TTT前面挡一下
+
 ## 分析思路
 
 ### TLS 1.2/1.1 Enable/Disable
