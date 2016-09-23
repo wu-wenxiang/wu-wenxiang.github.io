@@ -28,6 +28,10 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 
 ### Switch PortMirror
 
+### [RawCap](http://www.netresec.com/?page=RawCap)
+- 参考[使用方法](http://www.labviewcraftsmen.com/blog/simple-way-to-monitor-localhost-network-traffic-on-windows)
+- 可以收集Windows平台上的Localhost(Loopback) Network traffic
+
 ## 分析思路
 
 ### TLS 1.2/1.1 Enable/Disable
@@ -136,3 +140,49 @@ TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
 	- 因为握手可以完成，数据开始传输（双边都开始传输SSL Application Data），所以我没有考虑可能是证书问题。
 	- 但更换证书后，问题确实解决了……
 	- 下次遇到此类问题，**TLS降级**和**更换证书**都要试试。
+
+### Case: 648865412280611
+- 问题现象
+	- 客户IIS在第一次访问时缓慢，第二次时较快，然后在Idle 20分钟后再次访问时又会变慢 
+- 分析
+	- 通常来说，是IIS Default 20min没有请求进入就自动关进程，但这里不是
+	- 收集Dump，发现是SQL请求Connection建立异常，是DNS解析花了太长时间
+
+			HResult: 0x80131904
+			Type: System.Data.SqlClient.SqlException
+			Message: Timeout 时间已到。在操作完成之前超时时间已过或服务器未响应。
+
+			# Child-SP         Return           Call Site                                                                                                           Source
+			0 0000000006039f18 000007fefd3e926b ntdll!ZwCancelIoFile+0xa                                                                                            e:\obj.amd64fre\minkernel\ntdll\daytona\objfre\amd64\usrstubs.asm @ 892
+			1 0000000006039f20 000007fefd3f067d mswsock!Nbt_WaitForResponse+0xcb                                                                                    d:\w7rtm\minio\sockets\winsock2\wsp\mswsock\rnr20lib\nbt.c @ 601
+			2 0000000006039f80 000007fefd3f52d7 mswsock!Nbt_ResolveAddr+0x16d                                                                                       d:\w7rtm\minio\sockets\winsock2\wsp\mswsock\rnr20lib\nbt.c @ 1198
+			3 000000000603a050 000007fefd3dfa9f mswsock!Rnr_NbtResolveAddr+0x27                                                                                     d:\w7rtm\minio\sockets\winsock2\wsp\mswsock\rnr20lib\lookup.c @ 171
+			4 000000000603a2a0 000007fefd3d483a mswsock!Rnr_DoDnsLookup+0xb1bf                                                                                      open start of function
+			5 000000000603a310 000007fefe3e3fc9 mswsock!Dns_NSPLookupServiceNext+0x1ba                                                                              d:\w7rtm\minio\sockets\winsock2\wsp\mswsock\rnr20lib\nsp.c @ 1528
+			6 000000000603a670 000007fefe3e3f1b ws2_32!NSQUERY::LookupServiceNext+0x79                                                                              d:\w7rtm\minio\sockets\winsock2\ws2_32\src\nsquery.cpp @ 720
+			7 000000000603a6d0 000007fefe408c6f ws2_32!WSALookupServiceNextW+0xce                                                                                   d:\w7rtm\minio\sockets\winsock2\ws2_32\src\rnr.cpp @ 1593
+			8 000000000603a720 000007fefe3f48f3 ws2_32!LookupNodeByAddr+0x19f                                                                                       d:\w7rtm\minio\sockets\winsock2\ws2_32\src\addrinfo.cpp @ 4915
+			9 000000000603b0e0 000007fefe3e5572 ws2_32!GetNameInfoW+0xf303                                                                                          open start of function
+			a 000000000603b200 000000006ea28da4 ws2_32!getnameinfo+0xa2                                                                                             d:\w7rtm\minio\sockets\winsock2\ws2_32\src\addrinfo.cpp @ 5356
+			b 000000000603b500 000000006ea08659 System_Data!Tcp::GetDnsName+0x3b4                                                                                   f:\dd\ndp\fx\src\data\native\sni\src\tcp.cpp @ 3079
+			c 000000000603b5a0 000000006ea09402 System_Data!Connect+0x109                                                                                           f:\dd\ndp\fx\src\data\native\sni\src\open.cpp @ 286
+			d 000000000603ba80 000000006ea098cc System_Data!SNIOpenSyncEx+0x722                                                                                     f:\dd\ndp\fx\src\data\native\sni\src\open.cpp @ 845
+			e 000000000603c1c0 000007fef5ec17c7 System_Data!SNIOpenEx+0x4c                                                                                          f:\dd\ndp\fx\src\data\native\sni\src\open.cpp @ 580
+			f 000000000603c220 000007feecb66836 clr!DoNDirectCall__PatchGetThreadCall+0x7b                                                                          f:\dd\ndp\clr\src\vm\amd64\pinvokestubs.asm @ 192
+
+	- 原因是在和数据库建立连接时，即使使用的是IP地址，仍然需要通过DNS反向解析出对应的FQDN，否则无法通过权限认证而建立连接
+- 结论：可以使用如下方法之一解决此问题：
+	- 使用Server Name或者FQDN替代这个IP地址，推荐使用这种解决方案
+	- 在DNS服务器上对这个IP配置反向解析
+	- 这个IIS服务器上的host文件中，配置IP和对应的FQDN
+
+### Case: 116486419190611
+- 问题现象
+	- IE访问一个SQL reporting services站点打不开
+- 分析
+	- Ping IP地址没有问题
+	- 但是Ping FQDN不行
+- 结论
+	- 网络的同事让把如下的选项勾上后, 运行`ipconfig /flushdns`
+
+		![NetworkSettings.jpg](http://7xudfs.com1.z0.glb.clouddn.com/9e7c39ba1fa54c17b394a1918e4a0f3d-NetworkSettings.jpg)
