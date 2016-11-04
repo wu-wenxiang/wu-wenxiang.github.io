@@ -24,3 +24,14 @@ description:    介绍排查问题的若干简单有效的方法
 		- System Configuration -> Boot -> Boot Options -> Safe Boot -> Network（这里如果选minimal是不带网络连接的）
 		- Restart server and press “enter” to enter safe mode 
 		- Refer to [Details](http://7xudfs.com1.z0.glb.clouddn.com/0f411cda89af489da677eaec9d2e3a5f-SafeModeNetworkTest.docx)
+
+## 常见问题
+
+### win2012系统使用Server manager无法安装.net 3.5
+- Case: 875337419290611
+- 本地尝试复现问题，未能复现
+- 客户远程尝试复现问题，提示找不到源
+- 注意到系统中为中文，但使用的源为英文版本
+- 解压系统安装文件的中文源到客户环境中，重新安装，依然提示找不到源
+- 将中文源与英文源合并，并重新安装成功
+- 最终问题定位为客户使用的是英文安装包，但安装了中文的语言包，因此需要英文中文源均在线时才能正常安装。

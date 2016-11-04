@@ -189,3 +189,6 @@ description:    专门收集一些稀奇古怪的技术，说不定有用呢 :)
 	- Solution
 		- If PG confirm they would remove manifest in vstest.console.exe in next release, we’ll info you
 		- You find a work around method to break fix this issue now
+
+## 未展开的不常见技术
+- [IIS-certificate-based-authentication-for-exchange-activesync](https://blogs.technet.microsoft.com/exchange/2012/11/28/configure-certificate-based-authentication-for-exchange-activesync/)
