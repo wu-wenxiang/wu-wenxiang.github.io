@@ -28,7 +28,32 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 
 ### Switch PortMirror
 
+### [RawCap](http://www.netresec.com/?page=RawCap)
+- 参考[使用方法](http://www.labviewcraftsmen.com/blog/simple-way-to-monitor-localhost-network-traffic-on-windows)
+- 可以收集Windows平台上的Localhost(Loopback) Network traffic
+
+### Procmon
+- Procmon也可以看到Socket状态的变化，包括本机，可以在TTT前面挡一下
+
 ## 分析思路
+
+### TLS 1.2/1.1 Enable/Disable
+
+TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
+如果希望禁用它，改下注册表，重启就可以了。
+参考：[BLog](https://blogs.msdn.microsoft.com/kaushal/2011/10/02/support-for-ssltls-protocols-on-windows/)，[Technet](https://technet.microsoft.com/en-us/library/dn786418%28v=ws.11%29.aspx?f=255&MSPPError=-2147217396#BKMK_SchannelTR_TLS12)，[KB245030](https://support.microsoft.com/en-us/kb/245030)
+
+		Windows Registry Editor Version 5.00
+		
+		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1]
+		
+		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server]
+		"Enabled"=dword:00000000
+		
+		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2]
+		
+		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server]
+		"Enabled"=dword:00000000
 
 ## 案例小结
 
@@ -98,3 +123,69 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 	- 使用命令：`netsh int tcp set global ecncapability=disabled`可以禁用2012上的ECN属性，参考[Technet](http://social.technet.microsoft.com/wiki/contents/articles/20204.how-to-enable-and-disable-explicit-congestion-notification-in-windows.aspx)。BTW，可以使用如下命令检查TCP各项属性：`Get-NetTCPSetting`
 	- 2012 Server上禁用TCP ECN后问题解决。
 
+### Case: 080553410360611
+
+### Case: 317234419170611
+- 问题现象：
+	- 客户端访问IIS Https站点正常
+	- 手机端访问IIS Http站点正常，部分安卓收集访问Https站点下载不了apk文件
+	- 第一台安卓手机端 + 内网，访问IIS站点下载文件，失败，同一台安卓手机端 + 外网（4G热点或者2G网络），访问IIS站点下载文件，能成功
+	- 第二台安卓客户端使用Chrome/Oppo浏览器，无论内外网，访问IIS站点，均不能下载成功，但是同一台机器，同网络，UC浏览器可以下载成功
+	- 第三台安卓客户端使用Chrome浏览器访问IIS-A站点，可以下载成功，使用同一台设备，同网络，同浏览器，访问另一个同构的IIS-B站点，不能下载成功
+- 问题分析
+	- IIS Log 200.0.995，WSA_OPERATION_ABORTED（995）：An overlapped operation was canceled due to the closure of the socket, or the execution of the SIO_FLUSH command in WSAIoctl. 参考 [MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/ms740668(v=vs.85).aspx)
+	- 从网络包中，我们能验证1中的结论，确实是Socket意外关闭导致了传输apk文件失败。可以看到TLS 1.2 握手能正常完成，并开始传输数据。传输了约0.1秒后，IIS Server的对端（客户端）在收到了IIS发出的Application Data帧后，主动发了FIN/RST包，断开了TCP会话。
+	- 考虑到在2008R2中TLS 1.2/1.1是默认禁用的，所以我们建议客户在2012R2上也禁用TLS1.2/1.1，看问题是否依然重现。测试发现，禁用TLS1.2后，问题依然重现，根据客户进一步测试发现，此问题在08R2上也有发生。并且正常环境中的TLS版本也是1.2。所以，看起来问题与TLS版本无关
+	- 鉴于造成下载失败的直接原因是客户端主动断开了TCP 会话，所以我们建议您架设代理，并在代理上收集网络包：
+		- 如果RST/FIN是从手机端发出，则需要您Involve手机设备相关工程师作进一步支持
+		- 反之，需要请贵方网络工程师逐级排查网络包
+- 结论
+	- 因为握手可以完成，数据开始传输（双边都开始传输SSL Application Data），所以我没有考虑可能是证书问题。
+	- 但更换证书后，问题确实解决了……
+	- 下次遇到此类问题，**TLS降级**和**更换证书**都要试试。
+
+### Case: 648865412280611
+- 问题现象
+	- 客户IIS在第一次访问时缓慢，第二次时较快，然后在Idle 20分钟后再次访问时又会变慢 
+- 分析
+	- 通常来说，是IIS Default 20min没有请求进入就自动关进程，但这里不是
+	- 收集Dump，发现是SQL请求Connection建立异常，是DNS解析花了太长时间
+
+			HResult: 0x80131904
+			Type: System.Data.SqlClient.SqlException
+			Message: Timeout 时间已到。在操作完成之前超时时间已过或服务器未响应。
+
+			# Child-SP         Return           Call Site                                                                                                           Source
+			0 0000000006039f18 000007fefd3e926b ntdll!ZwCancelIoFile+0xa                                                                                            e:\obj.amd64fre\minkernel\ntdll\daytona\objfre\amd64\usrstubs.asm @ 892
+			1 0000000006039f20 000007fefd3f067d mswsock!Nbt_WaitForResponse+0xcb                                                                                    d:\w7rtm\minio\sockets\winsock2\wsp\mswsock\rnr20lib\nbt.c @ 601
+			2 0000000006039f80 000007fefd3f52d7 mswsock!Nbt_ResolveAddr+0x16d                                                                                       d:\w7rtm\minio\sockets\winsock2\wsp\mswsock\rnr20lib\nbt.c @ 1198
+			3 000000000603a050 000007fefd3dfa9f mswsock!Rnr_NbtResolveAddr+0x27                                                                                     d:\w7rtm\minio\sockets\winsock2\wsp\mswsock\rnr20lib\lookup.c @ 171
+			4 000000000603a2a0 000007fefd3d483a mswsock!Rnr_DoDnsLookup+0xb1bf                                                                                      open start of function
+			5 000000000603a310 000007fefe3e3fc9 mswsock!Dns_NSPLookupServiceNext+0x1ba                                                                              d:\w7rtm\minio\sockets\winsock2\wsp\mswsock\rnr20lib\nsp.c @ 1528
+			6 000000000603a670 000007fefe3e3f1b ws2_32!NSQUERY::LookupServiceNext+0x79                                                                              d:\w7rtm\minio\sockets\winsock2\ws2_32\src\nsquery.cpp @ 720
+			7 000000000603a6d0 000007fefe408c6f ws2_32!WSALookupServiceNextW+0xce                                                                                   d:\w7rtm\minio\sockets\winsock2\ws2_32\src\rnr.cpp @ 1593
+			8 000000000603a720 000007fefe3f48f3 ws2_32!LookupNodeByAddr+0x19f                                                                                       d:\w7rtm\minio\sockets\winsock2\ws2_32\src\addrinfo.cpp @ 4915
+			9 000000000603b0e0 000007fefe3e5572 ws2_32!GetNameInfoW+0xf303                                                                                          open start of function
+			a 000000000603b200 000000006ea28da4 ws2_32!getnameinfo+0xa2                                                                                             d:\w7rtm\minio\sockets\winsock2\ws2_32\src\addrinfo.cpp @ 5356
+			b 000000000603b500 000000006ea08659 System_Data!Tcp::GetDnsName+0x3b4                                                                                   f:\dd\ndp\fx\src\data\native\sni\src\tcp.cpp @ 3079
+			c 000000000603b5a0 000000006ea09402 System_Data!Connect+0x109                                                                                           f:\dd\ndp\fx\src\data\native\sni\src\open.cpp @ 286
+			d 000000000603ba80 000000006ea098cc System_Data!SNIOpenSyncEx+0x722                                                                                     f:\dd\ndp\fx\src\data\native\sni\src\open.cpp @ 845
+			e 000000000603c1c0 000007fef5ec17c7 System_Data!SNIOpenEx+0x4c                                                                                          f:\dd\ndp\fx\src\data\native\sni\src\open.cpp @ 580
+			f 000000000603c220 000007feecb66836 clr!DoNDirectCall__PatchGetThreadCall+0x7b                                                                          f:\dd\ndp\clr\src\vm\amd64\pinvokestubs.asm @ 192
+
+	- 原因是在和数据库建立连接时，即使使用的是IP地址，仍然需要通过DNS反向解析出对应的FQDN，否则无法通过权限认证而建立连接
+- 结论：可以使用如下方法之一解决此问题：
+	- 使用Server Name或者FQDN替代这个IP地址，推荐使用这种解决方案
+	- 在DNS服务器上对这个IP配置反向解析
+	- 这个IIS服务器上的host文件中，配置IP和对应的FQDN
+
+### Case: 116486419190611
+- 问题现象
+	- IE访问一个SQL reporting services站点打不开
+- 分析
+	- Ping IP地址没有问题
+	- 但是Ping FQDN不行
+- 结论
+	- 网络的同事让把如下的选项勾上后, 运行`ipconfig /flushdns`
+
+		![NetworkSettings.jpg](http://7xudfs.com1.z0.glb.clouddn.com/9e7c39ba1fa54c17b394a1918e4a0f3d-NetworkSettings.jpg)
