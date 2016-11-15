@@ -22,7 +22,36 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 		![Netmon-Layer.jpg](http://7xudfs.com1.z0.glb.clouddn.com/9e7c39ba1fa54c17b394a1918e4a0f3d-Netmon-Layer.jpg)
 		![Windows-OSI.jpg](http://7xudfs.com1.z0.glb.clouddn.com/9e7c39ba1fa54c17b394a1918e4a0f3d-Windows-OSI.jpg)
 
+### TCP临时端口耗尽问题
+- 临时端口耗尽问题，参考[MSDN-Blog](https://blogs.technet.microsoft.com/clinth/2013/08/09/detecting-ephemeral-port-exhaustion/)
+- 参数调优
+
+		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters]
+		"TcpTimedWaitDelay"=dword:0000001e
+		"MaxUserPort"=dword:0000fffe
+		"TcpNumConnections"=dword:00fffffe
+		"TcpMaxDataRetransmissions"=dword:00000005
+		
+		// no need reboot
+		netsh int ipv4 set dynamicport tcp start=10000 num=55535
+		netsh int ipv4 show dynamicport tcp
+
+- User Mode Port Leak
+	- 脚本，监控Port
+	- FTP Log，PASV模式，查看Port分配的频率，看异常
+- Kernel Mode Port Leak (Full dump)
+
+		!mex.afd -conn -report -verbose
+		!afd -endp -report
+		!tcpip -p
+
+### Netstat
+- 常用参数：`netstat -anbo`
+- Win10新增加的参数：`netstat -q`，除了active connection和listen的port外，还有bind port但是没有active conn的端口
+
 ### Wireshark
+
+### Tcpview
 
 ### TcpDump
 
@@ -43,17 +72,17 @@ TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
 如果希望禁用它，改下注册表，重启就可以了。
 参考：[BLog](https://blogs.msdn.microsoft.com/kaushal/2011/10/02/support-for-ssltls-protocols-on-windows/)，[Technet](https://technet.microsoft.com/en-us/library/dn786418%28v=ws.11%29.aspx?f=255&MSPPError=-2147217396#BKMK_SchannelTR_TLS12)，[KB245030](https://support.microsoft.com/en-us/kb/245030)
 
-		Windows Registry Editor Version 5.00
+	Windows Registry Editor Version 5.00
 		
-		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1]
+	[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1]
 		
-		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server]
-		"Enabled"=dword:00000000
+	[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server]
+	"Enabled"=dword:00000000
 		
-		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2]
+	[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2]
 		
-		[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server]
-		"Enabled"=dword:00000000
+	[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server]
+	"Enabled"=dword:00000000
 
 ## 案例小结
 
