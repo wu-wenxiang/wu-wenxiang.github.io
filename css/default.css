@@ -85,10 +85,15 @@ pre ol{margin-left:25px;list-style-type:decimal;}
     background-image:url('http://7xudfs.com1.z0.glb.clouddn.com/1426a7be556245a0b68defe10ea6ee5a-dengshan.jpg');
 }
 .project .aside{
+    background-image:url('http://7xudfs.com1.z0.glb.clouddn.com/1426a7be556245a0b68defe10ea6ee5a-dengshan.jpg');
+}
+.essay .aside{
+    background-image:url('http://7xudfs.com1.z0.glb.clouddn.com/1426a7be556245a0b68defe10ea6ee5a-gonglu.jpeg');
+}
+.informal .aside{
     background-image:url('http://7xudfs.com1.z0.glb.clouddn.com/1426a7be556245a0b68defe10ea6ee5a-gonglu.jpeg')
 }
 .index-content .section { margin-left:30%; padding-top:80px; padding-right:15%; ;}
-
 .index-content .artical-list { width:70%; margin:0 auto; }
 .index-content .artical-list li { margin-bottom:70px; }
 .index-content h2 { font-size:20px; margin-bottom:15px; word-break: break-all;}
@@ -162,6 +167,8 @@ h3.about {color:#777;margin-top:20px;font-size:22px;margin-bottom:10px}
 
     .blog .aside,
     .project .aside,
+    .essay .aside,
+    .informal .aside,
     .course .aside {display:none;background-image:none;}
 }
 

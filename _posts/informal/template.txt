@@ -1,0 +1,9 @@
+---
+layout:         post
+title:          Hello Informal 
+category:       informal
+description:    Say "Hello World" to the world means you're a programmer
+---
+
+## Hello, Informal
+![rain](/images/other/rain.jpg)
