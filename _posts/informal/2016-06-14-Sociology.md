@@ -1,7 +1,7 @@
 ---
 layout:         post
 title:          述而不作-社会学
-category:       blog
+category:       informal
 description:    关于社会学的读书笔记，述而不作
 ---
 

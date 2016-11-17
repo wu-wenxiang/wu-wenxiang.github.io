@@ -1,7 +1,7 @@
 ---
 layout:         post
 title:          About My WorldView
-category:       blog
+category:       informal
 description:    记录我当下的世界观和方法论
 ---
 
