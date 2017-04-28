@@ -16,11 +16,7 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 	1. `md d:\mstest`
 	1. `nmcap /network * /capture /file d:\mstest\MS_Date_Symptom.cap`
 	1. Ctrl+C, collect logs.
-- 原理
-	- Netmon的抓包在NDIS层（The Netmon driver sits in NDIS which is a wrapper for filter drivers），是在TCP协议栈和NIC驱动之间
-	
-		![Netmon-Layer.jpg](http://7xudfs.com1.z0.glb.clouddn.com/9e7c39ba1fa54c17b394a1918e4a0f3d-Netmon-Layer.jpg)
-		![Windows-OSI.jpg](http://7xudfs.com1.z0.glb.clouddn.com/9e7c39ba1fa54c17b394a1918e4a0f3d-Windows-OSI.jpg)
+- [原理](https://github.com/wu-wenxiang/Doc-Blog/blob/master/network/network-windows.md)
 
 ### TCP临时端口耗尽问题
 - 临时端口耗尽问题，参考[MSDN-Blog](https://blogs.technet.microsoft.com/clinth/2013/08/09/detecting-ephemeral-port-exhaustion/)
