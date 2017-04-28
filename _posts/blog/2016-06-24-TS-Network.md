@@ -31,7 +31,6 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 		// no need reboot
 		netsh int ipv4 set dynamicport tcp start=10000 num=55535
 		netsh int ipv4 show dynamicport tcp
-
 - User Mode Port Leak
 	- 脚本，监控Port
 	- FTP Log，PASV模式，查看Port分配的频率，看异常
@@ -40,7 +39,6 @@ description:    总结了应用程序在遇到网络问题时的排查思路和�
 		!mex.afd -conn -report -verbose
 		!afd -endp -report
 		!tcpip -p
-
 ### Netstat
 - 常用参数：`netstat -anbo`
 - Win10新增加的参数：`netstat -q`，除了active connection和listen的port外，还有bind port但是没有active conn的端口
@@ -110,8 +108,6 @@ TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
 			4869       3:32:40 PM 6/29/2016    18.7188673          IEXPLORE.EXE    10.1.15.174         10.194.212.86     TCP                TCP:[ReTransmit #3828]Flags=...AP..., SrcPort=59897, DstPort=HTTP Alternate(8080), PayloadLen=288, Seq=2144566298 - 2144566586, Ack=2689424324, Win=8195 (scale factor 0x8) = 2097920             {TCP:40, IPv4:20}
 			5100       3:32:40 PM 6/29/2016    19.1655610          IEXPLORE.EXE    10.194.212.86       10.1.15.174       TCP                TCP:Flags=.E.A..S., SrcPort=HTTP Alternate(8080), DstPort=59897, PayloadLen=0, Seq=2689424323, Ack=2144566298, Win=14600 ( Negotiated scale factor 0x7 ) = 1868800   {TCP:40, IPv4:20}
 			5101       3:32:40 PM 6/29/2016    19.1656195          IEXPLORE.EXE    10.1.15.174         10.194.212.86     TCP                TCP:[Dup Ack #4315]Flags=...A...., SrcPort=59897, DstPort=HTTP Alternate(8080), PayloadLen=0, Seq=2144566586, Ack=2689424324, Win=8195 (scale factor 0x8) = 2097920               {TCP:40, IPv4:20}
-
-
 	- 对比2008R2，发现08R2上没有这个现象
 
 			19	3:48:54 PM 6/29/2016	4.3653216	iexplore.exe	10.1.15.119	10.194.212.86	TCP	TCP:Flags=......S., SrcPort=61821, DstPort=HTTP Alternate(8080), PayloadLen=0, Seq=2929399143, Ack=0, Win=8192 ( Negotiating scale factor 0x2 ) = 8192	{TCP:14, IPv4:13}
@@ -121,7 +117,6 @@ TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
 			23	3:48:54 PM 6/29/2016	4.3703299	iexplore.exe	10.194.212.86	10.1.15.119	TCP	TCP:Flags=...A...., SrcPort=HTTP Alternate(8080), DstPort=61821, PayloadLen=0, Seq=1983542894, Ack=2929399427, Win=123 (scale factor 0x7) = 15744	{TCP:14, IPv4:13}
 			24	3:48:54 PM 6/29/2016	4.3800516	iexplore.exe	10.194.212.86	10.1.15.119	HTTP	HTTP:HTTP Payload, URL: /uservices/services/UTTSService	{HTTP:15, TCP:14, IPv4:13}
 			25	3:48:54 PM 6/29/2016	4.3800516	iexplore.exe	10.194.212.86	10.1.15.119	HTTP	HTTP:Response, HTTP/1.1, Status: Ok, URL: /uservices/services/UTTSService	{HTTP:15, TCP:14, IPv4:13}
-	
 	- 鉴于对端没有回复的现象，我们也希望客户端在下一跳交换机抓包，但是客户不方便执行此步操作。
 		- 2012上发出的HTTP Request有没有发送到下一跳？
 		- 如果发送到了，有没有服务端回复？
@@ -138,7 +133,6 @@ TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
 				netsh interface tcp set global chimney=disabled 
 				netsh interface tcp set global rss=disabled 
 				netsh interface tcp set global autotuning=disabled
-		
 	- 实施后问题依旧，Review网络包，发现ECN位异常（对端一直发EAS而不是AS，停留在三次握手阶段），禁用ECN，问题不再重现。
 
 - Conclusion
@@ -197,7 +191,6 @@ TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
 			d 000000000603ba80 000000006ea098cc System_Data!SNIOpenSyncEx+0x722                                                                                     f:\dd\ndp\fx\src\data\native\sni\src\open.cpp @ 845
 			e 000000000603c1c0 000007fef5ec17c7 System_Data!SNIOpenEx+0x4c                                                                                          f:\dd\ndp\fx\src\data\native\sni\src\open.cpp @ 580
 			f 000000000603c220 000007feecb66836 clr!DoNDirectCall__PatchGetThreadCall+0x7b                                                                          f:\dd\ndp\clr\src\vm\amd64\pinvokestubs.asm @ 192
-
 	- 原因是在和数据库建立连接时，即使使用的是IP地址，仍然需要通过DNS反向解析出对应的FQDN，否则无法通过权限认证而建立连接
 - 结论：可以使用如下方法之一解决此问题：
 	- 使用Server Name或者FQDN替代这个IP地址，推荐使用这种解决方案
