@@ -14,7 +14,7 @@ description:    小结了若干个WinForm程序的排查步骤和解决办法
 ### Red-X（红叉问题）
 - 我在256321414050611中遇到了红叉问题。
 
-	![RedX.png](http://7xudfs.com1.z0.glb.clouddn.com/1689ecbf60a940cc80452289d2d5df7d-RedX.png)
+	![RedX.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1689ecbf60a940cc80452289d2d5df7d-RedX.png)
 
 - 参考：
 	- [MSDN Blog](https://blogs.msdn.microsoft.com/shawnhar/2010/11/22/winforms-and-the-big-red-x-of-doom/) 说明了此类问题的原因

@@ -23,7 +23,7 @@ description:    介绍排查问题的若干简单有效的方法
 		- Enable safe mode in Network option
 		- System Configuration -> Boot -> Boot Options -> Safe Boot -> Network（这里如果选minimal是不带网络连接的）
 		- Restart server and press “enter” to enter safe mode 
-		- Refer to [Details](http://7xudfs.com1.z0.glb.clouddn.com/0f411cda89af489da677eaec9d2e3a5f-SafeModeNetworkTest.docx)
+		- Refer to [Details](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/0f411cda89af489da677eaec9d2e3a5f-SafeModeNetworkTest.docx)
 
 ## 常见问题
 

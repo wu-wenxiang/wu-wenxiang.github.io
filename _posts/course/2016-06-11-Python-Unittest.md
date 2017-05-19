@@ -62,25 +62,25 @@ Unittest一共包含4个概念：
 
 - 用Assert，**不要**用FailUnless（它们已经被废弃）
 
-	![Deprecated.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-Deprecated.png) 
+	![Deprecated.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-Deprecated.png) 
 
 - 常用的Assert
 
-	![NormalAssert.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-NormalAssert.png)
+	![NormalAssert.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-NormalAssert.png)
 
 - 特殊的Assert
 
-	![SpecificAssert.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-SpecificAssert.png)
+	![SpecificAssert.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-SpecificAssert.png)
 
 	For example:
 
 		assertAlmostEqual(1.1, 3.3-2.15, places=1)
 
-	![SpecificEqual.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-SpecificEqual.png)
+	![SpecificEqual.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-SpecificEqual.png)
 
 - AssertException
 
-	![AssertException.png](http://7xudfs.com1.z0.glb.clouddn.com/1faa032c59274913b7473091b5c42fa7-AssertException.png)
+	![AssertException.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-AssertException.png)
 
 	- assertRaises
 

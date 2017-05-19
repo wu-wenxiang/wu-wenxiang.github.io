@@ -206,4 +206,4 @@ TLS 1.2/1.1在08R2上默认是禁用的，在12R2上默认启用。
 - 结论
 	- 网络的同事让把如下的选项勾上后, 运行`ipconfig /flushdns`
 
-		![NetworkSettings.jpg](http://7xudfs.com1.z0.glb.clouddn.com/9e7c39ba1fa54c17b394a1918e4a0f3d-NetworkSettings.jpg)
+		![NetworkSettings.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/9e7c39ba1fa54c17b394a1918e4a0f3d-NetworkSettings.jpg)

@@ -81,7 +81,7 @@ description:    专门收集一些稀奇古怪的技术，说不定有用呢 :)
 	- CSRSS.exe would probe all the manifest files list in ConsoleExeCS.exe.manifest. This step cost the most time (10+ seconds)
 	- After CSRSS.exe finished the probe jobs, it would cache all the manifest files to memory, so that no more probe-cost if you run ConsoleExeCS.exe later
 
-		![SideBySide-Cache.jpg](http://7xudfs.com1.z0.glb.clouddn.com/b3f0f5669f8c42149d004c1bad126796-SideBySide-Cache.jpg)
+		![SideBySide-Cache.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/b3f0f5669f8c42149d004c1bad126796-SideBySide-Cache.jpg)
 
 - About the cache:
 	- The cache key is the path of ConsoleExeCS.exe.manifest & its last modification time. 
