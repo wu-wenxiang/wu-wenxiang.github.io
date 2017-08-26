@@ -8,8 +8,6 @@ layout: home
             <li class="on"><a href="/"><span>Blog</span></a></li>
             <li><a href="/course"><span>Course</span></a></li>
             <li><a href="/project"><span>Project</span></a></li>
-            <li><a href="/essay"><span>Essay</span></a></li>
-            <li><a href="/informal"><span>Informal</span></a></li>
         </ul>
 
         <div class="cate-bar"><span id="cateBar"></span></div>
