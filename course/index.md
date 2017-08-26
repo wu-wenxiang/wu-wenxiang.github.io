@@ -5,7 +5,8 @@ layout: home
 <div class="index-content course">
     <div class="section">
         <ul class="artical-cate">
-            <li><a href="/"><span>Blog</span></a></li>
+            <li><a href="/"><span>About</span></a></li>
+            <li><a href="/blog"><span>Blog</span></a></li>
             <li class="on"><a href="/course"><span>Course</span></a></li>
             <li><a href="/project"><span>Project</span></a></li>
         </ul>
