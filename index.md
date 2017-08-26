@@ -14,7 +14,10 @@ layout: home
         <div class="cate-bar"><span id="cateBar"></span></div>
 
         <div id="content">
-        {{ content }}
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
         </div>
     </div>
     <div class="aside">
