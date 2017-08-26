@@ -13,9 +13,9 @@ layout: home
 
         <div class="cate-bar"><span id="cateBar"></span></div>
 
-        <ul class="artical-list">
-        Wait for a minute...
-        </ul>
+        <div id="content">
+        {{ content }}
+        </div>
     </div>
     <div class="aside">
     </div>
