@@ -90,7 +90,7 @@ pre ol{margin-left:25px;list-style-type:decimal;}
 .essay .aside{
     background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-sky.jpg');
 }
-.informal .aside{
+.about .aside{
     background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-Africa.jpg')
 }
 .index-content .section { margin-left:30%; padding-top:80px; padding-right:15%; ;}
@@ -168,7 +168,7 @@ h3.about {color:#777;margin-top:20px;font-size:22px;margin-bottom:10px}
     .blog .aside,
     .project .aside,
     .essay .aside,
-    .informal .aside,
+    .about .aside,
     .course .aside {display:none;background-image:none;}
 }
 
