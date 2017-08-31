@@ -1,8 +1,8 @@
 ---
 layout:         post
-title:          微信公众号POC
+title:          微信公众号-聊天机器人
 category:       project
-description:    一个微信公众号的项目原型
+description:    一个微信公众号的项目原型（带聊天机器人）
 ---
 
 ## 项目简介
