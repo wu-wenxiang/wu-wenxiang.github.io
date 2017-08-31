@@ -81,7 +81,7 @@ pre ol{margin-left:25px;list-style-type:decimal;}
 .blog .aside{
     background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-jieti.jpeg');
 }
-.course .aside{
+.about .aside{
     background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-dengshan.jpg');
 }
 .project .aside{
@@ -90,7 +90,7 @@ pre ol{margin-left:25px;list-style-type:decimal;}
 .essay .aside{
     background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-sky.jpg');
 }
-.about .aside{
+.course .aside{
     background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-Africa.jpg')
 }
 .index-content .section { margin-left:30%; padding-top:80px; padding-right:15%; ;}
