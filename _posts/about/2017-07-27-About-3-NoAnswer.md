@@ -1,8 +1,8 @@
 ---
 layout:         post
-title:          关于技术问题的“三不答”原则
+title:          三不答
 category:       about
-description:    关于技术问题，不自全者不答，不自知者不答，不自查者不答
+description:    关于技术问题的“三不答”原则：不自全者不答，不自知者不答，不自查者不答
 ---
 
 ## 不自全者不答
