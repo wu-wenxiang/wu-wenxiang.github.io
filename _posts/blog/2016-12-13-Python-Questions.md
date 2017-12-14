@@ -294,6 +294,11 @@ description:    逆向法学习Python，关于Python你需要能回答出的问�
 1. Pdb的使用和局限性是怎样的？
 
 ### 自动化部署和管理
+1. pip的常用命令有哪些？
+
+1. 如何为pip配置更快的源？Windows, Linux, Mac
+
+1. 什么是virtualenv？如何使用？
 
 1. 有哪些常用的自动化管理框架？我们应如何选择？
 
