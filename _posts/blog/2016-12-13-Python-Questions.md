@@ -293,6 +293,10 @@ description:    逆向法学习Python，关于Python你需要能回答出的问�
 
 1. Pdb的使用和局限性是怎样的？
 
+1. 如何使用logging模块打日志？
+
+1. 输出日志有哪些注意事项？Async, Daemon, Format, Access/Error/Transaction, RequestID
+
 ### 自动化部署和管理
 1. pip的常用命令有哪些？
 
