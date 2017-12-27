@@ -5,6 +5,7 @@ category:       blog
 description:    逆向法学习Python，一网打尽那些关于Python你需要能回答出的问题
 ---
 
+
 ## Python的技能树
 - Core
 	- **基础**: 开始，开发环境搭建，基本对象和变量，流程控制，文件，函数式编程
@@ -24,6 +25,8 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 	- **IoT**: 树莓板，GPIO
 	- **MineCraft**: MineCraft, 绘制三维图形，捕捉玩家位置，虚拟连接现实
 	- **GUI**: TK
+
+---------------------------------------
 
 ## Core
 
