@@ -18,30 +18,30 @@ description:    Say "Hello World" to Hololens, 整理了一下Hololens的入门�
 
 ## Holographic Academy
 - [Overview](https://developer.microsoft.com/en-us/windows/mixed-reality/academy)
-	1.	Holograms 100: [Getting started with Unity](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_100)
+	- Holograms 100: [Getting started with Unity](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_100)
 		- Setup the Camera: Position, Clear Flags, Clipping Plane
 		- Project Settings: Quality and Player
 		- Build Settings
-	1.	Holograms 101E: [Introduction with Emulator](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_101e)
+	- Holograms 101E: [Introduction with Emulator](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_101e)
 		- Gaze
 		- Gestures
 		- Voice input
 		- Spatial sound
 		- Spatial mapping
-	1.	Holograms 101: [Introduction with Device](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_101)
-	1.	Holograms 210: [Gaze](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_210)
+	- Holograms 101: [Introduction with Device](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_101)
+	- Holograms 210: [Gaze](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_210)
 		- Cursor
 		- Gaze Stabilizer
 		- Directional indicator
 		- Billboard
 		- Tag-Along
-	1. Holograms 210: [Gesture](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_211)
+	- Holograms 210: [Gesture](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_211)
 		- Hand detected feedback
 		- Navigation
 		- Hand Guidance
 		- Manipulation
 		- Model expansion
-	1. Holograms 212: [Voice](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_212)
+	- Holograms 212: [Voice](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_212)
 		- Awareness
 			- Dos
 				- Create concise commands
@@ -54,7 +54,7 @@ description:    Say "Hello World" to Hololens, 整理了一下Hololens的入门�
 		- Acknowledgement 
 		- Understanding and the Dictation Recognizer
 		- Grammar Recognizer
-	1. Holograms 220: [Spatial sound](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_220)
+	- Holograms 220: [Spatial sound](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_220)
 		- Spatial Sound and Interaction
 		- Spatial Sound and Spatial Mapping
 		- Sound Design
@@ -75,21 +75,21 @@ description:    Say "Hello World" to Hololens, 整理了一下Hololens的入门�
 				- CPU usage
 				- Stream long audio files
 			- Special Effects
-	1. Holograms 230: [Spatial mapping](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_230)
+	- Holograms 230: [Spatial mapping](https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_230)
 			- Scanning: SurfaceObserver
 			- Visualization: Shader
 			- Processing
 			- Placement
 			- Occlusion: Rim and Grid shader
-	1. Holograms 240: [Sharing holograms](
+	- Holograms 240: [Sharing holograms](
 https://developer.microsoft.com/en-us/windows/mixed-reality/holograms_240)
-		- Chapter 1 - Holo World
-		- Chapter 2 - Interaction
-		- Chapter 3 - Shared Coordinates
-		- Chapter 4 - Discovery
-		- Chapter 5 - Placement
-		- Chapter 6 - Real-World Physics
-		- Chapter 7 - Grand Finale
+		- Holo World
+		- Interaction
+		- Shared Coordinates
+		- Discovery
+		- Placement
+		- Real-World Physics
+		- Grand Finale
 
 ## Others
 - [Holographic Remoting Player](https://developer.microsoft.com/en-us/windows/mixed-reality/holographic_remoting_player)
