@@ -5,6 +5,8 @@ category:       blog
 description:    一句话解释Sysinternals工具集中各个工具在Windows平台上的应用范围
 ---
 
+Sysinternals工具集是Windows平台上排查问题的“瑞士军刀”，下文简单描述了各个工具的应用场景。
+
 ## 进程和诊断工具
 - [Process Explorer](https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer)：显示进程和线程的详细信息：父子关系，加载的DLL，打开的对象句柄（比如使用中的文件）
 - [Autoruns](https://docs.microsoft.com/en-us/sysinternals/downloads/autoruns)：分组显示（系统启动时/用户登陆时/运行IE时）自动运行的软件，可以启用或禁用之
