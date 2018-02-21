@@ -18,7 +18,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 	- **数据挖掘**: 基本概念，常见类库，案例分析
 - 其它应用
 	- **云计算OpenStack**: 架构，安装，使用，排错 
-	- **PaSS云平台**: GAE, SAE（新浪云）
+	- **PaaS云平台**: GAE, SAE（新浪云）
 	- **Office文档处理**: Word，Excel
 	- **Python-C**: Python调用C-Lib，C调用Python-Lib，C实现Python-Module
 	- **PVM内存分析和调试**：pdb，dump，windbg，gdb
