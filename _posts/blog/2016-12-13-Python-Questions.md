@@ -18,13 +18,14 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 	- **数据挖掘**: 基本概念，常见类库，案例分析
 - 其它应用
 	- **云计算OpenStack**: 架构，安装，使用，排错 
-	- **PaaS云平台**: GAE, SAE（新浪云）
+	- **PaaS云平台**: GAE, SAE
 	- **Office文档处理**: Word，Excel
 	- **Python-C**: Python调用C-Lib，C调用Python-Lib，C实现Python-Module
 	- **PVM内存分析和调试**：pdb，dump，windbg，gdb
-	- **IoT**: 树莓板，GPIO
+	- **IoT**: 树莓板，GPIO，Azure IoT DevKit
 	- **MineCraft**: MineCraft, 绘制三维图形，捕捉玩家位置，虚拟连接现实
 	- **GUI**: TK
+	- **区块链**: BitCoin, IoT via BitCoin
 
 ---------------------------------------
 ---------------------------------------
@@ -33,19 +34,21 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 ## 核心知识
 
 ### 基础
-1. [开始] **Python在编程语言世界中的处于什么样的位置？**
+1. [开始] **Python在编程语言世界中的处于什么样的位置？**[TIOBE](https://tiobe.com/tiobe-index/)
 
-1. [开始] **Python有什么样的特质和设计哲学？**
+1. [开始] **Python有什么样的特质和设计哲学？**简单，明确
 
-1. [开始] **作为一个初入门者，我们应该怎样学习编程？**
+1. [开始] **作为一个初入门者，我们应该怎样学习编程？**[如何成为一名黑客-Eric-S-Raymond](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E4%B8%80%E5%90%8D%E9%BB%91%E5%AE%A2-Eric-S-Raymond.pdf)
 
-1. [开始] **应该选择Python2还是Python3开始学习，以及进行开发？**
+1. [开始] **应该选择Python2还是Python3开始学习，以及进行开发？**[参考](https://wiki.python.org/moin/Python2orPython3)
 
-1. [开始] 如果你已经掌握了Python2或者Python3其中一门，Python2和3有什么区别？
+1. [开始] 如果你已经掌握了Python2或者Python3其中一门，[Python2和3有什么区别](https://docs.python.org/3/whatsnew/3.0.html)？[如何迁移](https://docs.python.org/2/library/2to3.html)？
+
+1. [开始] Python2和Python3如何在一个系统中共存？native / venv / docker
 
 1. [开始] **有哪些优秀的Python学习资源可以参考？**
 
-1. [环境] **在Windows下如何搭建Python开发环境？**
+1. [环境] **在Windows下如何搭建Python开发环境？**[参考](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Python-Dev-Env.docx)
 
 1. [环境] 在Mac下如何搭建Python开发环境？
 
@@ -55,15 +58,19 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [环境] **如何使用`Eclipse+Pydev`运行和调试Python程序？**
 
-1. [环境] 如何使用Pycharm进行开发和调试？
+1. [环境] 如何使用Pycharm进行开发和调试？[Download Community](https://www.jetbrains.com/pycharm/download/#section=windows)
 
-1. [环境] 如何使用VisualStudio进行开发和调试？
+1. [环境] 如何使用VSCode进行开发和调试？[Download](https://code.visualstudio.com/Download)，[环境配置](https://code.visualstudio.com/docs/python/python-tutorial)
+
+1. [环境] 如何使用VisualStudio进行开发和调试？[Download](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)
+
+1. [环境] 还有什么其它的Python调试套件？[Notepad++](http://www.cnblogs.com/zhcncn/p/3969419.html)
 
 1. [环境] **如何查阅Python帮助文档？pydoc, chm**
 
 1. [数字] **如何实现取整运算？截余取整、四舍五入、向上取整、向下取整。**
 
-1. [数字] **整数的除法运算和整除运算是如何实现的？**2和3区别？怎么写兼容代码？
+1. [数字] **整数的除法运算和整除运算是如何实现的？**怎么写兼容代码？
 
 1. [数字] **Python如何处理进制转换（整数与字符串的互相转换）？**
 
@@ -79,7 +86,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [数字] Python中如何进行位运算？
 
-1. [数字] **如何理解Python中变量和对象的存储模型？id**
+1. [数字] **如何理解Python中变量和对象的存储模型？id / dir / __dict__**
 
 1. [数字] 如何理解Python语言的三个定语：动态语言，动态类型语言，强类型语言？
 
@@ -325,9 +332,9 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [网络] Python如何处理常见的网络协议？Telnet/FTP/Socket/Http/LDAP/SSH/SFTP/SMTP/POP3/IMAP
 
-1. [网络] Twist框架的底层实现是怎样的？
+1. [网络] Twisted框架的底层实现是怎样的？
 
-1. [网络] Twist框架的基本使用方法是怎样的？
+1. [网络] Twisted框架的基本使用方法是怎样的？在Windows上如何安装Python3-Twist框架？[知乎](https://www.zhihu.com/question/52281800), [Python Extension Packages for Windows](https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted)
 
 1. [并行] **如何处理子进程和管道？subprocess**
 
@@ -378,7 +385,9 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [部署] **pip的常用命令有哪些？**
 
-1. [部署] 如何为pip配置更快的源？Windows, Linux, Mac
+1. [部署] 如何为pip配置更快的源？Windows, Linux, Mac, [清华源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
+
+1. [部署] 什么是anaconda？[Download](https://www.anaconda.com/download/)
 
 1. [部署] **什么是virtualenv？如何使用？**
 
@@ -433,13 +442,15 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [ORM] Sqlite3的原理和使用方法是怎样的？
 
+1. [ORM] 使用什么工具查看和编辑Sqlite3数据库文件？[sqlitebrowser](http://sqlitebrowser.org/)
+
 1. [ORM] 基本的数据库连接和处理流程是怎样的？
 
 1. [ORM] 什么是ORM模型？
 
 1. [ORM] **如何使用SqlAlchemy框架？Code First，表初始化，Migration，CRUD**
 
-1. [架构] Web框架的架构和流程是怎样的？
+1. [架构] Web应用的架构和流程是怎样的？
 
 1. [架构] HTML/CSS/JavaScript在前端显示中各自起到什么作用？
 
@@ -475,9 +486,9 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [Django] **Django框架的特点和基本流程是怎样的？**
 
-1. [Django] 应该如何选择Django版本？
+1. [Django] 应该如何选择Django版本？[参考](https://www.djangoproject.com/download/)
 
-1. [Django] **Django框架中如何Startup，编写config文件和Router(urls.py)？**
+1. [Django] **Django框架中如何Startup，编写config文件和Router(urls.py)？**，[参考](https://docs.djangoproject.com/en/2.0/intro/tutorial01/)，[Demo](https://github.com/maodouzi/LearningDjango-1-4)
 
 1. [Django] **Django框架中Views方法如何接收到uri参数？**
 
@@ -508,13 +519,13 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 ### 数据采集
 1. [爬虫] 爬虫的基本原理是什么？
 
-1. [爬虫] **urllib2模块的基本使用方法是什么？登录，SSL**
+1. [爬虫] **urllib模块的基本使用方法是什么？登录，SSL**
 
 1. [爬虫] 如何使用bs4模块解析HTML数据？
 
 1. [Scrapy] Scrapy框架的架构是怎样的？
 
-1. [Scrapy] **Scrapy的基本使用方法是怎样的？**
+1. [Scrapy] **Scrapy的基本使用方法是怎样的？**, [参考](https://docs.scrapy.org/en/latest/)
 
 1. [Scrapy] 如何使用Scrapy框架做整站爬取？
 
@@ -602,6 +613,8 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [GPIO] 如何使用面包板搭建GPIO口的输入、输出电路？
 
+1. [Azure IoT DevKit] 如何使用DevKit将收集到的温度/湿度信息上传到Azure云端，并通过PowerBI显示出来？[参考](https://github.com/wu-wenxiang/Training-Python/tree/master/Python-Common/IoT/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%81%9AIoT%E8%AE%BE%E5%A4%87)
+
 ### MineCraft
 1. [基础] MineCraft基础和Hook原理是什么？
 
@@ -613,5 +626,8 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 ### GUI
 1. [TK] TK的基本处理流程和布局方式是怎样的？
+ 
+
+
  
 
