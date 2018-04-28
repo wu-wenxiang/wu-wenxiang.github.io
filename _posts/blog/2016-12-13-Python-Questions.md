@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          Python相关的问题
+title:          问题-Python相关问题总结
 category:       blog
 description:    逆向法学习Python，一网打尽那些关于Python你需要能回答出的问题
 ---

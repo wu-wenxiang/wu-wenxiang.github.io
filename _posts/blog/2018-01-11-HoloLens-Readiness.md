@@ -1,6 +1,6 @@
 ---
 layout:         post
-title:          Hololens Readiness
+title:          资料-Hololens
 category:       blog
 description:    Say "Hello World" to Hololens, 整理了一下Hololens的入门资料
 ---
