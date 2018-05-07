@@ -7,7 +7,7 @@ description:    一个微信公众号的项目原型（带聊天机器人）
 
 ## 项目简介
 - 本项目参考[MyPlatform](https://github.com/littlecodersh/MyPlatform)，[Deploy Wiki](https://github.com/littlecodersh/MyPlatform/wiki/Deploy)。
-- 该项目的源码托管在[Github](https://github.com/wu-wenxiang/wwxPOC)
+- 该项目的源码托管在[Github](https://github.com/wu-wenxiang/Project-POC/tree/master/wechat_sub)
 - Demo：
 	- ![qrcode_for_gh_6d13cd886e31_258.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/Common-9fa9e352b59943ecaeee659bec62c519-qrcode_for_gh_6d13cd886e31_258.jpg)
 	- ![Wechat-Robot.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/c5b735854b244f629923cd3c4b2715cc-Wechat-Robot.png)
