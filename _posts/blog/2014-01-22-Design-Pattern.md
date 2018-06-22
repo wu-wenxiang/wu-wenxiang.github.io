@@ -6,6 +6,7 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 ---
 
 ## Overview
+- 关联代码：[Github](https://github.com/wu-wenxiang/Training-DesignPattern-Public)
 
 ### 面向对象和设计模式
 - 面向对象（Object-oriented, OO）之于23种设计模式，犹如兵法之于36计
@@ -49,7 +50,7 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 	- 这种耦合下，一个职责的变化可能会削弱这个类完成其它职责的能力，从而破坏原有设计
 	- 若将多个职责分开，各自对应到一个单独的类，可以令一个职责的变化只会涉及到一个类，不及其余
 	- 举例来说，MVC，数据模型/界面/业务逻辑，各自独立。
-	- - ![Example.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Example.jpg)
+	- ![Example.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Example.jpg)
 	- 简单的编程题（Python），循环逻辑/或逻辑/算法逻辑，各自独立。
 	
 			打印输出符合如下条件之一的100以内的自然数：
@@ -88,6 +89,7 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 	- 尽量使用组合，而不是使用继承来达到重用的目的。
 	- 继承是一种紧耦合，不仅有遗产，还有债务
 	- 组合：Has-A，继承：Is-A
+	- 桥接（Bridge）模式
 - **最少知道原则（Least Knowledge Principle，LKP）**
 	- 也叫迪米特法则（Law of Demeter，LoD），Only talk to your immediate friends
 	- Demeter是希腊神话中司掌农业之神，她的爱女被冥王拐走，伤心欲绝，出此警言
@@ -176,23 +178,111 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 		- 事后补救不如事中控制，事中控制又不如事前规划
 		- ![Bianque.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Bianque.jpg)
 - 桥接模式（Bridge）
+	- Separates an object’s interface from its implementation
+	- Decouple an abstraction from its implementation so that the two can vary independently
 	- 将类的抽象部分和实现部分分离开来，使它们可以独立地变化
+	- ![Design-Pattern-Bridge.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Bridge.jpg)
+	- 组合重用原则（Composite/Aggregate Reuse Principle，CARP）
+	- Abstraction类的实例对象，可以调用成员方法SetImplementor来将ConreteImplementA或者B的实例对象替换掉，替换成任何一个实现了Implement接口的类的实例对象。
+	- C#客户端代码：
+	
+			Abstraction ab = new Abstraction();
+			ab.SetImplementor(new ConcreteImplementA());
+			ab.Operation();
+			ab.SetImplementor(new ConcreteImplementB());
+			ab.Operation();
 - 组合模式（Composite）
-	- 将对象组合成树形结构以表示“整体-部分”的层次结构，对单个对象和组合对象的使用具有一致性。
+	- A tree structure of simple and composite objects
+	- Compose objects into tree structures to represent part-whole hierarchies
+	- Composite lets clients treat individual objects and compositions of objects uniformly.
+	- 将对象组合成树形结构以表示“整体-部分”的层次结构
+	- 组合模式令client能处理单个对象或组合对象时做到一视同仁
+	- ![Design-Pattern-Composite.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Composite.jpg)
+	- Leaf类中也有add/remove/getChild方法，但不做事即可。
+	- C#客户端代码：
+	
+			Composite root = new Composite("Root");
+			root.add(new Leaf("Leaf A"));
+			compX = new Composite("Composite X");
+			root.add(compX);
+			compX.add(new Leaf("Leaf B"));
+			root.operation();
 - 装饰模式（Decorator）
+	- Add responsibilities to objects dynamically
+	- Attach additional responsibilities to an object dynamically
+	- Decorators provide a flexible alternative to subclassing for extending functionality
 	- 动态给一个对象添加一些额外的职责。
+	- ![Design-Pattern-Decorator.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Decorator.jpg)
+	- 装饰器模式可以用于抽象一些Common的逻辑（MiddleWare），比如为所有Library方法统计时间（离开时间戳-进入时间戳），或者在进入和离开Library方法时记录日志
+	- C#客户端代码：
+	
+			ConcreteComponent c = new ConcreteComponent();
+			ConcreteDecoratorA d1 = new ConcreteDecoratorA();
+			ConcreteDecoratorB d2 = new ConcreteDecoratorB();
+			d1.SetComponent(c);
+			d2.SetComponent(d1);
+			d2.Operation();
+	- ConcreteDecoratorA::Operation方法的实现
+	
+			base.Operation();
+			AddedBehavior();
 - 外观模式（Facade）
+	- A single class that represents an entire subsystem
+	- Provide a unified interface to a set of interfaces in a system
+	- Facade defines a higher-level interface that makes the subsystem easier to use
 	- 定义一个高层接口，为子系统中的一组接口提供一个一致的外观，即对外统一接口
+	- ![Design-Pattern-Facade.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Facade.jpg)
+	- 外观模式在开发初、中、后都可以应用：
+		- 开发之初，应该有意识地分层，比如MVC，层与层之间用Facade模式
+		- 开发中，子系统不断重构，越发复杂，此时Facade模式可以减少彼此间依赖
+		- 开发末，类似Adapter作用，亦可用Facade模式
 - 享元模式（Flyweight）
-	- 提供支持大量细粒度对象共享的有效方法。
+	- A fine-grained instance used for efficient sharing
+	- Use sharing to support large numbers of fine-grained objects efficiently
+	- A flyweight is a shared object that can be used in multiple contexts simultaneously. The flyweight acts as an independent object in each context — it’s indistinguishable from an instance of the object that’s not shared
+	- 提供一个Pool，在需要实例对象时，检查Pool，如果有现成的就不new，直接使用，用完放回Pool中
+	- ![Design-Pattern-Flyweight.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Flyweight.jpg)
+	- Flyweight是次最轻量级拳击选手的意思，表示此模式能通过复用实例来减轻系统负担。
 - 代理模式（Proxy）
-	- 为其他对象提供一种代理以控制这个对象的访问。
+	- An object representing another object
+	- Provide a surrogate or placeholder for another object to control access to it.
+	- 为其他对象提供一种代理以控制这个对象的访问
+	- ![Design-Pattern-Proxy.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Proxy.jpg)
+	- WebService就是一种Proxy模式，WebReference就是其代理
+	- 与装饰品模式相比，Proxy模式中对目标类的伪装是静态（编译时）的
+	- 而Decorator是动态的，特别提供一个装饰类
 
 ### 行为型（Behavioral）：为类之间交互以及分配责任提供指南
 - 职责链模式（Chain of Responsibility）
+	- A way of passing a request between a chain of objects
+	- Avoid coupling the sender of a request to its receiver by giving more than one object a  chance to handle the request
+	- Chain the receiving objects and pass the request along the chain until an object handles it
 	- 通过给多个对象处理请求的机会，减少请求发送者与接收者之间的耦合。
 	- 将接收对象链接起来，在链中传递请求，直到有一个对象处理这个请求。
 	- ![Design-Pattern-Chain-of-Responsiblity.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Chain-of-Responsiblity.jpg)
+	- 链中的对象自己也并不知道链的结构，但它们都有一个指向后继者的引用。
+	- C#客户端代码
+	
+			Handler h1 = new ConcreateHandler1();
+			Handler h2 = new ConcreateHandler2();
+			Handler h3 = new ConcreateHandler3();
+			h1.SetSuccessor(h2);
+			h2.SetSuccessor(h3);
+			int[] requests = { 1, 2, 3, 4, 5 };
+			foreach (int request in requests)
+			{
+			    h1.HandleRequest(request);
+			}
+	- ConCreateHandler1::handleRequest代码
+	
+			if (request >= 0 && request < 10)
+			{
+			    // DoSomething
+			}
+			else if (succssor != null)
+			{
+			    successor.HandleRequest(request); // 转移到下一跳处理
+			}
 - 命令模式（Command）
 	- 将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化
 	- 将请求排队或者记录请求日志，支持可撤销操作。
@@ -219,9 +309,3 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 	- 一种分离对象数据结构与行为的方法。
 	- 通过这种分离，可达到一个被访问者动态添加新的操作而无需做其他修改的效果。
 	- 适用于数据结构相对稳定，算法易变化的系统。
-
-## 其它设计模式
-
-### 简单工厂模式
-
-### MVC模式
