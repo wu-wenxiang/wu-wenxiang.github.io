@@ -23,7 +23,7 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 - 1987年，肯特·贝克和沃德·坎宁安借鉴了亚历山大的设计模式思想，将其应用于Smalltalk GUI code generator中
 - 1988年，埃里希·伽玛（Erich Gamma）在他的苏黎世大学**博士毕业论文**中开始将这种思想移植到软件开发中
 - 1989/91年，James Coplien在也在利用相同的思想致力于C++的开发，并于1991年发表著作《Advanced C++ Programming Styles and Idioms》。
-- 还是在1988年，Erich Gamma获得博士学位后去往了美国。在那里，他结识了Richard Helm, Ralph Johnson, John Vlissides。他们合作出版了：《设计模式：可复用面向对象软件的基础》（Design Patterns - Elements of Reusable Object-Oriented Software）。
+- 还是在1988年，Erich Gamma获得博士学位后去往了美国。在那里，他结识了Richard Helm, Ralph Johnson, John Vlissides。他们合作出版了：《设计模式：可复用面向对象软件的基础》（Design Patterns - Elements of Reusable Object-Oriented Software）。书中案例采用Java和C++编写。
 - 在这之后，设计模式的思想很快传播开来并深刻影响了之后的软件开发领域。这四位作者也在软件开发领域里以**GoF**（“四人帮”，即**Gang of Four**）而闻名于世。有时，GoF也会用于代指《设计模式》这本书。
 	- ![Design-Pattern-GOF](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-GOF.png)
 
@@ -68,7 +68,6 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 			    return any(fun(i) for fun in funList)
 			
 			print(filter(testFun, range(100)))
-
 - **里氏替换原则（Liskov Substitution Principle，LSP）**
 	- 1987年，Barbara Liskov（美国首位计算机女博士、第二位女图灵奖得主）在会议演讲中首先提出：
 		- `Let q(x) be a property provable about objects x of type T`
@@ -91,24 +90,74 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 - **最少知道原则（Least Knowledge Principle，LKP）**
 	- 也叫迪米特法则（Law of Demeter，LoD），Only talk to your immediate friends
 	- Demeter是希腊神话中司掌农业之神，她的爱女被冥王拐走，伤心欲绝，出此警言
-	- 迪米特法则不希望类之间都建立直接联系，每个类尽量减少对其他类的依赖，以此降低耦合
+	- 迪米特法则不希望类之间都建立直接联系，每个类应减少对其他类的依赖，以降低耦合
 	- 过度应用迪米特法则会令系统中存在大量中介类，在一定程度上增加了系统的复杂度
 	- 门面模式（Facade）和中介模式（Mediator），都是迪米特法则应用的例子
 
-## 详述设计模式
+## 设计模式分类
+- ![Design-Pattern-Summary.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Summary.jpg)
 
 ### 创建型（Creational）：为类如何创建实例对象提供指南
 - 工厂方法模式（Factory Method）
-	- 定义一个创建对象的接口，由子类决定需要实例化哪一个类
-	- 工厂方法使得子类的实例化过程推迟
+	- Creates an instance of several derived classes
+	- Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses
+	- 定义一个创建目标对象的接口，由子类决定需要实例化哪一个类
+	- 在工厂方法中完成目标对象的实例化
+	- ![Design-Pattern-Factory.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Factory.jpg)
 - 抽象工厂模式（Abstract Factory）
-	- 提供一个接口，可以创建一系列对象，而不用制定它们具体的类
+	- Creates an instance of several families of classes
+	- Provide an interface for creating families of related or dependent objects without specifying their concrete classes
+	- 提供一个接口，可以创建一系列对象，而不用指定对应的类
+	- ![Design-Pattern-Abstract-Factory.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Abstract-Factory.jpg)
+	- 比如ORM模型中，对不同的Provider（Sqlite3/MySql）创建一系列不同的实例对象（Connection/Cursor）
 - 构建器模式（Builder）
+	-  Separates object construction from its representation
+	-  Separate the construction of a complex object from its representation so that the same construction processes can create different representations
 	- 将一个复杂类的表示与其构造相分离，使得相同的构建过程能得到不同的表示
+	- ![Design-Pattern-Builder.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Builder.jpg)
+	- 比如，构建一个人，需要分别实例化头部、身体和四肢。BuildPartHead/BuildPartBody/BuildPartArm/BuildPartLeg方法实现在ConcreteBuilder类中，然后在Director::construct()方法中调用它们
 - 原型模式（Prototype）
-	- 用原型实例指定创建对象的类型，并通过copy这个原型来创建新的对象
+	- A fully initialized instance to be copied or cloned
+	- Specify the kinds of objects to create using a prototypical instance, and create new objects by copying this prototype
+	- 对象要支持copy方法，可以进一步区分深拷贝和浅拷贝
+	- ![Design-Pattern-Prototype.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Prototype.jpg)
 - 单例模式（Singleton）
+	- A class of which only a single instance can exist
+	- Ensure a class only has one instance, and provide a global point of access to it.
 	- 保证一个类只有一个实例，并提供一个访问它的全局访问点
+	- ![Design-Pattern-Singleton.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Singleton.jpg)
+	- 实现时要注意：
+		- 构造方法私有化，最好在类定义时加上Sealed，避免产生派生类
+		- 添加静态字段，字段类型就是这个单例类
+		- 添加静态构造方法，返回上述的静态字段
+		- 分为饿汉模式和懒汉模式
+	- 饿汉模式
+		- 在定义静态字段时直接初始化
+		- 这样类在初次被引用到时会被加载到DotNet Runtime，会完成实例化
+		- 这种方法不存在线程竞争问题（Race导致出现多个实例）
+	- 懒汉模式
+		- 在静态方法中判断静态字段是否被初始化（如果没有就new一个），然后返回静态字段
+		- 这种方法存在线程竞争问题，需要加锁
+		
+				lock(object)
+				{
+				    if (instance == null) 
+				    {
+				        instance = new Singleton()
+				    }
+				}
+		- 为了Performance，需要双重锁定
+		
+				if (instance == null)
+				{
+				    lock(object)
+				    {
+				        if (instance == null) 
+				        {
+				            instance = new Singleton()
+				        }
+				    }
+				}
 
 ### 结构型（Structural）：为如何设计类以形成更大的结构提供指南
 - 适配器模式（Adapter）
@@ -130,6 +179,7 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 - 职责链模式（Chain of Responsibility）
 	- 通过给多个对象处理请求的机会，减少请求发送者与接收者之间的耦合。
 	- 将接收对象链接起来，在链中传递请求，直到有一个对象处理这个请求。
+	- ![Design-Pattern-Chain-of-Responsiblity.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Chain-of-Responsiblity.jpg)
 - 命令模式（Command）
 	- 将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化
 	- 将请求排队或者记录请求日志，支持可撤销操作。
@@ -158,5 +208,7 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 	- 适用于数据结构相对稳定，算法易变化的系统。
 
 ## 其它设计模式
+
+### 简单工厂模式
 
 ### MVC模式
