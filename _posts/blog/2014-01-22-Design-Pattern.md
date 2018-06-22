@@ -472,3 +472,26 @@ description:    小结设计模式的What/Why/How，基于C#
 - 通过这种分离，可达到一个被访问者动态添加新的操作而无需做其他修改的效果。
 - 适用于数据结构相对稳定，算法易变化的系统
 - ![Visitor.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Visitor.jpg)
+- C#客户端代码
+
+		class ObjectStructure
+		{
+		    public IList<Element> elements = new List<Element>();
+		    
+		    public void Accept(Visitor visitor)
+		    {
+		        foreach (Element e in elements)
+		        {
+		            e.Accept(visitor);
+		        }
+		    }
+		}
+		
+		ObjectStructure o = new ObjectStructure();
+		o.elements.add(new ConcreteElementA());
+		o.elements.add(new ConcreteElementB());
+		ConcreteVisitor1 v1 = new ConcreteVisitor1();
+		ConcreteVisitor2 v2 = new ConcreteVisitor2();
+		
+		o.Accept(v1);
+		o.Accept(v2);
