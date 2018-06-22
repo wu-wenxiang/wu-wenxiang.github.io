@@ -49,7 +49,8 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 	- 这种耦合下，一个职责的变化可能会削弱这个类完成其它职责的能力，从而破坏原有设计
 	- 若将多个职责分开，各自对应到一个单独的类，可以令一个职责的变化只会涉及到一个类，不及其余
 	- 举例来说，MVC，数据模型/界面/业务逻辑，各自独立。
-	- 再举一个栗子，简单的编程题（Python），循环逻辑/或逻辑/算法逻辑，各自独立。
+	- - ![Example.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Example.jpg)
+	- 简单的编程题（Python），循环逻辑/或逻辑/算法逻辑，各自独立。
 	
 			打印输出符合如下条件之一的100以内的自然数：
 			1. 能被30整除
@@ -113,7 +114,7 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 - 构建器模式（Builder）
 	-  Separates object construction from its representation
 	-  Separate the construction of a complex object from its representation so that the same construction processes can create different representations
-	- 将一个复杂类的表示与其构造相分离，使得相同的构建过程能得到不同的表示
+	- 将一个复杂类的构造过程（子部件的选择和构造顺序）与其子部件的构造过程分离
 	- ![Design-Pattern-Builder.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Builder.jpg)
 	- 比如，构建一个人，需要分别实例化头部、身体和四肢。BuildPartHead/BuildPartBody/BuildPartArm/BuildPartLeg方法实现在ConcreteBuilder类中，然后在Director::construct()方法中调用它们
 - 原型模式（Prototype）
@@ -161,9 +162,21 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 
 ### 结构型（Structural）：为如何设计类以形成更大的结构提供指南
 - 适配器模式（Adapter）
-	- 将一个类的接口转换成用户希望得到的另一种接口。
+	- Match interfaces of different classes
+	- Convert the interface of a class into another interface clients expect
+	- Adapter lets classes work together that couldn’t otherwise because of incompatible interfaces
+	- 将一个类的接口转换成用户希望得到的另一种接口
+	- ![Design-Pattern-Adapter.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Adapter.jpg)
+	- 这个模式一般用于软件项目开发后期或者维护器，或者用于集成不同的Provider
+	- .NET中DataAdapter类，Fill方法将数据源里的数据同步到DataSet，Update方法将DataSet中的数据同步到数据源
+	- 适配器模式用于解决接口不匹配的问题，可类比扁鹊三兄弟。
+		- 如果实现能定义好统一的接口，不匹配的问题就不会发生
+		- 有小的接口不统一这类问题发生时，及时重构，问题不至于扩大
+		- 只有碰到了无法改变原有设计和代码的情况时，才考虑适配
+		- 事后补救不如事中控制，事中控制又不如事前规划
+		- ![Bianque.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Bianque.jpg)
 - 桥接模式（Bridge）
-	- 将类的抽象部分和实现部分分离开来，使它们可以独立地变化。
+	- 将类的抽象部分和实现部分分离开来，使它们可以独立地变化
 - 组合模式（Composite）
 	- 将对象组合成树形结构以表示“整体-部分”的层次结构，对单个对象和组合对象的使用具有一致性。
 - 装饰模式（Decorator）
