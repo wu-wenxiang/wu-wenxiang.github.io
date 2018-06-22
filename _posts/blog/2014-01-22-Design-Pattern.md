@@ -97,285 +97,307 @@ description:    小结设计模式的What/Why/How，基于C#
 	- 过度应用迪米特法则会令系统中存在大量中介类，在一定程度上增加了系统的复杂度
 	- 门面模式（Facade）和中介模式（Mediator），都是迪米特法则应用的例子
 
-## 设计模式分类
+## 设计模式详述
+
+### 分类
 - ![Design-Pattern-Summary.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Summary.jpg)
+- 创建型（Creational）：为类如何创建实例对象提供指南
+- 结构型（Structural）：为如何设计类以形成更大的结构提供指南
+- 行为型（Behavioral）：为类之间交互以及分配责任提供指南
 
-### 创建型（Creational）：为类如何创建实例对象提供指南
-- 工厂方法模式（Factory Method）
-	- Creates an instance of several derived classes
-	- Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses
-	- 定义一个创建目标对象的接口，由子类决定需要实例化哪一个类
-	- 在工厂方法中完成目标对象的实例化
-	- ![Design-Pattern-Factory.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Factory.jpg)
-- 抽象工厂模式（Abstract Factory）
-	- Creates an instance of several families of classes
-	- Provide an interface for creating families of related or dependent objects without specifying their concrete classes
-	- 提供一个接口，可以创建一系列对象，而不用指定对应的类
-	- ![Design-Pattern-Abstract-Factory.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Abstract-Factory.jpg)
-	- 比如ORM模型中，对不同的Provider（Sqlite3/MySql）创建一系列不同的实例对象（Connection/Cursor）
-- 构建器模式（Builder）
-	-  Separates object construction from its representation
-	-  Separate the construction of a complex object from its representation so that the same construction processes can create different representations
-	- 将一个复杂类的构造过程（子部件的选择和构造顺序）与其子部件的构造过程分离
-	- ![Design-Pattern-Builder.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Builder.jpg)
-	- 比如，构建一个人，需要分别实例化头部、身体和四肢。BuildPartHead/BuildPartBody/BuildPartArm/BuildPartLeg方法实现在ConcreteBuilder类中，然后在Director::construct()方法中调用它们
-- 原型模式（Prototype）
-	- A fully initialized instance to be copied or cloned
-	- Specify the kinds of objects to create using a prototypical instance, and create new objects by copying this prototype
-	- 对象要支持copy方法，可以进一步区分深拷贝和浅拷贝
-	- ![Design-Pattern-Prototype.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Prototype.jpg)
-- 单例模式（Singleton）
-	- A class of which only a single instance can exist
-	- Ensure a class only has one instance, and provide a global point of access to it.
-	- 保证一个类只有一个实例，并提供一个访问它的全局访问点
-	- ![Design-Pattern-Singleton.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Singleton.jpg)
-	- 实现时要注意：
-		- 构造方法私有化，最好在类定义时加上Sealed，避免产生派生类
-		- 添加静态字段，字段类型就是这个单例类
-		- 添加静态构造方法，返回上述的静态字段
-		- 分为饿汉模式和懒汉模式
-	- 饿汉模式
-		- 在定义静态字段时直接初始化
-		- 这样类在初次被引用到时会被加载到DotNet Runtime，会完成实例化
-		- 这种方法不存在线程竞争问题（Race导致出现多个实例）
-	- 懒汉模式
-		- 在静态方法中判断静态字段是否被初始化（如果没有就new一个），然后返回静态字段
-		- 这种方法存在线程竞争问题，需要加锁
+### 工厂方法模式（Factory Method）
+- Creates an instance of several derived classes
+- Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses
+- 定义一个创建目标对象的接口，由子类决定需要实例化哪一个类
+- 在工厂方法中完成目标对象的实例化
+- ![Design-Pattern-Factory.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Factory.jpg)
+
+### 抽象工厂模式（Abstract Factory）
+- Creates an instance of several families of classes
+- Provide an interface for creating families of related or dependent objects without specifying their concrete classes
+- 提供一个接口，可以创建一系列对象，而不用指定对应的类
+- ![Design-Pattern-Abstract-Factory.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Abstract-Factory.jpg)
+- 比如ORM模型中，对不同的Provider（Sqlite3/MySql）创建一系列不同的实例对象（Connection/Cursor）
+
+### 构建器模式（Builder）
+-  Separates object construction from its representation
+-  Separate the construction of a complex object from its representation so that the same construction processes can create different representations
+- 将一个复杂类的构造过程（子部件的选择和构造顺序）与其子部件的构造过程分离
+- ![Design-Pattern-Builder.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Builder.jpg)
+- 比如，构建一个人，需要分别实例化头部、身体和四肢。BuildPartHead/BuildPartBody/BuildPartArm/BuildPartLeg方法实现在ConcreteBuilder类中，然后在Director::construct()方法中调用它们
+
+### 原型模式（Prototype）
+- A fully initialized instance to be copied or cloned
+- Specify the kinds of objects to create using a prototypical instance, and create new objects by copying this prototype
+- 对象要支持copy方法，可以进一步区分深拷贝和浅拷贝
+- ![Design-Pattern-Prototype.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Prototype.jpg)
+
+### 单例模式（Singleton）
+- A class of which only a single instance can exist
+- Ensure a class only has one instance, and provide a global point of access to it.
+- 保证一个类只有一个实例，并提供一个访问它的全局访问点
+- ![Design-Pattern-Singleton.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Singleton.jpg)
+- 实现时要注意：
+	- 构造方法私有化，最好在类定义时加上Sealed，避免产生派生类
+	- 添加静态字段，字段类型就是这个单例类
+	- 添加静态构造方法，返回上述的静态字段
+	- 分为饿汉模式和懒汉模式
+- 饿汉模式
+	- 在定义静态字段时直接初始化
+	- 这样类在初次被引用到时会被加载到DotNet Runtime，会完成实例化
+	- 这种方法不存在线程竞争问题（Race导致出现多个实例）
+- 懒汉模式
+	- 在静态方法中判断静态字段是否被初始化（如果没有就new一个），然后返回静态字段
+	- 这种方法存在线程竞争问题，需要加锁
 		
-				lock(object)
-				{
-				    if (instance == null) 
-				    {
-				        instance = new Singleton()
-				    }
-				}
-		- 为了Performance，需要双重锁定
+			lock(object)
+			{
+			    if (instance == null) 
+			    {
+			        instance = new Singleton()
+			    }
+			}
+	- 为了Performance，需要双重锁定
 		
-				if (instance == null)
-				{
-				    lock(object)
-				    {
-				        if (instance == null) 
-				        {
-				            instance = new Singleton()
-				        }
-				    }
-				}
+			if (instance == null)
+			{
+			    lock(object)
+			    {
+			        if (instance == null) 
+			        {
+			            instance = new Singleton()
+			        }
+			    }
+			}
 
-### 结构型（Structural）：为如何设计类以形成更大的结构提供指南
-- 适配器模式（Adapter）
-	- Match interfaces of different classes
-	- Convert the interface of a class into another interface clients expect
-	- Adapter lets classes work together that couldn’t otherwise because of incompatible interfaces
-	- 将一个类的接口转换成用户希望得到的另一种接口
-	- ![Design-Pattern-Adapter.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Adapter.jpg)
-	- 这个模式一般用于软件项目开发后期或者维护器，或者用于集成不同的Provider
-	- .NET中DataAdapter类，Fill方法将数据源里的数据同步到DataSet，Update方法将DataSet中的数据同步到数据源
-	- 适配器模式用于解决接口不匹配的问题，可类比扁鹊三兄弟。
-		- 如果实现能定义好统一的接口，不匹配的问题就不会发生
-		- 有小的接口不统一这类问题发生时，及时重构，问题不至于扩大
-		- 只有碰到了无法改变原有设计和代码的情况时，才考虑适配
-		- 事后补救不如事中控制，事中控制又不如事前规划
-		- ![Bianque.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Bianque.jpg)
-- 桥接模式（Bridge）
-	- Separates an object’s interface from its implementation
-	- Decouple an abstraction from its implementation so that the two can vary independently
-	- 将类的抽象部分和实现部分分离开来，使它们可以独立地变化
-	- ![Design-Pattern-Bridge.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Bridge.jpg)
-	- 组合重用原则（Composite/Aggregate Reuse Principle，CARP）
-	- Abstraction类的实例对象，可以调用成员方法SetImplementor来将ConreteImplementA或者B的实例对象替换掉，替换成任何一个实现了Implement接口的类的实例对象。
-	- C#客户端代码：
-	
-			Abstraction ab = new Abstraction();
-			ab.SetImplementor(new ConcreteImplementA());
-			ab.Operation();
-			ab.SetImplementor(new ConcreteImplementB());
-			ab.Operation();
-- 组合模式（Composite）
-	- A tree structure of simple and composite objects
-	- Compose objects into tree structures to represent part-whole hierarchies
-	- Composite lets clients treat individual objects and compositions of objects uniformly.
-	- 将对象组合成树形结构以表示“整体-部分”的层次结构
-	- 组合模式令client能处理单个对象或组合对象时做到一视同仁
-	- ![Design-Pattern-Composite.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Composite.jpg)
-	- Leaf类中也有add/remove/getChild方法，但不做事即可。
-	- C#客户端代码：
-	
-			Composite root = new Composite("Root");
-			root.add(new Leaf("Leaf A"));
-			compX = new Composite("Composite X");
-			root.add(compX);
-			compX.add(new Leaf("Leaf B"));
-			root.operation();
-- 装饰模式（Decorator）
-	- Add responsibilities to objects dynamically
-	- Attach additional responsibilities to an object dynamically
-	- Decorators provide a flexible alternative to subclassing for extending functionality
-	- 动态给一个对象添加一些额外的职责。
-	- ![Design-Pattern-Decorator.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Decorator.jpg)
-	- 装饰器模式可以用于抽象一些Common的逻辑（MiddleWare），比如为所有Library方法统计时间（离开时间戳-进入时间戳），或者在进入和离开Library方法时记录日志
-	- C#客户端代码：
-	
-			ConcreteComponent c = new ConcreteComponent();
-			ConcreteDecoratorA d1 = new ConcreteDecoratorA();
-			ConcreteDecoratorB d2 = new ConcreteDecoratorB();
-			d1.SetComponent(c);
-			d2.SetComponent(d1);
-			d2.Operation();
-	- ConcreteDecoratorA::Operation方法的实现
-	
-			base.Operation();
-			AddedBehavior();
-- 外观模式（Facade）
-	- A single class that represents an entire subsystem
-	- Provide a unified interface to a set of interfaces in a system
-	- Facade defines a higher-level interface that makes the subsystem easier to use
-	- 定义一个高层接口，为子系统中的一组接口提供一个一致的外观，即对外统一接口
-	- ![Design-Pattern-Facade.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Facade.jpg)
-	- 外观模式在开发初、中、后都可以应用：
-		- 开发之初，应该有意识地分层，比如MVC，层与层之间用Facade模式
-		- 开发中，子系统不断重构，越发复杂，此时Facade模式可以减少彼此间依赖
-		- 开发末，类似Adapter作用，亦可用Facade模式
-- 享元模式（Flyweight）
-	- A fine-grained instance used for efficient sharing
-	- Use sharing to support large numbers of fine-grained objects efficiently
-	- A flyweight is a shared object that can be used in multiple contexts simultaneously. The flyweight acts as an independent object in each context — it’s indistinguishable from an instance of the object that’s not shared
-	- 提供一个Pool，在需要实例对象时，检查Pool，如果有现成的就不new，直接使用，用完放回Pool中
-	- ![Design-Pattern-Flyweight.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Flyweight.jpg)
-	- Flyweight是次最轻量级拳击选手的意思，表示此模式能通过复用实例来减轻系统负担。
-- 代理模式（Proxy）
-	- An object representing another object
-	- Provide a surrogate or placeholder for another object to control access to it.
-	- 为其他对象提供一种代理以控制这个对象的访问
-	- ![Design-Pattern-Proxy.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Proxy.jpg)
-	- WebService就是一种Proxy模式，WebReference就是其代理
-	- 与装饰品模式相比，Proxy模式中对目标类的伪装是静态（编译时）的
-	- 而Decorator是动态的，特别提供一个装饰类
+### 适配器模式（Adapter）
+- Match interfaces of different classes
+- Convert the interface of a class into another interface clients expect
+- Adapter lets classes work together that couldn’t otherwise because of incompatible interfaces
+- 将一个类的接口转换成用户希望得到的另一种接口
+- ![Design-Pattern-Adapter.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Adapter.jpg)
+- 这个模式一般用于软件项目开发后期或者维护器，或者用于集成不同的Provider
+- .NET中DataAdapter类，Fill方法将数据源里的数据同步到DataSet，Update方法将DataSet中的数据同步到数据源
+- 适配器模式用于解决接口不匹配的问题，可类比扁鹊三兄弟。
+	- 如果实现能定义好统一的接口，不匹配的问题就不会发生
+	- 有小的接口不统一这类问题发生时，及时重构，问题不至于扩大
+	- 只有碰到了无法改变原有设计和代码的情况时，才考虑适配
+	- 事后补救不如事中控制，事中控制又不如事前规划
+	- ![Bianque.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Bianque.jpg)
 
-### 行为型（Behavioral）：为类之间交互以及分配责任提供指南
-- 职责链模式（Chain of Responsibility）
-	- A way of passing a request between a chain of objects
-	- Avoid coupling the sender of a request to its receiver by giving more than one object a  chance to handle the request
-	- Chain the receiving objects and pass the request along the chain until an object handles it
-	- 通过给多个对象处理请求的机会，减少请求发送者与接收者之间的耦合。
-	- 将接收对象链接起来，在链中传递请求，直到有一个对象处理这个请求。
-	- ![Design-Pattern-Chain-of-Responsiblity.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Chain-of-Responsiblity.jpg)
-	- 链中的对象自己也并不知道链的结构，但它们都有一个指向后继者的引用。
-	- C#客户端代码
+### 桥接模式（Bridge）
+- Separates an object’s interface from its implementation
+- Decouple an abstraction from its implementation so that the two can vary independently
+- 将类的抽象部分和实现部分分离开来，使它们可以独立地变化
+- ![Design-Pattern-Bridge.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Bridge.jpg)
+- 组合重用原则（Composite/Aggregate Reuse Principle，CARP）
+- Abstraction类的实例对象，可以调用成员方法SetImplementor来将ConreteImplementA或者B的实例对象替换掉，替换成任何一个实现了Implement接口的类的实例对象。
+- C#客户端代码：
 	
-			Handler h1 = new ConcreateHandler1();
-			Handler h2 = new ConcreateHandler2();
-			Handler h3 = new ConcreateHandler3();
-			h1.SetSuccessor(h2);
-			h2.SetSuccessor(h3);
-			int[] requests = { 1, 2, 3, 4, 5 };
-			foreach (int request in requests)
-			{
-			    h1.HandleRequest(request);
-			}
-	- ConCreateHandler1::handleRequest代码
+		Abstraction ab = new Abstraction();
+		ab.SetImplementor(new ConcreteImplementA());
+		ab.Operation();
+		ab.SetImplementor(new ConcreteImplementB());
+		ab.Operation();
+
+### 组合模式（Composite）
+- A tree structure of simple and composite objects
+- Compose objects into tree structures to represent part-whole hierarchies
+- Composite lets clients treat individual objects and compositions of objects uniformly.
+- 将对象组合成树形结构以表示“整体-部分”的层次结构
+- 组合模式令client能处理单个对象或组合对象时做到一视同仁
+- ![Design-Pattern-Composite.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Composite.jpg)
+- Leaf类中也有add/remove/getChild方法，但不做事即可。
+- C#客户端代码：
 	
-			if (request >= 0 && request < 10)
-			{
-			    // DoSomething
-			}
-			else if (succssor != null)
-			{
-			    successor.HandleRequest(request); // 转移到下一跳处理
-			}
-- 命令模式（Command）
-	- Encapsulate a command request as an object
-	- Encapsulate a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations
-	- 将一个Command Request封装为一个对象，Client接受这些命令请求对象作为参数
-	- 可以将Request对象放入队列、记录日志，以及支持可撤销操作
-	- ![Command.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Command.jpg)
-	- Command实例对象要设定其接收者Receiver，Invoker对象通过SetCommand收集Command对象
-	- C#客户端代码
+		Composite root = new Composite("Root");
+		root.add(new Leaf("Leaf A"));
+		compX = new Composite("Composite X");
+		root.add(compX);
+		compX.add(new Leaf("Leaf B"));
+		root.operation();
+
+### 装饰模式（Decorator）
+- Add responsibilities to objects dynamically
+- Attach additional responsibilities to an object dynamically
+- Decorators provide a flexible alternative to subclassing for extending functionality
+- 动态给一个对象添加一些额外的职责。
+- ![Design-Pattern-Decorator.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Decorator.jpg)
+- 装饰器模式可以用于抽象一些Common的逻辑（MiddleWare），比如为所有Library方法统计时间（离开时间戳-进入时间戳），或者在进入和离开Library方法时记录日志
+- C#客户端代码：
 	
-			Reveiver r = new Receiver();
-			Command c = new ConcreteCommand(r);
-			Invoker i = new Invoker();
-			i.SetCommand(c);
-			i.ExecuteCommand();
-	- Invoker::ExecuteCommand代码
+		ConcreteComponent c = new ConcreteComponent();
+		ConcreteDecoratorA d1 = new ConcreteDecoratorA();
+		ConcreteDecoratorB d2 = new ConcreteDecoratorB();
+		d1.SetComponent(c);
+		d2.SetComponent(d1);
+		d2.Operation();
+- ConcreteDecoratorA::Operation方法的实现
 	
-			command.Excute();
-	- ConcreteCommand::Excute方法
+		base.Operation();
+		AddedBehavior();
+
+### 外观模式（Facade）
+- A single class that represents an entire subsystem
+- Provide a unified interface to a set of interfaces in a system
+- Facade defines a higher-level interface that makes the subsystem easier to use
+- 定义一个高层接口，为子系统中的一组接口提供一个一致的外观，即对外统一接口
+- ![Design-Pattern-Facade.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Facade.jpg)
+- 外观模式在开发初、中、后都可以应用：
+	- 开发之初，应该有意识地分层，比如MVC，层与层之间用Facade模式
+	- 开发中，子系统不断重构，越发复杂，此时Facade模式可以减少彼此间依赖
+	- 开发末，类似Adapter作用，亦可用Facade模式
+
+### 享元模式（Flyweight）
+- A fine-grained instance used for efficient sharing
+- Use sharing to support large numbers of fine-grained objects efficiently
+- A flyweight is a shared object that can be used in multiple contexts simultaneously. The flyweight acts as an independent object in each context — it’s indistinguishable from an instance of the object that’s not shared
+- 提供一个Pool，在需要实例对象时，检查Pool，如果有现成的就不new，直接使用，用完放回Pool中
+- ![Design-Pattern-Flyweight.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Flyweight.jpg)
+- Flyweight是次最轻量级拳击选手的意思，表示此模式能通过复用实例来减轻系统负担。
+
+### 代理模式（Proxy）
+- An object representing another object
+- Provide a surrogate or placeholder for another object to control access to it.
+- 为其他对象提供一种代理以控制这个对象的访问
+- ![Design-Pattern-Proxy.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Proxy.jpg)
+- WebService就是一种Proxy模式，WebReference就是其代理
+- 与装饰品模式相比，Proxy模式中对目标类的伪装是静态（编译时）的
+- 而Decorator是动态的，特别提供一个装饰类
+
+### 职责链模式（Chain of Responsibility）
+- A way of passing a request between a chain of objects
+- Avoid coupling the sender of a request to its receiver by giving more than one object a  chance to handle the request
+- Chain the receiving objects and pass the request along the chain until an object handles it
+- 通过给多个对象处理请求的机会，减少请求发送者与接收者之间的耦合。
+- 将接收对象链接起来，在链中传递请求，直到有一个对象处理这个请求。
+- ![Design-Pattern-Chain-of-Responsiblity.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Chain-of-Responsiblity.jpg)
+- 链中的对象自己也并不知道链的结构，但它们都有一个指向后继者的引用。
+- C#客户端代码
 	
-			receiver.Action();
-- 解释器模式（Interpreter）
-	- A way to include language elements in a program
-	- Given a language, define a representation for its grammar along with an interpreter that uses the representation to interpret sentences in the language
-	- 给定一种语言，定义它的文法表示，并定义一个解释器
-	- 该解释器用来根据文法表示来解释语言中的句子
-	- ![Interpreter.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Interpreter.jpg)
-	- C#客户端代码
+		Handler h1 = new ConcreateHandler1();
+		Handler h2 = new ConcreateHandler2();
+		Handler h3 = new ConcreateHandler3();
+		h1.SetSuccessor(h2);
+		h2.SetSuccessor(h3);
+		int[] requests = { 1, 2, 3, 4, 5 };
+		foreach (int request in requests)
+		{
+		    h1.HandleRequest(request);
+		}
+- ConCreateHandler1::handleRequest代码
 	
-			Context context = new Context();
-			TerminalExpression exp = new TerminalExpression();
-			exp.Interpret(context);
-	- 每一个Expression类对应了一种文法规则
-	- Context类包含解释器之外的一些全局信息
-- 迭代器模式（Iterator）
-	- Sequentially access the elements of a collection
-	- Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation
-	- 提供一种方法来顺序访问一个聚合对象中的各个元素，而不需要暴露该对象的内部表示。
-	- ![Iterator.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Iterator.jpg)
-	- Iterator对象的实例化参数是Aggregate对象。简言之，由列表生产迭代器
-	- Aggregate对象提供Count和Index接口，Iterator提供Next方法，内部有一个current字段，每次调用Next方法时current会减一。简言之，迭代器带游标，只迭代一次
-	- .NET中，迭代器对应的接口是IEumerator，包含Current属性，MoveNext方法，Reset方法
-	- foreach与while的对应关系
+		if (request >= 0 && request < 10)
+		{
+		    // DoSomething
+		}
+		else if (succssor != null)
+		{
+		    successor.HandleRequest(request); // 转移到下一跳处理
+		}
+
+### 命令模式（Command）
+- Encapsulate a command request as an object
+- Encapsulate a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations
+- 将一个Command Request封装为一个对象，Client接受这些命令请求对象作为参数
+- 可以将Request对象放入队列、记录日志，以及支持可撤销操作
+- ![Command.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Command.jpg)
+- Command实例对象要设定其接收者Receiver，Invoker对象通过SetCommand收集Command对象
+- C#客户端代码
 	
-			foreach (string item in a) {}
-			// 等同于
-			IEnumerator<String> e = a.GetEnumerator();
-			while (e.MoveNext()) {}
-- 中介者模式（Mediator）
-	- Defines simplified communication between classes
-	- Define an object that encapsulates how a set of objects interact
-	- Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently
-	- 用一个中介对象来封装一系列的交互
-	- 它使各对象不需要显式地相互调用，从而达到松耦合，还可以独立地改变对象之间的交互
-	- 就是将网状结构该为星形结构
-	- ![Mediator.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Mediator.jpg)
-	- Mediator将Colleagues上之间的交互复杂性变成了中介者的复杂性
-	- 当系统中出现了多对多交互复杂的对象群时，先不要急着用中介者模式，而是要反思系统设计是否合理
-	- WinForm设计中，Form窗体上有多个Button/Label等对象，Button/Label对象之间的交互（事件传递）都是由Form窗体来作中介，而事件处理则是个Button/Label对象自己处理
-	- 中介者模式适用于如下场合
-		- 一组定义良好但是通信方式复杂的对象，比如WebForm
-		- 定制一个分布在多个类中的行为，而又不想生成太多子类
-- 备忘录模式（Memento）
-	- Capture and restore an object's internal state
-	- Without violating encapsulation, capture and externalize an object’s internal state so that the object can be restored to this state later
-	- 保存一个对象的某个状态，以便在适当的时候恢复对象
-	- ![Memento.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Memento.jpg)
-	- 客户端代码
+		Reveiver r = new Receiver();
+		Command c = new ConcreteCommand(r);
+		Invoker i = new Invoker();
+		i.SetCommand(c);
+		i.ExecuteCommand();
+- Invoker::ExecuteCommand代码
 	
-			GameRole hero = new Originator();
+		command.Excute();
+- ConcreteCommand::Excute方法
+	
+		receiver.Action();
+
+### 解释器模式（Interpreter）
+- A way to include language elements in a program
+- Given a language, define a representation for its grammar along with an interpreter that uses the representation to interpret sentences in the language
+- 给定一种语言，定义它的文法表示，并定义一个解释器
+- 该解释器用来根据文法表示来解释语言中的句子
+- ![Interpreter.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Interpreter.jpg)
+- C#客户端代码
+	
+		Context context = new Context();
+		TerminalExpression exp = new TerminalExpression();
+		exp.Interpret(context);
+- 每一个Expression类对应了一种文法规则
+- Context类包含解释器之外的一些全局信息
+
+### 迭代器模式（Iterator）
+- Sequentially access the elements of a collection
+- Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation
+- 提供一种方法来顺序访问一个聚合对象中的各个元素，而不需要暴露该对象的内部表示。
+- ![Iterator.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Iterator.jpg)
+- Iterator对象的实例化参数是Aggregate对象。简言之，由列表生产迭代器
+- Aggregate对象提供Count和Index接口，Iterator提供Next方法，内部有一个current字段，每次调用Next方法时current会减一。简言之，迭代器带游标，只迭代一次
+- .NET中，迭代器对应的接口是IEumerator，包含Current属性，MoveNext方法，Reset方法
+- foreach与while的对应关系
+	
+		foreach (string item in a) {}
+		// 等同于
+		IEnumerator<String> e = a.GetEnumerator();
+		while (e.MoveNext()) {}
+
+### 中介者模式（Mediator）
+- Defines simplified communication between classes
+- Define an object that encapsulates how a set of objects interact
+- Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently
+- 用一个中介对象来封装一系列的交互
+- 它使各对象不需要显式地相互调用，从而达到松耦合，还可以独立地改变对象之间的交互
+- 就是将网状结构该为星形结构
+- ![Mediator.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Mediator.jpg)
+- Mediator将Colleagues上之间的交互复杂性变成了中介者的复杂性
+- 当系统中出现了多对多交互复杂的对象群时，先不要急着用中介者模式，而是要反思系统设计是否合理
+- WinForm设计中，Form窗体上有多个Button/Label等对象，Button/Label对象之间的交互（事件传递）都是由Form窗体来作中介，而事件处理则是个Button/Label对象自己处理
+- 中介者模式适用于如下场合
+	- 一组定义良好但是通信方式复杂的对象，比如WebForm
+	- 定制一个分布在多个类中的行为，而又不想生成太多子类
+
+### 备忘录模式（Memento）
+- Capture and restore an object's internal state
+- Without violating encapsulation, capture and externalize an object’s internal state so that the object can be restored to this state later
+- 保存一个对象的某个状态，以便在适当的时候恢复对象
+- ![Memento.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Memento.jpg)
+- 客户端代码
+	
+		GameRole hero = new Originator();
 			
-			CareTaker stateAdmin = new CareTaker();
-			stateAdmin.Memento = hero.CreateMemento();
+		CareTaker stateAdmin = new CareTaker();
+		stateAdmin.Memento = hero.CreateMemento();
 			
-			hero.DoSomthing();
-			hero.SetMemento(stateAdmin.Memento);
-	- Originator（发起人）通过CreateMemento方法创建一个备份，通过SetMemento方法从恢复到某个备份的内容
-	- Caretaker（管理者）负责保存好Mementor，但不能对备忘录内容进行操作或者检查
-	- Originator看到Mementor的宽接口，Caretaker只看到窄接口，只能将备忘录传递给其它对象
-- 观察者模式（Observer）
-	- 定义对象之间的一种一对多的依赖关系
-	- 当一个对象的状态发生变化时，所有依赖于它的对象都得到通知并自动更新，用于：联动/发布和订阅
-	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
-- 状态模式（State）
-	- 允许一个对象在其内部状态改变时改变他的行为，状态变成类，例如：会员卡的状态（铜－银－金）
-	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
-- 策略模式（Strategy）
-	- 定义一系列算法，把它们一个个封装起来，并且使它们之间可相互替换，从而让算法可以独立于使用它的用户而变化
-	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
-- 模版方法模式（Template Method）
-	- 定义一个操作中的算法骨架，而将一些步骤延迟到子类中
-	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
-- 访问者模式（Visitor）
-	- 一种分离对象数据结构与行为的方法。
-	- 通过这种分离，可达到一个被访问者动态添加新的操作而无需做其他修改的效果。
-	- 适用于数据结构相对稳定，算法易变化的系统
-	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+		hero.DoSomthing();
+		hero.SetMemento(stateAdmin.Memento);
+- Originator（发起人）通过CreateMemento方法创建一个备份，通过SetMemento方法从恢复到某个备份的内容
+- Caretaker（管理者）负责保存好Mementor，但不能对备忘录内容进行操作或者检查
+- Originator看到Mementor的宽接口，Caretaker只看到窄接口，只能将备忘录传递给其它对象
+
+### 观察者模式（Observer）
+- 定义对象之间的一种一对多的依赖关系
+- 当一个对象的状态发生变化时，所有依赖于它的对象都得到通知并自动更新，用于：联动/发布和订阅
+- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+
+### 状态模式（State）
+- 允许一个对象在其内部状态改变时改变他的行为，状态变成类，例如：会员卡的状态（铜－银－金）
+- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+
+### 策略模式（Strategy）
+- 定义一系列算法，把它们一个个封装起来，并且使它们之间可相互替换，从而让算法可以独立于使用它的用户而变化
+- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+
+### 模版方法模式（Template Method）
+- 定义一个操作中的算法骨架，而将一些步骤延迟到子类中
+- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+
+### 访问者模式（Visitor）
+- 一种分离对象数据结构与行为的方法。
+- 通过这种分离，可达到一个被访问者动态添加新的操作而无需做其他修改的效果。
+- 适用于数据结构相对稳定，算法易变化的系统
+- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
