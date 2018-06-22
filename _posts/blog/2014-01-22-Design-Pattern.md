@@ -429,18 +429,46 @@ description:    小结设计模式的What/Why/How，基于C#
 
 		// doSomthing;
 		context.state = new ConcreteStateA();
-- Context实例只管Request，Context::Request()依赖于state的Handle，state Handler执行完，可以切换State。
+- Context实例只管Request，Context::Request()调用state的Handle
+- 所有与状态相关的代码都实现在ConcreteState中，比如
+
+		public override void handle (Context c)
+		{
+		    if (c.Hour < 12)
+		    {
+		        // doSomething; // 符合状态，做事
+		    }
+		    else
+		    {
+		        c.SetState(new NextState()); // 切换状态
+		        c.handler(); // 做事
+		    }
+		}
 
 ### 策略模式（Strategy）
-- 定义一系列算法，把它们一个个封装起来，并且使它们之间可相互替换，从而让算法可以独立于使用它的用户而变化
-- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+- Encapsulates an algorithm inside a class 
+- Define a family of algorithms, encapsulate each one, and make them interchangeable
+- Strategy lets the algorithm vary independently from clients that use it.
+- 定义一系列算法，把它们一个个封装起来，使它们之间可相互替换
+- 策略模式让算法的变化不会影响到使用算法的用户
+- ![Strategy.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Strategy.jpg)
+- 客户端只需要实例化Context一个类即可，对StrategyA/B类的实例化和excute调用都放在Context类的方法中
+- 策略模式用组合，模版方法用继承
 
 ### 模版方法模式（Template Method）
-- 定义一个操作中的算法骨架，而将一些步骤延迟到子类中
-- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+- Defer the exact steps of an algorithm to a subclass
+- Define the skeleton of an algorithm in an operation, deferring some steps to subclasses
+- Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure
+- 定义一个操作中的算法骨架，而将一些步骤延迟到子类中。
+- 模版方法使得子嘞可以不改变一个算法的结构，即可重新定义改算法的某些特定步骤。
+- ![Template-Method.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Template-Method.jpg)
+- 策略模式用组合，模版用继承
 
 ### 访问者模式（Visitor）
+- Defines a new operation to a class without change
+- Represent an operation to be performed on the elements of an object structure
+- Visitor lets you define a new operation without changing the classes of the elements on which it operates.
 - 一种分离对象数据结构与行为的方法。
 - 通过这种分离，可达到一个被访问者动态添加新的操作而无需做其他修改的效果。
 - 适用于数据结构相对稳定，算法易变化的系统
-- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+- ![Visitor.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Visitor.jpg)
