@@ -380,13 +380,56 @@ description:    小结设计模式的What/Why/How，基于C#
 - Originator看到Mementor的宽接口，Caretaker只看到窄接口，只能将备忘录传递给其它对象
 
 ### 观察者模式（Observer）
+- A way of notifying change to a number of classes
+- Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically
 - 定义对象之间的一种一对多的依赖关系
 - 当一个对象的状态发生变化时，所有依赖于它的对象都得到通知并自动更新，用于：联动/发布和订阅
-- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+- ![Observer.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Observer.jpg)
+- 其实就是Subject::Attach往列表里加Observer，detach是从列表里减，notify遍历列表，调用Observer.update()
+- subjectState和observerState用于表示订阅对象/观察者的特征字段
+- 在上述结构中，Subject依赖于Observer接口的update()方法
+- 在.NET中，这种依赖关系可以不是Hardcode的，而是在客户端代码中动态指定
+
+		ConcreteSubject s1 = new ConcreteSubject();
+		ConcreteObserver o1 = new ConcreteObserver(s1);
+		ConcreteObserver o2 = new ConcreteObserver(s1);
+		
+		s1.Update += new EventHandler(o1.DoThingA); // 事件 += 委托“实例”
+		s1.Update += new EventHandler(o2.DoThingB);
+		s1.SubjectState = "TestSubjectState";
+		s1.Notify();
+- ConcreteSubject类实现
+
+		delegate void EventHandler(); // 委托是一个特殊的“引用方法”类
+		class ConcreteSubject : Subject
+		{
+		    public event EventHandler Update; // 定义委托事件
+		    public void Notify()
+		    {
+		        Update(); //事件当函数调用，会遍历运行其委托实例列表中所有元素
+		    }
+		}
 
 ### 状态模式（State）
-- 允许一个对象在其内部状态改变时改变他的行为，状态变成类，例如：会员卡的状态（铜－银－金）
-- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
+- Alter an object's behavior when its state changes
+- Allow an object to alter its behavior when its internal state changes
+- The object will appear to change its class
+- 允许一个对象在其内部状态改变时改变其行为，这个对象看起来像是改变了其类
+- ![State.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-State.jpg)
+- 应用场景：一个对象状态的判断逻辑表达式过于复杂的情况，将状态判断逻辑转移到表示不同状态的一系列类中
+- C#客户端代码
+
+		Context c = new Context(new ConcreteStateA());
+		c.Request(); 
+		c.Request();	
+- Context::Request()
+
+		state.Handle(this);
+- ConcreteState::Handle(Context context)
+
+		// doSomthing;
+		context.state = new ConcreteStateA();
+- Context实例只管Request，Context::Request()依赖于state的Handle，state Handler执行完，可以切换State。
 
 ### 策略模式（Strategy）
 - 定义一系列算法，把它们一个个封装起来，并且使它们之间可相互替换，从而让算法可以独立于使用它的用户而变化
