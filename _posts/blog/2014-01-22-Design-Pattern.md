@@ -2,7 +2,7 @@
 layout:         post
 title:          Design Pattern摘录
 category:       blog
-description:    小结设计模式的What/Why/How，以C#和Python分别举例
+description:    小结设计模式的What/Why/How，基于C#
 ---
 
 ## Overview
@@ -37,8 +37,8 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 - 原文是：Software entities should be open for extension,but closed for modification
 - 翻译：**软件应该对（功能）扩展开放，对（代码）修改关闭**，模块应尽量在不修改原代码的情况下进行扩展。
 - 具体的方法论：
-	- 根据敏捷开发思想，在初次开发时我们不对功能扩展作超出当前需求的假设，只实现**刚好够用**的功能即可。
-	- 对于新增功能，只新增代码，不修改代码。
+	- 根据敏捷开发原则，不要为代码添加基于猜测、实际不需要的功能，代码**刚刚够用**即可
+	- 对于新增功能，只新增代码，不修改代码
 	- 如果做不到，就选用合适的设计模式进行**重构**（Refactoring）
 - 本原则是面向对象设计中“**可复用设计**”的基石，是最重要的原则，其它衍生原则是实现开闭原则的手段。
 
@@ -284,28 +284,98 @@ description:    小结设计模式的What/Why/How，以C#和Python分别举例
 			    successor.HandleRequest(request); // 转移到下一跳处理
 			}
 - 命令模式（Command）
-	- 将一个请求封装为一个对象，从而可用不同的请求对客户进行参数化
-	- 将请求排队或者记录请求日志，支持可撤销操作。
+	- Encapsulate a command request as an object
+	- Encapsulate a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations
+	- 将一个Command Request封装为一个对象，Client接受这些命令请求对象作为参数
+	- 可以将Request对象放入队列、记录日志，以及支持可撤销操作
+	- ![Command.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Command.jpg)
+	- Command实例对象要设定其接收者Receiver，Invoker对象通过SetCommand收集Command对象
+	- C#客户端代码
+	
+			Reveiver r = new Receiver();
+			Command c = new ConcreteCommand(r);
+			Invoker i = new Invoker();
+			i.SetCommand(c);
+			i.ExecuteCommand();
+	- Invoker::ExecuteCommand代码
+	
+			command.Excute();
+	- ConcreteCommand::Excute方法
+	
+			receiver.Action();
 - 解释器模式（Interpreter）
+	- A way to include language elements in a program
+	- Given a language, define a representation for its grammar along with an interpreter that uses the representation to interpret sentences in the language
 	- 给定一种语言，定义它的文法表示，并定义一个解释器
-	- 该解释器用来根据文法表示来解释语言中的句子。
+	- 该解释器用来根据文法表示来解释语言中的句子
+	- ![Interpreter.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Interpreter.jpg)
+	- C#客户端代码
+	
+			Context context = new Context();
+			TerminalExpression exp = new TerminalExpression();
+			exp.Interpret(context);
+	- 每一个Expression类对应了一种文法规则
+	- Context类包含解释器之外的一些全局信息
 - 迭代器模式（Iterator）
+	- Sequentially access the elements of a collection
+	- Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation
 	- 提供一种方法来顺序访问一个聚合对象中的各个元素，而不需要暴露该对象的内部表示。
+	- ![Iterator.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Iterator.jpg)
+	- Iterator对象的实例化参数是Aggregate对象。简言之，由列表生产迭代器
+	- Aggregate对象提供Count和Index接口，Iterator提供Next方法，内部有一个current字段，每次调用Next方法时current会减一。简言之，迭代器带游标，只迭代一次
+	- .NET中，迭代器对应的接口是IEumerator，包含Current属性，MoveNext方法，Reset方法
+	- foreach与while的对应关系
+	
+			foreach (string item in a) {}
+			// 等同于
+			IEnumerator<String> e = a.GetEnumerator();
+			while (e.MoveNext()) {}
 - 中介者模式（Mediator）
-	- 用一个中介对象来封装一系列的交互。它使各对象不需要显式地相互调用，从而达到低耦合
-	- 还可以独立地改变对象之间的交互，也就是将网状结构该为星形结构
+	- Defines simplified communication between classes
+	- Define an object that encapsulates how a set of objects interact
+	- Mediator promotes loose coupling by keeping objects from referring to each other explicitly, and it lets you vary their interaction independently
+	- 用一个中介对象来封装一系列的交互
+	- 它使各对象不需要显式地相互调用，从而达到松耦合，还可以独立地改变对象之间的交互
+	- 就是将网状结构该为星形结构
+	- ![Mediator.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Mediator.jpg)
+	- Mediator将Colleagues上之间的交互复杂性变成了中介者的复杂性
+	- 当系统中出现了多对多交互复杂的对象群时，先不要急着用中介者模式，而是要反思系统设计是否合理
+	- WinForm设计中，Form窗体上有多个Button/Label等对象，Button/Label对象之间的交互（事件传递）都是由Form窗体来作中介，而事件处理则是个Button/Label对象自己处理
+	- 中介者模式适用于如下场合
+		- 一组定义良好但是通信方式复杂的对象，比如WebForm
+		- 定制一个分布在多个类中的行为，而又不想生成太多子类
 - 备忘录模式（Memento）
+	- Capture and restore an object's internal state
+	- Without violating encapsulation, capture and externalize an object’s internal state so that the object can be restored to this state later
 	- 保存一个对象的某个状态，以便在适当的时候恢复对象
+	- ![Memento.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Memento.jpg)
+	- 客户端代码
+	
+			GameRole hero = new Originator();
+			
+			CareTaker stateAdmin = new CareTaker();
+			stateAdmin.Memento = hero.CreateMemento();
+			
+			hero.DoSomthing();
+			hero.SetMemento(stateAdmin.Memento);
+	- Originator（发起人）通过CreateMemento方法创建一个备份，通过SetMemento方法从恢复到某个备份的内容
+	- Caretaker（管理者）负责保存好Mementor，但不能对备忘录内容进行操作或者检查
+	- Originator看到Mementor的宽接口，Caretaker只看到窄接口，只能将备忘录传递给其它对象
 - 观察者模式（Observer）
 	- 定义对象之间的一种一对多的依赖关系
 	- 当一个对象的状态发生变化时，所有依赖于它的对象都得到通知并自动更新，用于：联动/发布和订阅
+	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
 - 状态模式（State）
 	- 允许一个对象在其内部状态改变时改变他的行为，状态变成类，例如：会员卡的状态（铜－银－金）
+	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
 - 策略模式（Strategy）
-	- 定义一系列算法，把它们一个个封装起来，并且使它们之间可相互替换，从而让算法可以独立于使用它的用户而变化。
+	- 定义一系列算法，把它们一个个封装起来，并且使它们之间可相互替换，从而让算法可以独立于使用它的用户而变化
+	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
 - 模版方法模式（Template Method）
-	- 定义一个操作中的算法骨架，而将一些步骤延迟到子类中。
+	- 定义一个操作中的算法骨架，而将一些步骤延迟到子类中
+	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
 - 访问者模式（Visitor）
 	- 一种分离对象数据结构与行为的方法。
 	- 通过这种分离，可达到一个被访问者动态添加新的操作而无需做其他修改的效果。
-	- 适用于数据结构相对稳定，算法易变化的系统。
+	- 适用于数据结构相对稳定，算法易变化的系统
+	- ![.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-.jpg)
