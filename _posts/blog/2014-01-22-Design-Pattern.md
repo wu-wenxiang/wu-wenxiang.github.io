@@ -495,3 +495,78 @@ description:    小结设计模式的What/Why/How，基于C#
 		
 		o.Accept(v1);
 		o.Accept(v2);
+
+## 附录：一些基础知识
+- 对象是一个自包含实体，用一组可识别的特征和行为来标识
+- 类是具有相同属性的对象的抽象
+- Overload（重载）是指同一个类中，方法名相同而参数（类型或者个数）不同
+- Override（重写）是指在父子类中，方法名和参数都相同的virtual方法
+- 封装（Encapsulation）
+	- 用于解耦合，令类的实例对象成自包含实体。
+	- 清晰接口（不变）
+	- 隐藏实现（变化）
+- 继承（Inheritance）
+	- is-A
+	- 只有virutal方法可以被override
+	- 构造方法不能被override
+	- 子类方法调用父类方法，用base()，可以简写
+	
+			class B : A
+			{
+			    public B() : base()
+			    {}
+			}		
+	- 继承增加了耦合，为了减少重复代码
+- 多态（Polymorphism）
+	- 多态的原理是，当virtual方法被调用时，无论对象是否被转换成其父类，都只有对象继承链最末端的方法会被调用
+	- virtual方法是按照运行时的类型，而非编译时类型进行动态绑定调用的
+- 抽象类
+	- 抽象类必须被继承，不能实例化
+	- 抽象方法，必须被重写（在继承时）
+	- 抽象类是对类的抽象
+- 接口
+	- 接口时**公共**方法与属性的组合
+	- 接口无字段，不实现，无static属性
+	- 接口是对行为的抽象
+- 装箱/拆箱
+	- boxing，值类型 -> 引用类型
+	- unboxing，引用类型 -> 值类型
+	- 举例
+	
+			int i = 123;
+			object o = (object)  // boxing
+			o = 123;
+			i = (int) o;  // unboxing
+- 范型
+	- collction：用于数据存储和检索的类，统称collection，包括stack/queue/list/hash
+	- 范型是具有占位符（参数类型）的类、结构、接口和方法
+	- ArrayList类似Python中的list
+	- List<T>是ArrayList的范型等效类，如果类型不匹配，编译时就能检查出来
+- 委托
+	- 委托是对函数的封装
+	- 举例
+	
+			public delegate void DelegateA();
+			
+			public void FunctionA()
+			{
+				// do something;
+			}
+			
+			DelegateA f1 = new DelegateA(FunctionA);
+			f1();
+- 事件
+	- 事件是委托的一种特殊形式
+	- 事件时观察者模式Observor在.NET中的一种实现方式
+	- 事件的写法：`public event DelegateA EventA;`，这表示
+		- 事件发生时（调用`EventA();`）
+		- 执行被委托的方法（EventA是一个List，`EventA += new DelegateA(FunctionA);`）
+	- 如果在EventA被调用时传参数，可以
+	
+			public delegate void DelegateA(object sender, EventArgsA args);
+			public event DelegateA EventA;
+			
+			public FunctionB()
+			{
+			    EventA(this, new EventArgs()); // 这两个参数会传给所有绑在EventA上的委托实例
+			}
