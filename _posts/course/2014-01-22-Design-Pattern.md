@@ -112,8 +112,12 @@ description:    整理了23种设计模式的What/Why/How，基于C#
 - 在工厂方法中完成目标对象的实例化
 - ![Design-Pattern-Factory.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Factory.jpg)
 - Factory以集中的方式处理Target类的实例化过程：
-	- 客户端不需要知道各个Target的类名
+	- 客户端不需要知道各个Target的类名，而只需知道对应的工厂名
+	- 这样解耦合了对象如何实现/来自哪里这些细节
 	- 可以在实例化时进行控制逻辑，比如记录日志等
+- 实际的例子：[Django中的工厂模式](http://django.wikispaces.asu.edu/*NEW*+Django+Design+Patterns)
+- ![fields.png](http://django.wikispaces.asu.edu/file/view/fields.png/384505704/fields.png)
+- ![Subclassr2.png](http://django.wikispaces.asu.edu/file/view/Subclassr2.png/384512434/Subclassr2.png)
 
 ### 抽象工厂模式（Abstract Factory）
 - Creates an instance of several families of classes
