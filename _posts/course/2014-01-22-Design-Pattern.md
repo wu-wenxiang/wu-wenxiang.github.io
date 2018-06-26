@@ -111,6 +111,9 @@ description:    整理了23种设计模式的What/Why/How，基于C#
 - 定义一个创建目标对象的接口，由子类决定需要实例化哪一个类
 - 在工厂方法中完成目标对象的实例化
 - ![Design-Pattern-Factory.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Factory.jpg)
+- Factory以集中的方式处理Target类的实例化过程：
+	- 客户端不需要知道各个Target的类名
+	- 可以在实例化时进行控制逻辑，比如记录日志等
 
 ### 抽象工厂模式（Abstract Factory）
 - Creates an instance of several families of classes
