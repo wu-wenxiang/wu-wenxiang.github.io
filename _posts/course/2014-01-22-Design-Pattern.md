@@ -126,7 +126,7 @@ description:    整理了23种设计模式的What/Why/How，基于C#
 - 提供一个接口，可以创建一系列对象，而不用指定对应的类
 - ![Design-Pattern-Abstract-Factory.jpg](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/d3982739435445939afcf1c492cddf08-Design-Pattern-Abstract-Factory.jpg)
 - 比如ORM模型中，对不同的Provider（Sqlite3/MySql）创建一系列不同的实例对象（Connection/Cursor）
-- [django_factory](https://pypi.org/project/django_factory/) 是一个用于在测试中创建Django模型的抽象工厂实现。
+- [django_factory](https://pypi.org/project/django_factory/) 是一个用于在测试中创建Django模型的抽象工厂实现，可用来为支持测试专有属性的模型创建实例。这能让测试代码的可读性更高，且能避免共享不必要的代码。
 
 ### 构建器模式（Builder）
 -  Separates object construction from its representation
