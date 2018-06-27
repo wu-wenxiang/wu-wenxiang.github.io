@@ -214,7 +214,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [函数] 闭包closure是什么？如何用闭包实现加法器？有状态的函数。FP与OOP。
 
-1. [函数] **如何使用高阶函数？Map/Filter/Reduce/Sort/偏函数**
+1. [函数] **如何使用高阶函数？Map/Filter/Reduce/Sort/偏函数**，`from functools import reduce`
 
 ### 进阶
 1. [模块] 模块对象的定义和使用是怎样的？
@@ -227,7 +227,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [模块] 为什么import应该以module为单位？
 
-1. [模块] reload的应用场景是什么？
+1. [模块] reload的应用场景是什么？`from imp import reload`
 
 1. [模块] **为什么需要这样的语法？`if __name__ == '__main__': `**
 
@@ -250,6 +250,8 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [对象] **常见的重载方法有哪些？`__init__`, `__str__`, `__call__`, `__getattr__`, `__len__`**
 
 1. [对象] 如何用类来实现闭包？`__init__`, `__call__`
+
+1. [对象] 如何约束类，使其实例不能随意添加属性？`__slot__`
 
 1. [对象] Python的继承是单继承还是多继承？继承的搜索策略是深度优先还是广度优先？
 
