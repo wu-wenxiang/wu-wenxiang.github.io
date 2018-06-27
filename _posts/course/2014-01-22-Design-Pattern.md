@@ -118,6 +118,7 @@ description:    整理了23种设计模式的What/Why/How，基于C#
 - 实际的例子：[Django中的工厂模式](http://django.wikispaces.asu.edu/*NEW*+Django+Design+Patterns)
 - ![fields.png](http://django.wikispaces.asu.edu/file/view/fields.png/384505704/fields.png)
 - ![Subclassr2.png](http://django.wikispaces.asu.edu/file/view/Subclassr2.png/384512434/Subclassr2.png)
+- 这里Target Class是widget
 
 ### 抽象工厂模式（Abstract Factory）
 - Creates an instance of several families of classes
