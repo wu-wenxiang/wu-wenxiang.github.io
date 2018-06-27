@@ -210,7 +210,9 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [函数] 回调函数的语法和使用场合是怎样的？
 
-1. [函数] **什么是高阶函数？**闭包closure是什么？有状态的函数。FP与OOP。
+1. [函数] **什么是高阶函数？**
+
+1. [函数] 闭包closure是什么？如何用闭包实现加法器？有状态的函数。FP与OOP。
 
 1. [函数] **如何使用高阶函数？Map/Filter/Reduce/Sort/偏函数**
 
@@ -247,7 +249,11 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [对象] **常见的重载方法有哪些？`__init__`, `__str__`, `__call__`, `__getattr__`, `__len__`**
 
+1. [对象] 如何用类来实现闭包？`__init__`, `__call__`
+
 1. [对象] Python的继承是单继承还是多继承？继承的搜索策略是深度优先还是广度优先？
+
+1. [对象] **组合和继承各自有什么优缺点？如何用组合和继承分别实现Name类？**
 
 1. [对象] **Python如何实现一个符合开放封闭原则的简单工厂模式？**
 
@@ -296,6 +302,8 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [生成] **如何编写生成器函数和生成器表达式？**
 
 1. [生成] **生成器函数的执行逻辑是怎样的？**
+
+1. [生成] 如何生成无限多的斐波那契数列？`for i in Fib(): print(i)`
 
 1. [生成] 什么是扩展生成器协议？
 
@@ -473,6 +481,8 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [架构] **什么是WSGI接口？**
 
 1. [MVC] **什么是MVC模型？**
+
+1. [MVC] 如何从头实现一个Python框架？[Python2-WSGI](https://github.com/michaelliao/awesome-python-webapp/)，[Python3-Async](https://github.com/michaelliao/awesome-python3-webapp)
 
 1. [服务] 什么是WebService？
 
