@@ -532,6 +532,8 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [Django] Django框架中的登陆过程是怎样的？
 
+1. [Django] Django框架中如何实现Restful API？
+
 1. [Django] Django框架如何部署？ [Demo-Fabric](https://github.com/wu-wenxiang/Project-Python-Webdev/tree/master/u1604-fabric)
 
 1. [Django] 如何对Django框架进行性能监控和调优？
