@@ -514,19 +514,21 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [Django] 应该如何选择Django版本？[参考](https://www.djangoproject.com/download/)
 
-1. [Django] **Django框架中如何Startup，编写config文件和Router(urls.py)？**，[参考](https://docs.djangoproject.com/en/2.0/intro/tutorial01/)，[Demo](https://github.com/maodouzi/LearningDjango-1-4)
+1. [Django] **Django框架中如何Startup，编写config文件和Router(urls.py)？** [参考](https://docs.djangoproject.com/en/1.11/intro/tutorial01/)，[Demo-Get-Started](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/01-Get-Started)
 
-1. [Django] **Django框架中Views方法如何接收到uri参数？**
+1. [Django] **Django框架中Views方法如何接收到uri参数？** [Demo-Dynamic-Urls](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/02-Dynamic-Urls)
 
-1. [Django] **Django框架中的ORM模型如何使用？**
+1. [Django] **Django框架中Template的语法是怎样的？与Jinja2有什么区别？** [Demo-Templates](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/03-Templates)
 
-1. [Django] **Django框架中Template的语法是怎样的？与Jinja2有什么区别？**
+1. [Django] **Django框架中的ORM模型如何使用？** [Demo-Models](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/04-Models)
 
-1. [Django] **Django框架中的表单处理是怎样的？**
+1. [Django] **Django框架中的ORM模型如何使用？** [Demo-Admins](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/05-Admins)
 
-1. [Django] **Django框架中的Session和Cookie处理是怎样的？**
+1. [Django] **Django框架中的表单处理是怎样的？** [Demo-Forms](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/06-Forms)
 
-1. [Django] **Django框架如何部署？**
+1. [Django] **Django框架中的登陆过程是怎样的？** [Demo-Login-Logout](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/07-Forms)
+
+1. [Django] **Django框架如何部署？** [Demo-Fabric](https://github.com/wu-wenxiang/Project-Python-Webdev/tree/master/u1604-fabric)
 
 1. [Django] 如何对Django框架进行性能监控和调优？
 
