@@ -522,11 +522,11 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [Django] **Django框架中的ORM模型如何使用？** [Demo-Models](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/04-Models)
 
-1. [Django] **Django框架中的ORM模型如何使用？** [Demo-Admins](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/05-Admins)
+1. [Django] **Django框架中的Admin如何使用？** [Demo-Admins](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/05-Admins)
 
 1. [Django] **Django框架中的表单处理是怎样的？** [Demo-Forms](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/06-Forms)
 
-1. [Django] **Django框架中的登陆过程是怎样的？** [Demo-Login-Logout](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/07-Forms)
+1. [Django] **Django框架中的登陆过程是怎样的？** [Demo-Login-Logout](https://github.com/wu-wenxiang/Training-Django-Public/blob/master/07-Login-Logout)
 
 1. [Django] **Django框架如何部署？** [Demo-Fabric](https://github.com/wu-wenxiang/Project-Python-Webdev/tree/master/u1604-fabric)
 
