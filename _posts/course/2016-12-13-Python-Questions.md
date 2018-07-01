@@ -66,7 +66,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [环境] 还有什么其它的Python调试套件？[Notepad++](http://www.cnblogs.com/zhcncn/p/3969419.html)
 
-1. [环境] **如何查阅Python帮助文档？pydoc, chm**
+1. [环境] **如何查阅Python帮助文档？pydoc, help, chm**
 
 1. [环境] **Python代码中如何包含中文？**源文件存成utf-8，文件头：`# -*- coding: utf-8 -*`
 
