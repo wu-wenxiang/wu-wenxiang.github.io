@@ -69,7 +69,7 @@ description:    整理了23种设计模式的What/Why/How，基于C#
 			def testFun(i):
 			    return any(fun(i) for fun in funList)
 			
-			print(filter(testFun, range(100)))
+			print(list(filter(testFun, range(100))))
 - **里氏替换原则（Liskov Substitution Principle，LSP）**
 	- 1987年，Barbara Liskov（美国首位计算机女博士、第二位女图灵奖得主）在会议演讲中首先提出：
 		- `Let q(x) be a property provable about objects x of type T`
