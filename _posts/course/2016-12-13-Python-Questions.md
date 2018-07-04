@@ -20,7 +20,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 	- **云计算OpenStack**: 架构，安装，使用，排错 
 	- **PaaS云平台**: GAE, SAE
 	- **Office文档处理**: Word，Excel
-	- **Python-C**: Python调用C-Lib，C调用Python-Lib，C实现Python-Module
+	- **Python-C**: Python调用C-Lib，C实现Python-Module
 	- **PVM内存分析和调试**：pdb，dump，windbg，gdb
 	- **IoT**: 树莓板，GPIO，Azure IoT DevKit
 	- **MineCraft**: MineCraft, 绘制三维图形，捕捉玩家位置，虚拟连接现实
@@ -625,11 +625,11 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [Excel] **如何实现对Excel文档的读、写操作？**
 
 ### Python-C
-1. [CType] Python如何调用C类库？
+1. [CType] Python如何调用C类库？[CType](https://github.com/wu-wenxiang/Training-Python-Public/tree/master/src/C-Extension)
 
 1. [调用] C语言如何使用Python对象？
 
-1. [实现] 如何实现一个基于C的Python模块？
+1. [实现] 如何实现一个基于C的Python模块？[CModule](https://github.com/wu-wenxiang/Training-Python-Public/tree/master/src/C-Extension)
 
 ### PVM内存分析
 1. [PDB] Pdb的使用和局限性是怎样的？
