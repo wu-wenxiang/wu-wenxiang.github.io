@@ -1,7 +1,7 @@
 ---
 layout:         post
 title:          Python-逆向学习问题总结
-category:       blog
+category:       course
 description:    逆向法学习Python，一网打尽那些关于Python你需要能回答出的问题
 ---
 
