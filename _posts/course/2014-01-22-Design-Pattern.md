@@ -2,7 +2,7 @@
 layout:         post
 title:          Design Pattern摘录
 category:       course
-description:    整理了23种设计模式的What/Why/How，基于C#
+description:    整理了23种设计模式的What/Why/How，基于C#和Python
 ---
 
 ## Overview
