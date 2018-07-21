@@ -5,6 +5,9 @@ category:       blog
 description:    整理了一些有趣的编程练习，Python实现
 ---
 
+## 前言
+- 完整代码在[这里](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-interesting-programming.txt)，纯净TXT版在[这里](https://raw.githubusercontent.com/wu-wenxiang/Training-Python-Public/master/doc/python-interesting-programming.txt)
+
 ## 彩票中奖率问题：11选5
 - 题目：
 	- 彩票里面有个玩法叫11选5
@@ -49,8 +52,7 @@ description:    整理了一些有趣的编程练习，Python实现
 			    winningRate = combination(6, 3) / combination(11, 8) * 100
 			    print('The winning rate = %.2f%%' % winningRate)
 - 让代码再正经一点：
-	- 参考Python官网的[示例](https://docs.python.org/3/library/doctest.html)
-	- 我们来借鉴一下`factorial`方法的“**标准**”写法
+	- 我们来借鉴一下`factorial`方法的“**标准**”（[Python官网的示例](https://docs.python.org/3/library/doctest.html)）写法
 
 			def factorial(n):
 			    """Return the factorial of n, an exact integer >= 0.
@@ -142,4 +144,26 @@ description:    整理了一些有趣的编程练习，Python实现
 	- 随机选取函数看懂了么？二进制了解一下？有更好的写法了么？
 	- 集合运算好玩么？再试试并集/交集/差集/外集？
 	- 生成器好玩么？
-- 速度有点慢？并行处理了解一下 :-)
+- 速度有点慢？并行处理了解一下？ :-)
+
+## 读心术问题
+- 题目：
+	- 刘谦表演的读心术
+	- 提前准备好6张纸片，每张纸片上写了32个数字，不再变更
+	- 请你在心里想一个数字，数字要在`[0，63]`之间
+	- 然后刘谦会依次给你看6张纸片，问你你的牌在不在这些纸片上，你需要如实回答在或者不在
+	- 等你回答完毕，刘谦就会告诉你你想的数字是多少。
+- 二进制了解一下？
+- 二进制作弊大师了解一下？
+
+## 股票信息获取和可视化问题
+- 题目：
+	- 根据股票代号爬取股票信息
+	- 绘制K线图
+- 爬虫了解一下？
+- 绘图模块了解一下？
+
+## 汉诺塔问题
+- 题目：
+	- 求汉诺塔问题的解法
+- 递归思想了解一下？
