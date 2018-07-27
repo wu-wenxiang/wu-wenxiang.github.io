@@ -7,7 +7,7 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 
 ## 简介
 
-###量化投资简介
+### 量化投资简介
 - 投资大致有两种方法：基本面选股和量化投资
 	- **基本面选股**：主要依靠自己在实盘操作的多年经验结合对影响市场价格客观因素的分析来判断并且进行投资
 	- **量化投资**：通过模型对整个市场进行扫描，然后根据数据进行投资。
@@ -57,9 +57,9 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 
 ### 在线编程
 - Hello, world
-	- ![WindQuant-Debug.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-CodeBlock.png)
+- ![WindQuant-Debug.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-CodeBlock.png)
 - Debug
-	- ![WindQuant-Debug.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-Debug.png)
+- ![WindQuant-Debug.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-Debug.png)
 - 帮助文档
 	- [Github](https://github.com/WindQuant/Official/tree/master/WAPIWrapper/WAPIWrapperPython)
 	- [帮助文档](http://www.dajiangzhang.com/document)  
@@ -93,7 +93,7 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 		res = bkt.run(show_progress=True) #调用run()函数开始回测,show_progress可用于指定是否显示回测净值曲线图
 		nav_df=bkt.summary('nav') #获取回测结果
 - 效果
-	- ![WindQuant-回测](http://5b0988e595225.cdn.sohucs.com/images/20171214/11bc8ab7f3aa4eea92c8a2e18df4bd05.gif)
+- ![WindQuant-回测](http://5b0988e595225.cdn.sohucs.com/images/20171214/11bc8ab7f3aa4eea92c8a2e18df4bd05.gif)
 
 ### API取值
 - 在使用API之前，必须先加载`WindPy`，然后执行`w.start()`启动API接口。
@@ -142,13 +142,13 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 - WindQuant起源于Wind API，在WindQuant上的脚本基本都可以用WindAPI在本地运行。
 - 安装：
 	- 在[大奖章](http://www.dajiangzhang.com/document)下载Wind API，当前是2.0版本，2015年Release
-		- ![WindAPI-Download.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Download.png)
+	- ![WindAPI-Download.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Download.png)
 	- 安装
-		- ![WindAPI-Installation.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Installation.png)
+	- ![WindAPI-Installation.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Installation.png)
 	- 安装后，会自动弹出登录窗口
-		- ![WindAPI-Login.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Login.png)
+	- ![WindAPI-Login.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Login.png)
 	- 如果要切换用户登陆，可以在登陆
-		- ![WindAPI-SwitchUser.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-SwitchUser.png) 
+	- ![WindAPI-SwitchUser.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-SwitchUser.png) 
 - 安装好，并完成登陆后，就可以在本地使用WindAPI了
 	- 代码
 
@@ -159,4 +159,4 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 			wsd_data=w.wsd("000001.SZ", "open,high,low,close,volume,amt,chg,pct_chg", "2016-11-01", "2017-01-03", "")
 			print(wsd_data) 
 	- 效果如下
-		- ![WindAPI-PyCharm.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-PyCharm.png) 
+	- ![WindAPI-PyCharm.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-PyCharm.png) 
