@@ -63,6 +63,10 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 - 帮助文档
 	- [Github](https://github.com/WindQuant/Official/tree/master/WAPIWrapper/WAPIWrapperPython)
 	- [帮助文档](http://www.dajiangzhang.com/document)  
+	- [qntcloud/research](https://www.windquant.com/qntcloud/research)
+	- [qntcloud/help](https://www.windquant.com/qntcloud/help)
+	- [qntcloud/template](https://www.windquant.com/qntcloud/template)
+	- [qntcloud/community](https://www.windquant.com/qntcloud/community#c=recommend&page=1)
 
 ### 测试模版案例
 - 基于MA均线的回测
