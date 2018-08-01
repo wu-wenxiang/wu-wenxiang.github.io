@@ -5,15 +5,75 @@ category:       blog
 description:    整理了一些涉及科学计算与机器学习的Python模块
 ---
 
+# Numpy
+- 强大的N维数组对象：数组array和列表list类似，但是数据array可以定义维度，且适合做数学代数运算
+- 精密的函数
+- 连接C/C++和Fortran代码的工具 
+- 常用的线性代数，傅里叶变换和随机数生成
+
+## 一元运算函数
+![Numpy-1.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/b65bd14fca944fbcbf582a5e0c60b3f5-Numpy-1.png)
+
+## 二元运算函数
+![Numpy-2.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/b65bd14fca944fbcbf582a5e0c60b3f5-Numpy-2.png)
+
+## 随机数产生
+![Numpy-Random.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/b65bd14fca944fbcbf582a5e0c60b3f5-Numpy-Random.png)
+
+## 其它常见运算
+- 集合运算
+- 切片进阶
+- 排序
+- 数组拼接
+- 数组分解
+- 矩阵运算
+- 多项式拟合
+
+## 特殊数组的产生和常量
+- np.arange(起始数,终止数,间隔)
+- np.linspace(起始数,终止数,产生数的个数)
+- 常用矩阵：
+	- np.ones((3,3))
+	- np.zeros((3,3))
+	- np.eye(3)
+- np.tile()：该函数的作用是重复某个对象为一定的结构
+- np.meshgrid()函数，在画三维图时常用，其含义是利用两个坐标轴的点形成一个平面
+- numpy常用常量
+	- 自然底数：np.e
+	- 缺失值：np.NaN
+	- 无穷大：np.inf
+	- 圆周率：np.pi
+
+# Pandas
+
+# Scipy
+
 # Sklearn
 - sklearn建立于Numpy、SciPy和Matplotlib的基础上
-- 子模块
 - ![Sklearn-Table.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/b65bd14fca944fbcbf582a5e0c60b3f5-Sklearn-Table.png)
 - ![Sklearn-ML-Map.png](http://scikit-learn.org/stable/_static/ml_map.png)
+
+## 预处理（Preprocessing）
+- 特征提取和归一化
+- 应用: 把输入数据（如文本）转换为机器学习算法可用的数据
+
+### 标准化和正态化
+- 标准化1：将数据转化为均值0，方差1
+- 标准化2：每个数据 - 数据集最小值 / (数据集最大值 - 数据集最小值)
+- 规范化：处理后范数为1
+- 二值化：连续值 => 离散值
+- 缺失处理：插值法
+- 多项式变型：用于回归预测
+- ![polynomial_interpolation](http://scikit-learn.org/stable/_images/sphx_glr_plot_polynomial_interpolation_001.png)
 
 ## 分类（Classification）
 - 识别某个对象属于哪个类别
 - 应用: 垃圾邮件检测，图像识别
+
+### 决策树（Decision Tree）
+- 决策树是分类中最为基础的算法之一，其核心是依据特征的重要程度，依次使用单个特征进行分类
+- 决策树(Decision Tree）是在已知各种情况发生概率的基础上，通过构成决策树来求取净现值的期望值大于等于零的概率，评价项目风险，判断其可行性的决策分析方法，是直观运用概率分析的一种图解法。
+- 由于这种决策分支画成图形很像一棵树的枝干，故称决策树。
 
 ### 支持向量机（Support vector machines，SVMs）
 
@@ -114,11 +174,3 @@ description:    整理了一些涉及科学计算与机器学习的Python模块
 ### cross validation
 
 ### metrics
-
-## 预处理（Preprocessing）
-- 特征提取和归一化
-- 应用: 把输入数据（如文本）转换为机器学习算法可用的数据
-
-### preprocessing
-
-### feature extraction
