@@ -15,12 +15,18 @@ description:    小结了MS Support Engineer的技术栈的体系结构，厘清
 	- [CLR via C#](https://book.douban.com/subject/26285940/)，可以说是**C#圣经**了，目前第4版
 	- [The C Program Language](https://book.douban.com/subject/1139336/)，**C语言圣经**，大道至简的典范
 	- [C Primer Plus](https://book.douban.com/subject/26792521/)，出到了第6版，更详细些
-	- [C++ Primer](https://book.douban.com/subject/25708312/)，第5版，**C++圣经**，有人说TCPL才是C++圣经，别听他们的，没人看完那本书
+	- [C++ Primer](https://book.douban.com/subject/25708312/)，第5版，**C++圣经**，有人说TC++PL才是C++圣经，别听他们的，没人看完那本书（看完的都不是人，是神）
 	- [C++ Primer Plus](https://book.douban.com/subject/3542212/)，第6版，更多例子和练习，更厚
+	- [Windows via C/C++](https://book.douban.com/subject/2302961/)，第5版，中译本是[Windows核心编程](https://book.douban.com/subject/3235659/)
 - Windows Internals
 	- [Windows Sysinternals实战指南](https://book.douban.com/subject/27590761/)，Windows平台下最好的问题排查工具集
 	- [深入解析Windows操作系统](https://book.douban.com/subject/25844377/)，中文版的只出到第6版，Win7/08R2
 	- [Windows Internals](https://docs.microsoft.com/en-us/sysinternals/learn/windows-internals)，英文版出到了第7版，Win10/16
+	- [COM技术内幕-微软组件对象模型](https://book.douban.com/subject/1231596/)，COM入门
+	- [COM本质论](https://book.douban.com/subject/1231481/)，COM进阶
+	- [COM原理与应用](http://product.china-pub.com/3148)，潘爱民的书，COM辅助阅读
+	- [COM+编程指南](https://book.douban.com/subject/1231693/)
+	- [C# COM+编程指南](https://book.douban.com/subject/1096763/)，有点过时了，但概念不错。
 - Debug
 	- [安装](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools)，[配置Symbol](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/symbol-path)
 	- [入门文档](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/getting-started-with-windbg)，[进阶文档](https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugging-using-windbg)
