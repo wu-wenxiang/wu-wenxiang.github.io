@@ -164,3 +164,7 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 			print(wsd_data) 
 	- 效果如下
 	- ![WindAPI-PyCharm.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-PyCharm.png) 
+
+## 其它参考信息
+- [基于python的开源量化交易平台开发框架](https://github.com/vnpy/vnpy): http://www.vnpy.org
+- [量化交易教程](https://wizardforcel.gitbooks.io/python-quant-uqer/content/)
