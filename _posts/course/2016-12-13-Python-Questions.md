@@ -214,7 +214,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [函数] 闭包closure是什么？如何用闭包实现加法器？有状态的函数。FP与OOP。
 
-1. [函数] **如何使用高阶函数？Map/Filter/Reduce/Sort/偏函数**，`from functools import reduce`
+1. [函数] **如何使用高阶函数？Map/Filter/Reduce/Sort/Max/偏函数**，`from functools import reduce`
 
 ### 进阶
 1. [模块] 模块对象的定义和使用是怎样的？
@@ -285,7 +285,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [正则] 如何获取匹配到的字符串？
 
-1. [正则] 如何替换匹配到的字符串？
+1. [正则] 如何替换匹配到的字符串？sub，如何通过标记匹配进行替换？
 
 1. [正则] 如何使用Findall？
 
@@ -462,7 +462,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [容器] **K8S是什么？应如何使用？**
 
 ### Web框架
-1. [ORM] MySQL的安装和基本操作是怎样的？
+1. [ORM] MySQL的安装和基本操作是怎样的？[参考](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Database.md)
 
 1. [ORM] Sqlite3的原理和使用方法是怎样的？
 
@@ -557,6 +557,10 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [爬虫] 如何使用bs4模块解析HTML数据？
 
+1. [爬虫] 如何爬取股票数据并绘制K线图？
+
+1. [爬虫] XPath的使用方法是怎样的？
+
 1. [Scrapy] Scrapy框架的架构是怎样的？
 
 1. [Scrapy] **Scrapy的基本使用方法是怎样的？**, [参考](https://docs.scrapy.org/en/latest/)
@@ -584,9 +588,9 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [概念] 什么是Apriori算法？适用于哪些场合？
 
-1. [类库] **如何理解和使用Pandas中的DataFrame对象？**
-
-1. [类库] **如何理解和使用Numpy模块中的ndarray对象？**
+1. [类库] **如何理解和使用Numpy模块中的ndarray对象？** boardcast, 随机数生成，点乘，索引（布尔数组删选）
+ 
+1. [类库] **如何理解和使用Pandas中的DataFrame对象？** 读写文件，columns，index，apple，根据Index定位
 
 1. [类库] 如何使用Scipy解非线性方程组？
 
@@ -594,7 +598,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [类库] **如何使用Matplotlib绘制解析几何图形？**
 
-1. [类库] **如何使用Scikit-Lean完成回归、分类、聚类运算？**
+1. [类库] **如何使用Scikit-Lean完成回归、分类、聚类运算？** [参考](http://blog.wuwenxiang.net/Machine-Learning)
 
 1. [案例] 什么是适用于消费类数据的RFM模型？
 
