@@ -46,6 +46,9 @@ description:    小结了MS Support Engineer的技术栈的体系结构，厘清
 		- [Windows Server 2012系统配置指南](https://book.douban.com/subject/25901051/)
 		- Windows Server 2012 R2 Active Directory配置指南
 		- [Windows Server 2012网络管理与架站](https://book.douban.com/subject/25876180/)
+	- 修复系统技巧
+		- [修复系统文件](https://support.microsoft.com/en-us/help/947821/fix-windows-update-errors-by-using-the-dism-or-system-update-readiness)
+		- [尝试通过Inplace-Upgrade修复系统](https://support.microsoft.com/en-sg/help/2255099/how-to-perform-an-in-place-upgrade-on-windows-vista-windows-7-windows)
 - COM/COM+ 
 - Windbg Extension
 - Network
