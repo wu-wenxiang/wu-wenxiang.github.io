@@ -36,19 +36,19 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 ### 基础
 1. [开始] **Python在编程语言世界中的处于什么样的位置？**[TIOBE](https://tiobe.com/tiobe-index/)
 
-1. [开始] **Python有什么样的特质和设计哲学？**简单，明确
+1. [开始] **Python有什么样的特质和设计哲学？**简单优于繁复，明确优于晦涩，解决一个问题只用一种方法。
 
 1. [开始] **作为一个初入门者，我们应该怎样学习编程？**[如何成为一名黑客-Eric-S-Raymond](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E4%B8%80%E5%90%8D%E9%BB%91%E5%AE%A2-Eric-S-Raymond.pdf)
 
-1. [开始] **应该选择Python2还是Python3开始学习，以及进行开发？**[参考](https://wiki.python.org/moin/Python2orPython3)
+1. [开始] **应该选择Python2还是Python3开始学习，以及进行开发？**[参考](https://wiki.python.org/moin/Python2orPython3)，用Python3
 
 1. [开始] 如果你已经掌握了Python2或者Python3其中一门，[Python2和3有什么区别](https://docs.python.org/3/whatsnew/3.0.html)？[如何迁移](https://docs.python.org/2/library/2to3.html)？
 
-1. [开始] Python2和Python3如何在一个系统中共存？native / venv / docker
+1. [开始] Python2和Python3，或者多个Python3版本如何在一个系统中共存？Native / Virtualenv / Docker
 
-1. [开始] **有哪些优秀的Python学习资源可以参考？** 《Learning Python》/《Python's Standard Library》/《Programming Python》
+1. [开始] **有哪些优秀的Python学习资源可以参考？** [Python学习手册4th](https://book.douban.com/subject/6049132/)，[英文版: Learning Python 5th](https://book.douban.com/subject/22139956/)，[Python标准库](https://book.douban.com/subject/10773324/)
 
-1. [环境] **在Windows下如何搭建Python开发环境？**[参考](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Python-Dev-Env.docx)
+1. [环境] **在Windows下如何搭建Python开发环境？**[单独安装Python](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Python.md)，[一体化安装Anaconda](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Anaconda.md)，[IDE-Eclipse-Pydev](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Eclipse-Pydev.md)，[IDE-PyCharm](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-PyCharm.md)
 
 1. [环境] 在Mac下如何搭建Python开发环境？
 
@@ -64,9 +64,9 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [环境] 如何使用VisualStudio进行开发和调试？[Download](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)
 
-1. [环境] 还有什么其它的Python调试套件？[Notepad++](http://www.cnblogs.com/zhcncn/p/3969419.html)
+1. [环境] 还有什么其它的Python调试套件？[Notepad++](http://www.cnblogs.com/zhcncn/p/3969419.html)，[Sublime](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Sublime.md)
 
-1. [环境] **如何查阅Python帮助文档？pydoc, help, chm**
+1. [环境] **如何查阅Python帮助文档？** pydoc, help, chm
 
 1. [环境] **Python代码中如何包含中文？**源文件存成utf-8，文件头：`# -*- coding: utf-8 -*`
 
@@ -411,7 +411,17 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [部署] 如何为pip配置更快的源？Windows, Linux, Mac, [清华源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
 
-1. [部署] 什么是anaconda？[Download](https://www.anaconda.com/download/)
+1. [部署] 什么是Anaconda？[Download](https://www.anaconda.com/download/)
+
+1. [部署] 如何使用Anaconda管理Python包？
+
+1. [部署] Anaconda Navigtor的使用
+
+1. [部署] Jupyter notebook的使用
+
+1. [部署] QTConsole的使用
+
+1. [部署] Spyder的使用
 
 1. [部署] **什么是virtualenv？如何使用？**
 
