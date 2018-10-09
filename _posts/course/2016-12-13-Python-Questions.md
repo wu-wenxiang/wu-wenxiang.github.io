@@ -415,7 +415,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [部署] 如何使用Anaconda管理Python包？
 
-1. [部署] Anaconda Navigtor的使用
+1. [部署] Anaconda Navigtor的使用，[参考](http://docs.anaconda.com/anaconda/user-guide/getting-started/)
 
 1. [部署] Jupyter notebook的使用
 
