@@ -46,7 +46,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [开始] Python2和Python3，或者多个Python3版本如何在一个系统中共存？Native / Virtualenv / Docker
 
-1. [开始] **有哪些优秀的Python学习资源可以参考？** [Python学习手册4th](https://book.douban.com/subject/6049132/)，[英文版: Learning Python 5th](https://book.douban.com/subject/22139956/)，[Python标准库](https://book.douban.com/subject/10773324/)
+1. [开始] **有哪些优秀的Python学习资源可以参考？** [Python学习手册5th](https://book.douban.com/subject/30364619/)，[Python3标准库](https://book.douban.com/subject/30346181/)
 
 1. [环境] **在Windows下如何搭建Python开发环境？**[单独安装Python](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Python.md)，[一体化安装Anaconda](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Anaconda.md)，[IDE-Eclipse-Pydev](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Eclipse-Pydev.md)，[IDE-PyCharm](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-PyCharm.md)
 
