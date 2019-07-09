@@ -67,7 +67,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 					
 					class FixtureTest(unittest.TestCase):
 					    def test1(self):
-					        self.asertRaises(IOError, raisesIOError)
+					        self.assertRaises(IOError, raisesIOError)
 					
 					if __name__ == '__main__':
 					    unittest.main()

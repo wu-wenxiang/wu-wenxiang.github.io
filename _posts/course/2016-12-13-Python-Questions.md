@@ -628,7 +628,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 ### 云计算OpenStack
 
-### PaSS云平台
+### PaaS云平台
 1. [GAE] GAE的基本使用方法是怎样的？
 
 1. [SAE] SAE的基本使用方法是怎样的？
