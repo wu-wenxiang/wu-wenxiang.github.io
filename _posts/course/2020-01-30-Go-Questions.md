@@ -49,23 +49,37 @@ description:    逆向法学习 Go，一网打尽那些关于 Go 你需要能回
 
 1. [环境] 如果搭建 Goland 开发和调试环境？[Debugging code](https://www.jetbrains.com/help/go/debugging-code.html)，[Debugging containerized Go applications](https://blog.jetbrains.com/go/2018/04/30/debugging-containerized-go-applications/)
 
-1. [结构] Go 语言中函数、变量、常量、类型、语句标签、包的命名规则是什么？类 C、字母 => Unicode，Case
+1. [结构] **Go 语言中函数、变量、常量、类型、语句标签、包的命名规则是什么？**类 C、字母 => Unicode，Case
 
-1. [结构] 如下关键字是什么意思，[iota](https://golang.org/ref/spec#Iota) / [rune](https://golang.org/pkg/builtin/#rune) / [cap](https://golang.org/pkg/builtin/#cap) / [imag](https://golang.org/pkg/builtin/#imag)？iota 是常量，结合隐性重复最后一个非空的表达式，用于递增场景。rune 就是 int32，用于 unicode。
+1. [结构] 如下预声明的常量、类型、函数是什么意思，[iota](https://golang.org/ref/spec#Iota) / [rune](https://golang.org/pkg/builtin/#rune) / [cap](https://golang.org/pkg/builtin/#cap) / [imag](https://golang.org/pkg/builtin/#imag)？iota 是希腊字母艾欧他，对应拉丁字母 i，表示下标，结合隐性重复最后一个非空的表达式的语法糖，用于递增场景（ 常量生成器 ）。rune 就是 int32，用于 unicode。
 
-1. [结构] 
+1. [结构] 变量的有效性如何判断？函数内、包内、流程语句，流程代码块内部
 
-1. [结构] 
+1. [结构] **包内有效变量的可导出性如何决定？**。首字母的大小写
 
-1. [结构] 
+1. [结构] 变量命名潜规则？优先短名，作用域越大命名越长且越有意义，驼峰规则，首字母缩写单词用相同大小写
 
-1. [结构] 
+1. [结构] **各类程序实体如何声明？var / const / type / func**
 
-1. [结构] 
+1. [结构] **短变量声明用于哪里？**函数内。函数内一般使用短变量声明（ Python 3.8 中引入的海象运算符 := ），var 一般用于包级别，或者函数内的零值情况。
 
-1. [结构] 
+1. [结构] 短声明最少声明一个新变量（ 不需要声明所有在左边的变量 ），否则要改成赋值等号
 
-1. [结构] 
+1. [结构] **数字 / 布尔 / 字符串 / 接口和引用类型（ slice / 指针 / map / 通道 / 函数 ）的零值（ 变量默认值 ）分别是？**
 
-1. [结构] 
+1. [结构] 变量初始化在何时发生？包级别在 main 函数开始前，局部变量在函数执行期间（ 声明时 ）
+
+1. [结构] 多重赋值语法（ 类似 Python 的元组赋值 ）求公约数？`for y!=0 { x, y = y, x%y }`
+
+1. [结构] 指针变量何时相等？指向同一变量或者都为 nil
+
+1. [结构] **new(T) 实际做了什么事？**实例化一个 T 类型的变量，初始为 T 类型的零值，返回其地址（ *T 类型 ）。`return new(T)` == `{ var dummy T;  return & dummy }`
+
+1. [结构] 每次 new 都会创建一个不同实例么？一般是，但有特例（ 变量类型不携带信息且为零值有相同地址，比如 struct{}，[0]int ），1.13 版本中，这个特例也改掉了（ `a, b := new(struct{}), new(struct{}); &a == &b` ）。
+
+1. [结构] **包级别变量的生命周期是？**整个程序的执行时间。
+
+1. [结构] **局部级别变量的生命周期是？**一直生存直至 GC。如果处于性能考虑，要减少局部变量逃逸，从而减少 GC（ 编译器会在栈上分配内存 ）。
+
+1. [结构] **赋值操作符的写法，递增递减的写法**？+=，++ / -- 后置
 
