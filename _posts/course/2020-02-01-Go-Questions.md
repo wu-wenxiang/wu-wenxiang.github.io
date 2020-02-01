@@ -8,8 +8,8 @@ description:    逆向法学习 Go，一网打尽那些关于 Go 你需要能回
 
 ## 问题分类
 - 核心知识
-	- **基础**: 开始，开发环境搭建，程序结构，包和工具，基本数据，复合数据类型，函数
-	- **进阶**: 方法，接口，goroutine 和通道，并发，测试，反射，低级编程
+	- **基础**: 开始，开发环境搭建，程序结构，基本数据，复合数据类型，函数
+	- **进阶**: 方法，接口，goroutine 和通道，并发，包和工具，测试，反射，低级编程
 - 常见应用
 	- **Web开发**: Micro / Go-Micro
 
@@ -133,7 +133,9 @@ description:    逆向法学习 Go，一网打尽那些关于 Go 你需要能回
 
 1. [结构] if / for 和 err 怎么搭？判断条件中有 err，则常规代码写在 else 里。
 
-1. [结构] init 和 err 怎么搭？在 init 函数中，var err 私有化，然后用多重赋值，而不是短声明 
+1. [结构] init 和 err 怎么搭？在 init 函数中，var err 私有化，然后用多重赋值，而不是短声明
+
+1. [基本] Go 数据类型的分类？4 大类。basic（ number 整数、浮点数、复数 / string / boolean ），aggregate（ array / struct ），reference（ pointer / slice / map / function / channel ），interface
 
 ### 进阶
 
