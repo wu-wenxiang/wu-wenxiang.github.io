@@ -2,7 +2,7 @@
 layout:         post
 title:          Go-逆向学习问题总结
 category:       course
-description:    逆向法学习 Go，一网打尽那些关于 Go 你需要能回答出的问题
+description:    逆向法学习 Golang，关于 Golang 需要能回答出的问题
 ---
 
 
@@ -33,13 +33,13 @@ description:    逆向法学习 Go，一网打尽那些关于 Go 你需要能回
 
 1. [开始] **和其它高级语言相比，Go 有哪些特性？**GC，包系统，一等公民函数，词法作用域，系统调用接口，默认用 UTF-8 编码的不可变字符串
 
-1. [开始] **和其它高级语言相比，Go 没有哪些特性？**隐式数据类型强制转换（ 浮点数赋值给整数不可以，要显式转换，并且数值过大时行为不保证 ），构造和析构函数，运算符重载，形参默认值，继承，**范型**，**异常**，宏，函数注解，线程局部变量存储（ 依赖编译器判断是否放在线程栈上 & GC ），切片语法糖，map / filter / reduce
+1. [开始] **和其它高级语言相比，Go 没有哪些特性？**隐式数据类型强制转换（ 浮点数赋值给整数不可以，也不可以直接运算，比如 `int(3) + float64(3)`，要显式转换成相同类型，并且转换数值过大导致溢出时行为不保证 ），构造和析构函数，运算符重载，形参默认值，继承，**范型**，**异常**，宏，函数注解，线程局部变量存储（ 依赖编译器判断是否放在线程栈上 & GC ），切片语法糖，map / filter / reduce
 
 1. [开始] Go 的语法兼容性如何？保证向后（下）兼容（ 旧版本 Go 写的程序，能用新版本的编译器和库 ）
 
 1. [开始] Go 有什么缺点？[go-is-not-good](https://github.com/ksimka/go-is-not-good)
 
-1. [开始] **有哪些优秀的 Go 学习资源可以参考？** [TGPL](https://book.douban.com/subject/27044219/)（ [源码](https://github.com/adonovan/gopl.io/) ），[Learning basic Golang in one day](https://github.com/go-training/training)，[Training Meterials](https://github.com/golang/go/wiki/Training)，[官方文档](https://golang.org/doc/#references)
+1. [开始] **有哪些优秀的 Go 学习资源可以参考？** [TGPL](https://book.douban.com/subject/27044219/)（ [源码](https://github.com/adonovan/gopl.io/) ），[Learning basic Golang in one day](https://github.com/go-training/training)，[Training Meterials](https://github.com/golang/go/wiki/Training)，[官方文档](https://golang.org/doc/#references)，[标准库中文版](https://books.studygolang.com/The-Golang-Standard-Library-by-Example/)
 
 1. [开始] 有哪些框架是 Go 语言开发的？容器（ Docker / Kubernetes ），数据库（ TiDB / InfluxDB / ETCD ），消息系统（ NSQ ），缓存系统（ GroupCache ），Web框架（ Beego / Gorilla / Micro / Go-Micro ）
 
@@ -136,6 +136,40 @@ description:    逆向法学习 Go，一网打尽那些关于 Go 你需要能回
 1. [结构] init 和 err 怎么搭？在 init 函数中，var err 私有化，然后用多重赋值，而不是短声明
 
 1. [基本] Go 数据类型的分类？4 大类。basic（ number 整数、浮点数、复数 / string / boolean ），aggregate（ array / struct ），reference（ pointer / slice / map / function / channel ），interface
+
+1. [整数] 整数类型有几种？固定大小：uint8-32 / int8-32 / rune / byte，不固定：int / uint / uintptr（ 仅用于底层编程 ）
+
+1. [整数] 如何实现乘方运算？math.Pow(float64, float64)
+
+1. [整数] 三元运算符？没有，只能 `var a int; if true { a = 5 } else { a = 6 }`
+
+1. [整数] 有哪些一元运算符，哪个是按位取反运算符？`+  /  -  ^`，一元 ^ 表示逐位取反
+
+1. [整数] 有哪些二元运算符？`*  /  %  <<  >>  &  &^`，`+  -  ｜ ^`，`==  !=  <  <=  >  >=`，`&&`，`||`
+
+1. [整数] 如何将数字转换成字符串？`fmt.Sprintf("%b %o %x %d", ...)`，`strconv.FormatInt(42, 17)`，`strconv. Itoa()`
+
+1. [整数] 如何将字符串转换成数字？[strconv](https://golang.org/pkg/strconv/)，`strconv.ParseInt("42", 8, 64)`，`strconv. Atoi()`
+
+1. [整数] 为什么数组长度不可能为负数，还是采用有符号整型？for 循环--避免溢出
+
+1. [整数] 左移、右移的处理逻辑和注意点？x << n => x * 2^n，x >> n => x / 2^n 向下取整，n 必须无符号。有符号右移高位填充符号位，因此位模式处理右移需要无符号整型
+
+1. [整数] 无符号整数用于什么场景？位运算 & 特定算术运算，一般不用于表示非负值
+
+1. [整数] fmt.Printf 怎么用 index，# 是什么意思？`"%#[1]d"`
+
+1. [整数] 单引号表示什么？字符。rune / byte，`%d %c %q`
+
+1. [整数] ASCII 和字符转换？`str(62)`，`%c %d`，`[]rune("hello"), []byte("hello")`。
+
+1. [字符] 原始字符串？
+
+1. [字符] 字符串遍历？`for _, i := range "hello" {}`，这里 %T 看，会发现 i 是 int32
+
+1. [字符] 字符串索引？`s := "hello"; s[1] 是 byte 或者 rune`，这里 %T 看，会发现是 int8，即使里面有中文。`len("我") == 3`
+
+1. [字符] 如何令字符串索引能支持 Unicode？`[]rune("hello")`
 
 ### 进阶
 
