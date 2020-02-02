@@ -137,6 +137,8 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [基本] Go 数据类型的分类？4 大类。basic（ number 整数、浮点数、复数 / string / boolean ），aggregate（ array / struct ），reference（ pointer / slice / map / function / channel ），interface
 
+1. [基本] 如何确认数据类型？%T，reflect.TypeOf(42).String()
+
 1. [整数] 整数类型有几种？固定大小：uint8-32 / int8-32 / rune / byte，不固定：int / uint / uintptr（ 仅用于底层编程 ）
 
 1. [整数] 如何实现乘方运算？math.Pow(float64, float64)
