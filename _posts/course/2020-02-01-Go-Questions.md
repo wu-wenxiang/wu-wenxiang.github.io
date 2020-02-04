@@ -41,6 +41,8 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [开始] **有哪些优秀的 Go 学习资源可以参考？** [TGPL](https://book.douban.com/subject/27044219/)（ [源码](https://github.com/adonovan/gopl.io/) ），[Learning basic Golang in one day](https://github.com/go-training/training)，[Training Meterials](https://github.com/golang/go/wiki/Training)，[官方文档](https://golang.org/doc/#references)，[标准库中文版](https://books.studygolang.com/The-Golang-Standard-Library-by-Example/)
 
+1. [开始] **优秀的三方类库**：[golang.org/x](https://godoc.org/-/subrepo)，[pkg.go.dev](https://pkg.go.dev/)，[gofunk](https://godoc.org/github.com/thoas/go-funk)
+
 1. [开始] 有哪些框架是 Go 语言开发的？容器（ Docker / Kubernetes ），数据库（ TiDB / InfluxDB / ETCD ），消息系统（ NSQ ），缓存系统（ GroupCache ），Web框架（ Beego / Gorilla / Micro / Go-Micro ）
 
 1. [环境] 如何搭建 VSCode 开发和调试环境？[Go in VSCode](https://code.visualstudio.com/docs/languages/go)，[Code Navigation](https://code.visualstudio.com/docs/editor/editingevolved)，[Debugging Go code using VS Code](https://github.com/Microsoft/vscode-go/wiki/Debugging-Go-code-using-VS-Code)
@@ -191,25 +193,27 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [字符] 如何令字符串索引能支持 Unicode？`[]rune("he我llo")[2]`
 
-1. [字符] Unicode 和 UTF-8 什么关系？UTF-8 以字节为单位对 Unicode codepoint 做变长编码，由 Go 语言创建者 Ken Thompson & Rob Pike 发明。Unicode 定长编码是 UTF-32，也叫 UCS-4。
+1. [字符] Unicode 和 UTF-8 什么关系？UTF-8 以字节为单位对 Unicode codepoint 做变长编码，由 Go 语言创建者 Ken Thompson & Rob Pike 发明。Unicode 定长编码是 UTF-32，也叫 UCS-4。`'世' == '\u4e16' == '\U00004e16'`
 
 1. [字符] **字符串怎么存储的？可变么？**不可变字节序列，文本字符串被解读成 **UTF-8 编码的 Unicode 码点序列**。类似这样存储：`struct { data pointer; len int }`
 
-1. [字符] 字符串索引运算符的操作逻辑？s[i] => 字符。s[i:j] / s[:j] / s[:i] / s[:]，子串生成操作，左闭右开，产生新的字符串对象，但底层不重新分配内存，因为字符串不可变，所以可以安全地共用底层。
+1. [字符] 字符串索引运算符的操作逻辑？s[i] => 字符。s[i:j] / s[:j] / s[:i] / s[:]，子串生成操作，左闭右开，产生新的字符串对象，但底层不重新分配内存，因为字符串不可变，所以可以安全地共用底层。[import "index/suffixarray"](https://golang.org/pkg/index/suffixarray/)
 
 1. [字符串] 怎么理解字符串加法 +=，比如 `s += "hello"`？产生一个新的字符串实例并赋值给 s。底层应该也不是直接加而是分配全新的内存空间，因为对同一个底层，多个字符串都可以 += 不同的新串。
 
-1. [字符串] 
+1. [字符串] Golang 对 UTF-8 的支持情况如何？Go 的源文件**总是**以 UTF-8 编码，Go 操作文本字符串**优先**用 UTF-8 编码。
 
-1. [字符串] 
+1. [字符串] 怎么区分单个文字符号是字母还是数字？怎么转换大小写？`unicode.IsDigit(i)`, `unicode.IsUpper(i) || unicode.IsLower(i)`，`unicode.ToUpper(i)`，`unicode.ToLower(i)`
 
-1. [字符串] 
+1. [字符串] 怎么对 UTF-8 进行编解码？unicode/utf8，`for _, i := range "1世a" { buf := make([]byte, 3); n := utf8.EncodeRune(buf, i); fmt.Println(buf[:n])}`，`DecodeRuneInString(s[i:])`，或者用：`golang.org/x/text/encoding/simplifiedchinese`、`golang.org/x/text/transform`，`reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewDecoder()); d, e := ioutil.ReadAll(reader)`，`reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewEncoder()); d, e := ioutil.ReadAll(reader)`
 
-1. [字符串] 
+1. [字符串] 怎么实现序列反转？[funk.Reverse([]int{0, 1, 2, 3, 4})](https://github.com/thoas/go-funk)，[源码：transform.go](https://github.com/thoas/go-funk/blob/master/transform.go#L279)
 
-1. [字符串] 
+1. [字符串] 怎么实现 Python str.startswith？HasPrefix `return len(s) >= len(suffix) && s[len(s) - len(suffix):] == suffix`
 
-1. [字符串] 
+1. [字符串] 怎么实现 Python str.endswith? HasSuffix `return len(s) >= len(suffix) && s[:len(s) - len(suffix)] == suffix`
+
+1. [字符串] []rune 转换成字符串？`string([]rune("hello"))`
 
 ### 进阶
 
