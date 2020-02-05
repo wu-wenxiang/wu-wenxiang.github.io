@@ -121,15 +121,17 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [结构] 什么是包初始化函数？func init() {}，包中变量会在编译时依据依赖关系自动确定先后初始化
 
-1. [结构] for range 的使用？`for i := range new([5]byte) { fmt.Println(i) } `等同于` for i, _ := range new([5]byte) { fmt.Println(i) }`
+1. [结构] **for 有几种形式？**3 种。Condition：`[Condition]`，ForClause：`[ InitStmt ] ";" [ Condition ] ";" [ PostStmt ]`，RangeClause：`[ ExpressionList "=" | IdentifierList ":=" ] "range" Expression`
+
+1. [结构] **for range 的使用？**`for i := range new([5]byte) { fmt.Println(i) } `等同于` for i, _ := range new([5]byte) { fmt.Println(i) }`。`for _, _ := range s` 等同于 `for range s`。
 
 1. [结构] 纯概念，作用域（ 编译时属性，声明在程序文本中出现的区域 ），变量的生命周期（ 运行时概念 ），语法块（ 大括号里的语句序列 ），词法块（ 推广语法块到没有显式包含在大括号里的声明代码 ）。
 
-1. [结构] 在一个作用域内，x := x + 1，这里的两个 x 是同一个变量么？不是！
+1. [结构] **在一个作用域内，x := x + 1，这里的两个 x 是同一个变量么？**不是！
 
-1. [结构] 怎么理解 for / if 的作用域？分隐式块和显式块。隐式块包含：声明 + 条件 + 后置语句（ for 循环 ）+ 显式块
+1. [结构] **怎么理解 for / if 的作用域？**分隐式块和显式块。隐式块包含：声明 + 条件 + 后置语句（ for 循环 ）+ 显式块
 
-1. [结构] 怎么理解 if / else if / else？单纯的嵌套（ 与之对应的，也是作用域嵌套 ）
+1. [结构] **怎么理解 if / else if / else？**单纯的嵌套（ 与之对应的，也是作用域嵌套 ）
 
 1. [结构] 怎么理解 switch 的作用域？条件对应一个块，每个 case 语句体对应一个块。
 
@@ -137,9 +139,9 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [结构] init 和 err 怎么搭？在 init 函数中，var err 私有化，然后用多重赋值，而不是短声明
 
-1. [基本] Go 数据类型的分类？4 大类。basic（ number 整数、浮点数、复数 / string / boolean ），aggregate（ array / struct ），reference（ pointer / slice / map / function / channel ），interface
+1. [基本] **Go 数据类型的分类？**4 大类。basic（ number 整数、浮点数、复数 / string / boolean ），aggregate（ array / struct ），reference（ pointer / slice / map / function / channel ），interface
 
-1. [基本] 如何确认数据类型？%T，reflect.TypeOf(42).String()
+1. [基本] **如何确认数据类型？**%T，reflect.TypeOf(42).String()
 
 1. [整数] 整数类型有几种？固定大小：uint8-32 / int8-32 / rune / byte，不固定：int / uint / uintptr（ 仅用于底层编程 ）
 
@@ -151,9 +153,9 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [整数] 有哪些二元运算符？`*  /  %  <<  >>  &  &^`，`+  -  ｜ ^`，`==  !=  <  <=  >  >=`，`&&`，`||`。&& 表示逻辑乘，优先级高，|| 表示逻辑和，& 和 | 同理。
 
-1. [整数] 如何将数字转换成字符串？`fmt.Sprintf("%b %o %x %d", ...)`，`strconv.FormatInt(42, 17)`，`strconv. Itoa()`
+1. [整数] **如何将数字转换成字符串？**`fmt.Sprintf("%b %o %x %d", ...)`，`strconv.FormatInt(42, 17)`，`strconv. Itoa()`
 
-1. [整数] 如何将字符串转换成数字？[strconv](https://golang.org/pkg/strconv/)，`strconv.ParseInt("42", 8, 64)`，`strconv. Atoi()`
+1. [整数] **如何将字符串转换成数字？**[strconv](https://golang.org/pkg/strconv/)，`strconv.ParseInt("42", 8, 64)`，`strconv. Atoi()`，fmt.Scanf 不够灵活
 
 1. [整数] 为什么数组长度不可能为负数，还是采用有符号整型？for 循环--避免溢出
 
@@ -163,15 +165,15 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [整数] fmt.Printf 怎么用 index，# 是什么意思？`"%#[1]d"`
 
-1. [整数] 单引号表示什么？字符。rune / byte，`%d %c %q`
+1. [整数] **单引号括起来的单个文本符号表示什么？**字符。rune / byte，`%d %c %q`
 
-1. [整数] ASCII 和字符转换？`str(62)`，`%c %d`，`[]rune("hello"), []byte("hello")`。
+1. [整数] **ASCII 和字符转换？**`str(62)`，`%c %d`，`[]rune("hello"), []byte("hello")`。
 
 1. [浮点] Go 支持支持几种浮点数类型？算术特性遵从什么标准？float32 / float64，IEEE 754 ( `a=0.1; a+0.2 != 0.3` )，注，字面常量这里相等的 `0.1+0.2==0.3`，应该是编译器直接优化了。
 
 1. [浮点] float32 和 float64 的精准度如何？32 有效数字大约 6 位，64 大约 15 位。绝大多数情况用 64，避免运算误差迅速累计放大。
 
-1. [浮点] %g, %f, %e 有和区别？%g 自动保持精度+简洁，%f 无指数，%e 有指数。都可以通过谓词 %8.3f 掌握宽度和精度。
+1. [浮点] **%g, %f, %e 有和区别？**%g 自动保持精度+简洁，%f 无指数，%e 有指数。都可以通过谓词 %8.3f 掌握宽度和精度。
 
 1. [浮点] 如何表示最大的 64 位浮点数？正负无穷大（ 超出许可值，非零除以零 ）？数学上无意义的运算结果（ 0/0，sqrt(-1) ）？math.MaxFloat64，math.Inf(64)，-math.Inf(64)，math.NaN()
 
@@ -181,39 +183,55 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [复数] 复数的类型？complex64 / complex128，二者分别由 float32 和 float64 构成。real(complex128)，imag(complex128) 取实部和虚部
 
-1. [布尔] 布尔值和数值的转换？无法隐式转换。`i := 0; if b { i = 1 }`，`b = i!=0`
+1. [布尔] **布尔值和数值的转换？**无法隐式转换。`i := 0; if b { i = 1 }`，`b = i!=0`
 
-1. [字符] 字符串转义？`\a \b \f \n \r \t \v \' \" \\`
+1. [字符] **字符串转义？**`\a \b \f \n \r \t \v \' \" \\`
 
-1. [字符] 原始字符串怎么写，用于何处？反引号，可以换行。用于正则表达式，路径，HTML/JSON 模版，多行的命令行提示信息。
+1. [字符] **原始字符串怎么写，用于何处？**反引号，可以换行。用于正则表达式，路径，HTML/JSON 模版，多行的命令行提示信息。
 
-1. [字符] 字符串遍历？`for _, i := range "hello" {}`，这里 %T 看，会发现 i 是 int32
+1. [字符] 长行字符串如何表示？a := "xxx" +，换行，tab，"yyy" +，换行，tab，"zzz"
 
-1. [字符] 字符串索引？`s := "hello"; s[1]` 是 byte 还是 rune，这里 %T 看，会发现是 int8，即使里面有中文。`len("我") == 3`。
+1. [字符] **字符串遍历？**`for _, i := range "hello" {}`，这里 %T 看，会发现 i 是 int32，**按 UTF-8 隐式解码**。%x 可以看到是 3 个字节。
 
-1. [字符] 如何令字符串索引能支持 Unicode？`[]rune("he我llo")[2]`
+1. [字符] **字符串与字节 slice 如何互换？**[]byte(s)，分配内存，拷贝填入 s 含有的字节（ 这一步可能会被编译器优化掉 ），并生成一个 slice 引用，指向整个数组。
 
-1. [字符] Unicode 和 UTF-8 什么关系？UTF-8 以字节为单位对 Unicode codepoint 做变长编码，由 Go 语言创建者 Ken Thompson & Rob Pike 发明。Unicode 定长编码是 UTF-32，也叫 UCS-4。`'世' == '\u4e16' == '\U00004e16'`
+1. [字符] **如何令字符串索引能支持 Unicode？**[]rune 转换成字符串？`[]rune("he我llo")[2]`，`string([]rune("hello"))`
+
+1. [字符] Unicode 和 UTF-8 什么关系？UTF-8 以字节为单位对 Unicode codepoint 做变长编码，由 Go 语言创建者 Ken Thompson & Rob Pike 发明。Unicode 定长编码是 UTF-32，也叫 UCS-4。`'世' == '\u4e16' == '\U00004e16'`。UTF-8 本身不会嵌入 NUL 0 值，便于某些程序语言用 NUL 标记字符串结尾。
 
 1. [字符] **字符串怎么存储的？可变么？**不可变字节序列，文本字符串被解读成 **UTF-8 编码的 Unicode 码点序列**。类似这样存储：`struct { data pointer; len int }`
 
-1. [字符] 字符串索引运算符的操作逻辑？s[i] => 字符。s[i:j] / s[:j] / s[:i] / s[:]，子串生成操作，左闭右开，产生新的字符串对象，但底层不重新分配内存，因为字符串不可变，所以可以安全地共用底层。[import "index/suffixarray"](https://golang.org/pkg/index/suffixarray/)
+1. [字符] **根据字符串索引对应的字符？**s[i] => 字符。`s := "hello"; s[1]` 是 byte 还是 rune，这里 %T 看，会发现是 int8，即使里面有中文。`len("我") == 3`。
 
-1. [字符串] 怎么理解字符串加法 +=，比如 `s += "hello"`？产生一个新的字符串实例并赋值给 s。底层应该也不是直接加而是分配全新的内存空间，因为对同一个底层，多个字符串都可以 += 不同的新串。
+1. [字符] **字符串子串运算符的操作逻辑？**s[i:j] / s[:j] / s[:i] / s[:]，子串生成操作，左闭右开，产生新的字符串对象，但底层不重新分配内存，因为字符串不可变，所以可以安全地共用底层。[import "index/suffixarray"](https://golang.org/pkg/index/suffixarray/)
+
+1. [字符串] **怎么理解字符串加法 +=**，比如 `s += "hello"`？产生一个新的字符串实例并赋值给 s。底层应该也不是直接加而是分配全新的内存空间，因为对同一个底层，多个字符串都可以 += 不同的新串。
 
 1. [字符串] Golang 对 UTF-8 的支持情况如何？Go 的源文件**总是**以 UTF-8 编码，Go 操作文本字符串**优先**用 UTF-8 编码。
 
-1. [字符串] 怎么区分单个文字符号是字母还是数字？怎么转换大小写？`unicode.IsDigit(i)`, `unicode.IsUpper(i) || unicode.IsLower(i)`，`unicode.ToUpper(i)`，`unicode.ToLower(i)`
+1. [字符串] **怎么对 UTF-8 进行编解码？**unicode/utf8，`for _, i := range "1世a" { buf := make([]byte, 3); n := utf8.EncodeRune(buf, i); fmt.Println(buf[:n])}`，`DecodeRuneInString(s[i:])`，或者用：`golang.org/x/text/encoding/simplifiedchinese`、`golang.org/x/text/transform`，`reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewDecoder()); d, e := ioutil.ReadAll(reader)`，`reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewEncoder()); d, e := ioutil.ReadAll(reader)`
 
-1. [字符串] 怎么对 UTF-8 进行编解码？unicode/utf8，`for _, i := range "1世a" { buf := make([]byte, 3); n := utf8.EncodeRune(buf, i); fmt.Println(buf[:n])}`，`DecodeRuneInString(s[i:])`，或者用：`golang.org/x/text/encoding/simplifiedchinese`、`golang.org/x/text/transform`，`reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewDecoder()); d, e := ioutil.ReadAll(reader)`，`reader := transform.NewReader(bytes.NewReader(s), simplifiedchinese.GBK.NewEncoder()); d, e := ioutil.ReadAll(reader)`
+1. [字符串] **怎么实现序列反转？**[funk.Reverse([]int{0, 1, 2, 3, 4})](https://github.com/thoas/go-funk)，[源码：transform.go](https://github.com/thoas/go-funk/blob/master/transform.go#L279)
 
-1. [字符串] 怎么实现序列反转？[funk.Reverse([]int{0, 1, 2, 3, 4})](https://github.com/thoas/go-funk)，[源码：transform.go](https://github.com/thoas/go-funk/blob/master/transform.go#L279)
+1. [字符串] **怎么区分单个文字符号是字母还是数字？怎么转换大小写？**`unicode.IsDigit(i)`, `unicode.IsUpper(i) || unicode.IsLower(i)`，`unicode.ToUpper(i)`，`unicode.ToLower(i)`
 
-1. [字符串] 怎么实现 Python str.startswith？HasPrefix `return len(s) >= len(suffix) && s[len(s) - len(suffix):] == suffix`
+1. [字符串] **有哪些字符串处理库函数？**strings.HasPrefix `len(s) >= len(prefix) && s[0:len(prefix)] == prefix`，Contains, ToUpper, Index, Field, Join，与 bytes ( 处理 slice ) 里的对应。
 
-1. [字符串] 怎么实现 Python str.endswith? HasSuffix `return len(s) >= len(suffix) && s[:len(s) - len(suffix)] == suffix`
+1. [字符串] **如何获取字符串长度？**字节长度 len(s)，字符长度 utf8.RuneCountInString(s)
 
-1. [字符串] []rune 转换成字符串？`string([]rune("hello"))`
+1. [字符串] 处理 URL 和文件路径？path，path/filepath
+
+1. [字符串] **如何高速处理字符串？**bytes.Buffer / WriteRune / fmt.Fprint
+
+1. [常量] **常量的基本语法？**const pi [float64] = 3.1415926，或者加括号，多行表示，这里可以结合 iota 完成递增逻辑。如果没有赋值，会复用前一行的表达式及其类型。
+
+1. [常量] 常量的类型？常量本质上都属于基本类型（ 包括 type 具名的基本类型 ）：布尔 / 字符串 / 数字
+
+1. [常量] 常量计算在编译时还是运行时完成？不确定，但对于常量操作数，所有数学、逻辑、比较运算的结果还是常量。常量的类型转换结果和一些内置函数的返回值，例如 len / cap / real / imag / complex / unsafe.Sizeof 同样是常量。
+
+1. [常量] 常量表达式用于何处？数组类型声明长度时。
+
+1. [常量] **什么是无类型常量？为什么需要无类型常量？**math.Pi 或者其它字面值 bool / int / char / float / complex / string。如果 math.Pi 一开始就属于 float64，则 math.Pi 相关的常量运算精度会下降。因此，在编译阶段，编译器会保持高精度，可以认为精度至少达到了是 256 位，因此 0.1+0.2 == 0.3。
 
 ### 进阶
 
