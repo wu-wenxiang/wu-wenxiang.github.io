@@ -243,19 +243,19 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [数组] 数组一般用于什么场景？长度固定（ 不需要增加 ）的场景，比如 Sum256 等。很少用到。
 
-1. [数组] 怎么定义和初始化数组？var a [3]int，可以用数组字面量来初始化数组 var q [3]int = [3]int{1, 2, 3}，或者 q := [...]int{1, 2, 3}，... 只能用于数组字面量，不可以 var [...]int = [...]int{1, 2}，数组长度在编译时确定。**长度也是数组类型的一部分**，不可以 var [3]int = [2]int{1,2}。数组长度必须是常量表达式。
+1. [数组] **怎么定义和初始化数组？**var a [3]int，可以用数组字面量来初始化数组 var q [3]int = [3]int{1, 2, 3}，或者 q := [...]int{1, 2, 3}，... 只能用于数组字面量，不可以 var [...]int = [...]int{1, 2}，数组长度在编译时确定。**长度也是数组类型的一部分**，不可以 var [3]int = [2]int{1,2}。数组长度必须是常量表达式。
 
-1. [数组] 数组初始化完成后还可以批量重新赋值么？可以。`a := [...]int{1, 2, 3, 4}; a = [...]int{5, 2, 3, 4}`
+1. [数组] **数组初始化完成后还可以批量重新赋值么？**可以。`a := [...]int{1, 2, 3, 4}; a = [...]int{5, 2, 3, 4}`
 
-1. [数组] 怎么遍历数组？
+1. [数组] **怎么遍历数组？**
 
-1. [数组] 对数组字面量，如何做部分赋值（ 剩余为 0 值 ）？r := [...]int{99:-1}，len(r) == 100
+1. [数组] **对数组字面量，如何做部分赋值（ 剩余为 0 值 ）？**r := [...]int{99:-1}，len(r) == 100
 
 1. [数组] 如何比较两个数组？精确比较 == / !=，摘要比较 crypto/sha256，sha256.Sum256([]byte("x"))
 
-1. [数组] 数组作为形参是值传递还是引用传递？值传递。如果希望引用传递，可以用数组指针 ptr *[32]byte
+1. [数组] **数组作为形参是值传递还是引用传递？**值传递。如果希望引用传递，可以用数组指针 ptr *[32]byte
 
-1. [Slice] Slice 对象有哪些属性？存储模型是怎样的？指针（ 指向底层数组的第一个可以被 slice 访问的元素 ）；长度（ slice 元素个数，小于容量）；容量（ slice 起始元素到底层数组的最后一个元素 ）。
+1. [Slice] **Slice 对象有哪些属性？存储模型是怎样的？**指针（ 指向底层数组的第一个可以被 slice 访问的元素 ）；长度（ slice 元素个数，小于容量）；容量（ slice 起始元素到底层数组的最后一个元素 ）。
 
 1. [Slice] Slice 操作符 s[i:j] 会创建的 slice 么？会分配内存创建不同的底层数组么？`0<=i<=j<=cap(s)`，会创建新的 Slice，一般会共用底层数组。字符串切片返回字符串，slice 切片返回 slice，array 切片返回 slice。
 
@@ -265,17 +265,43 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [Slice] 为什么 slice 不能直接判断相等？1. slice 可能会包含自身 2. slice 底层数组可能随时改变（ map 的键在散列表的生命周期中必须保持不变，所以 slice 不可以用作 map 的键 ）
 
-1. [Slice] 怎么判断一个 slice 是否为空？长度为 0 的 slice 和值为 nil 的 slice，len(s) 都 == 0？接口对外应该不区分二者，呈相同处理方式。nil：`var s []int`，`s = nil`，`s = []int(nil)`；非 nil 但 len = 0：`s = []int{}，s = make([]int, 3)[3:]`。
+1. [Slice] **怎么判断一个 slice 是否为空？**长度为 0 的 slice 和值为 nil 的 slice，len(s) 都 == 0？接口对外应该不区分二者，呈相同处理方式。nil：`var s []int`，`s = nil`，`s = []int(nil)`；非 nil 但 len = 0：`s = []int{}，s = make([]int, 3)[3:]`。
 
-1. [Slice] append 的用法和底层实现是怎样的？slice = append(slice, item)，需要扩容时会生成新的底层数组（ 一般直接扩一倍 ）。只要可能改变 slice 的长度、容量，或者指向不同地层数组，都需要更新 slice 变量，重新赋值回去。
+1. [Slice] **append 的用法和底层实现是怎样的？**slice = append(slice, item)，需要扩容时会生成新的底层数组（ 一般直接扩一倍 ）。只要可能改变 slice 的长度、容量，或者指向不同地层数组，都需要更新 slice 变量，重新赋值回去。
 
-1. [Slice] slice copy 的用法和底层实现是怎样的？n = copy(dst, src)，不会产生一个新的底层数组，src 和 dst 可能重合（ 因此 copy 函数执行后，src 可能变化 ）。n = min(dst, src)
+1. [Slice] **slice copy 的用法和底层实现是怎样的？**n = copy(dst, src)，不会产生一个新的底层数组，src 和 dst 可能重合（ 因此 copy 函数执行后，src 可能变化 ）。n = min(dst, src)
 
 1. [Slice] 什么场景下会重用 slice 底层数组？过滤部分元素。
 
-1. [Slice] 如何用 slice 实现一个栈？`s = append(s, v)` 作为 push，`s = s[:len(s)-1]` 作为 pop。remove => `copy(s[i:], s[i+1:]); return s[:len(s)-1]`，若不需要维持顺序，可以 `s[i] = s[len(s)-1]; return s[:len(s)-1]`
+1. [Slice] **如何用 slice 实现一个栈？**`s = append(s, v)` 作为 push，`s = s[:len(s)-1]` 作为 pop。
+
+1. [Slice] 怎么实现 remove 一个 slice 元素？`copy(s[i:], s[i+1:]); return s[:len(s)-1]`，若不需要维持顺序，可以 `s[i] = s[len(s)-1]; return s[:len(s)-1]`
+
+1. [Slice] 是否可以获取 array / slice 元素的地址？可以
+
+1. [Map] Map 对象有哪些属性？底层实现是怎样的？map[K]V，是无序集合，键值必须唯一（ 必须可以比较 ）。K 必须类型相同，V 也必须类型相同。浮点型可以比较，但请不要，没有较真过能不能作为键值。
 
 1. [Map] Map 怎么比较是否相等？自己写循环。和 slice 一样，map 不能直接比较，唯一合法的比较是和 nil 比较。
+
+1. [Map] Map 对象怎么声明和初始化？`ages := make(map[string]int)` == `map[strings]int{}`，也可以直接通过 map 字面量进行初始化 `ages = map[strings]int{ "alice":31, "charlie":14}`
+
+1. [Map] Map 怎么增加元素，删除元素？`ages["green"] = 15`，`delete(ages, "green")`
+
+1. [Map] Map 查找元素时，找不到键值如何返回？返回零值。类似 DefaultDict，因此可以直接 `ages["bob"]++`
+
+1. [Map] 是否可以获取 map 元素的地址？不是变量，不可以获取地址。&ages["bob"] 编译失败。不可以获取地址的原因是随着元素增加，已有元素可能会被散列到新的存储位置，这样可能使获取的地址无效。slice 也可能底层数据扩展，但原来的地址总还是在的，不会无效。
+
+1. [Map] 如何遍历一个 map ？for name := range(ages)
+
+1. [Map] 
+
+1. [Map] 
+
+1. [Map] 
+
+1. [Map] 
+
+1. [Map] 
 
 1. [函数] 变长形参怎么写？`func aFun(x int, y ...int) {}`
 
