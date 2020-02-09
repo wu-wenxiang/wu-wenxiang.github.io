@@ -141,7 +141,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [流程] init 和 err 怎么搭？在 init 函数中，var err 私有化，然后用多重赋值，而不是短声明
 
-1. [IO] 标准输入？`for input.Scan { fmt.Println(input.Text()) }`，`in := bufio.NewReader(os.stdin)`，`in := bufio.NewScanner(os.stdin)`，`input.Split(bufio.ScanWords)`，`input.Scan()`
+1. [IO] 标准输入、标准输出、标准错误？os.Stdout，os.Stdin，`for input.Scan { fmt.Println(input.Text()) }`，`in := bufio.NewReader(os.stdin)`，`in := bufio.NewScanner(os.stdin)`，`input.Split(bufio.ScanWords)`，`input.Scan()`
 
 1. [基本] **Go 数据类型的分类？**4 大类。basic（ number 整数、浮点数、复数 / string / boolean ），aggregate（ array / struct ），reference（ pointer / slice / map / function / channel ），interface
 
