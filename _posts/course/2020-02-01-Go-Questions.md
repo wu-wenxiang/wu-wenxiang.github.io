@@ -333,6 +333,26 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [结构] "%#v" 有什么用？输出结构体时包含成员变量的名字
 
+1. [模板] 通过什么库支持 JSON / ASN.1 / XML？encoding/json，encoding/xml，encoding/asn1
+
+1. [模板] JSON 本质是什么？JavaScript 值的 Unicode 编码，包括字符串（ 双引号扩起来的 Unicode 代码点序列，\uhhh转义得到 UTF-16 编码 ）、数字（ 十进制或者科学记数法 ）、布尔（ true/false ）、数组和对象。
+
+1. [模板] 什么是结构体的成员标签（ field tag ），有什么用？\`json:"color, omitempty"\`
+
+1. [模板] 结构体如何转换成 JSON？json.Marshal / json.MarshalIndent，**首字母大写的字段才可以转，基于反射**
+
+1. [模板] JSON 如何转换成结构体？json.unmarshal，注意 unmarshal 忽略大小写
+
+1. [模板] json.Marshal 和 json.Decoder 有何区别？整体解码和流式解码。json.NewDecoder(resp.Body).Decode(&result)
+
+1. [模板] 文本模板和 HTML 模板用什么标准库处理？text/template（ 会对 HTML/JS/CSS/URL 自动转义 ），html/template
+
+1. [模板] 模板语法是怎样的？变量 {{.VAR}}，循环 {{range .Items}} {{end}}，判断，过滤器 {{.CreateAt | daysAgo}}。func daysAgo (t time.Time) int {}
+
+1. [模板] 如何使用模板的链式调用？template.New("report").Funcs(template.FuncMap("daysAgo", daysAgo)).Parse(templ)
+
+1. [模板] 如何先解析检查，再执行模板转换？var report = template.Must(template.New...); report.Excute(os.Stdout, result)
+
 1. [函数] 变长形参怎么写？`func aFun(x int, y ...int) {}`
 
 1. [函数] slice 中的每个元素作为实参怎么写？`aFun(x, runes...)`
