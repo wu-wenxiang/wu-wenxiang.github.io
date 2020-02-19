@@ -371,7 +371,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [包] go mod 从什么版本开始支持？1.11/1.12 可以用 GO111MODULE=on 打开，1.13 默认打开 
 
-1. [包]  go mod 的参考资料？官方：[Using Go Modules](https://blog.golang.org/using-go-modules)，非官方：[Introduction to Go Modules](https://roberto.selbach.ca/intro-to-go-modules/)，[常见问题](https://colobu.com/2018/08/27/learn-go-module/)，比如翻墙：` replace golang.org/x/text v0.3.0 => github.com/golang/text v0.3.0`
+1. [包]  go mod 的参考资料？官方：[Using Go Modules](https://blog.golang.org/using-go-modules)，非官方：[Introduction to Go Modules](https://roberto.selbach.ca/intro-to-go-modules/)，[常见问题](https://colobu.com/2018/08/27/learn-go-module/)，比如翻墙：` replace golang.org/x/text v0.3.0 => github.com/golang/text v0.3.0`，download & why
 
 1. [包]  **go mod 的基本使用步骤？**`go mod init example.com/hello` 初始化，`go list -m all` 列举模块，`go get golang.org/x/text` 拉取最近的 tagged 版本，`go get rsc.io/sampler@v1.3.1`，`go doc rsc.io/quote/v3` 文档，`go mod tidy` 去掉无用的依赖
 
@@ -381,6 +381,3 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [包]  项目的大版本变更或者多版本一起维护时，go mod 应如何处理？[Go Modules: v2 and Beyond](https://blog.golang.org/v2-go-modules)
 
-1. [包]  
-
-1. [包] 
