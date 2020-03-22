@@ -36,6 +36,8 @@ description:    逆向法学习 Linux 网络，关于 Linux 网络需要能回�
 
 1. [TCP/IP] 怎么优化 SSH，使其在网络环境不佳时不容易卡死？
 
+1. [TCP/IP] 大文件传输时，怎么在命令行断点传续？`rsync -rP --rsh=ssh <src> <dst>`
+
 1. [TCP/IP] 怎么配置 ipv6 网络？
 
 1. [TCP/IP] 什么是 vlan？怎么配置 vlan？
