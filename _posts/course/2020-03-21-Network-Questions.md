@@ -11,8 +11,8 @@ description:    逆向法学习 Linux 网络，关于 Linux 网络需要能回�
 	- **基础**: TCP/IP，iptables ( ipvs )，route，namespace，Linux Bridge
 	- **进阶**: ovs（ ovn ），calico
 - 常见应用
-	- ** OpenStack **: vpn / lb / firewall / nat
-	- ** Kubernetes **: CNI / MetalLB
+	- **OpenStack**: vpn / lb / firewall / nat
+	- **Kubernetes**: CNI / MetalLB
 
 ---------------------------------------
 ---------------------------------------
