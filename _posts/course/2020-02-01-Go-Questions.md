@@ -33,7 +33,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [开始] **和其它高级语言相比，Go 有哪些特性？**GC，包系统，一等公民函数，词法作用域，系统调用接口，默认用 UTF-8 编码的不可变字符串
 
-1. [开始] **和其它高级语言相比，Go 没有哪些特性？**隐式数据类型强制转换（ 浮点数赋值给整数不可以，`int(3.65) 不可以`，也不可以直接运算，比如 `int(3) + float64(3)`，要显式转换成相同类型，并且转换数值过大导致溢出时行为不保证 ），构造和析构函数，运算符重载，形参默认值，继承，**范型**，**异常**，宏，函数注解，线程局部变量存储（ 依赖编译器判断是否放在线程栈上 & GC ），切片语法糖，map / filter / reduce
+1. [开始] **和其它高级语言相比，Go 没有哪些特性？**隐式数据类型强制转换（ 浮点数赋值给整数不可以，`int(3.65)`不可以，`float64(3.65)`可以，但`int(float64(3.65))`不行，因为`constant 1.9 truncated to integer`，但是赋值给变量之后就行`x=float64(3.65);int(x)`；也不可以直接运算，比如 `int(3) + float64(3)`，要显式转换成相同类型，并且转换数值过大导致溢出时行为不保证 ），构造和析构函数，运算符重载，形参默认值，继承，**范型**，**异常**，宏，函数注解，线程局部变量存储（ 依赖编译器判断是否放在线程栈上 & GC ），切片语法糖，map / filter / reduce
 
 1. [开始] Go 的语法兼容性如何？保证向后（下）兼容（ 旧版本 Go 写的程序，能用新版本的编译器和库 ）
 
@@ -49,7 +49,9 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [环境] 如何用 Delve 进行调试？[Get Started](https://github.com/go-delve/delve/blob/master/Documentation/cli/getting_started.md)，[Delve Documentation](https://github.com/go-delve/delve/tree/master/Documentation)，[Using the Go Delve Debugger from the command line](https://www.jamessturtevant.com/posts/Using-the-Go-Delve-Debugger-from-the-command-line/)，[Debugging Go with VS Code and Delve](https://flaviocopes.com/go-debugging-vscode-delve/)
 
-1. [环境] 如果搭建 Goland 开发和调试环境？[Debugging code](https://www.jetbrains.com/help/go/debugging-code.html)，[Debugging containerized Go applications](https://blog.jetbrains.com/go/2018/04/30/debugging-containerized-go-applications/)
+1. [环境] 如何搭建 Goland 开发和调试环境？[Debugging code](https://www.jetbrains.com/help/go/debugging-code.html)，[Debugging containerized Go applications](https://blog.jetbrains.com/go/2018/04/30/debugging-containerized-go-applications/)
+
+1. [环境] 代码格式整理？gofmt（`gofmt -d <dir>`，预览格式化代码信息，`gofmt -w <dir>`，格式化代码） / golint（直接敲此命令）
 
 1. [流程] **Go 语言中函数、变量、常量、类型、语句标签、包的命名规则是什么？**类 C、字母 => Unicode，Case
 
@@ -103,13 +105,11 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [流程] **可以对表达式返回值取地址么？**不可以
 
-1. [流程] 浮点数转换成整数的逻辑是什么？丢失小数部分。
-
 1. [流程] 类型转换可能在运行时失败么？不会，静态类型在编译时检查类型转换是否能正常完成。
 
 1. [流程] **相当于 Python 中的 `__str__` 方法如何实现？**`func (a T) String() string { return fmt.Sprintf('<T: %g>', a) }`
 
-1. [流程] **何时会调用到 String()？**%v，%s，fmt.Println。注意 %g 不会调到这个函数
+1. [流程] **何时会调用到 String()？**%v（%v 相应值的默认格式。`Printf("%v", people) // {zhangsan}`，%+v 打印结构体时，会添加字段名 `Printf("%+v", people) // {Name:zhangsan}` %#v 相应值的Go语法表示，`Printf("#v", people) // main.Human{Name:"zhangsan"}`，%T 相应值的类型的Go语法表示`Printf("%T", people) // main.Human`），%s，fmt.Println。注意 %g 不会调到这个函数（%g 表示自动保持精度+简洁）
 
 1. [流程] **包的文档注释写在哪里？**开头一句话总结性描述 & 每个包只有一个文件需要描述 & 一般每个包有独立的 doc.go
 
@@ -125,7 +125,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [流程] **for range 的使用？**`for i := range new([5]byte) { fmt.Println(i) } `等同于` for i, _ := range new([5]byte) { fmt.Println(i) }[流程]`，单个 i 是 index，不是 item value。`for _, _ := range s` 等同于 `for range s`。
 
-1. [流程] range后面支持的数据类型有哪些？共5个，分别是数组，数组指针，slice，字符串，map 和 channel
+1. [流程] range后面支持的数据类型有哪些？共5个，分别是数组，数组指针（`x:=[2]int{1, 2}`，下面两种写法完全等价：`for i := range x`和`for i := range &x`），slice，字符串，map 和 channel
 
 1. [流程] 纯概念，作用域（ 编译时属性，声明在程序文本中出现的区域 ），变量的生命周期（ 运行时概念 ），语法块（ 大括号里的语句序列 ），词法块（ 推广语法块到没有显式包含在大括号里的声明代码 ）。
 
@@ -145,7 +145,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [基本] **Go 数据类型的分类？**4 大类。basic（ number 整数、浮点数、复数 / string / boolean ），aggregate（ array / struct ），reference（ pointer / slice / map / function / channel ），interface
 
-1. [基本] **如何确认数据类型？**%T，reflect.TypeOf(42).String()
+1. [基本] **如何确认数据类型？**%T，`reflect.TypeOf(42).String()  // int`
 
 1. [基本] 复合类型数据有几种？哪几种长度固定？哪几种可以动态增长？长度固定：数组 & 结构体。动态数据结构：slice / map
 
@@ -176,6 +176,8 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 1. [整数] **单引号括起来的单个文本符号表示什么？**字符。rune / byte，`%d %c %q`
 
 1. [整数] **ASCII 和字符转换？**`str(62)`，`%c %d`，`[]rune("hello"), []byte("hello")`。
+
+1. [整数] 浮点数转换成整数的逻辑是什么？丢失小数部分。`x:=1.9;int(x)`，向上取整`math.Ceil(1.9)`，向下取整`math.Floor(1.9)`，四舍五入`math.Round(1.9)`
 
 1. [浮点] Go 支持支持几种浮点数类型？算术特性遵从什么标准？float32 / float64，IEEE 754 ( `a=0.1; a+0.2 != 0.3` )，注，字面常量这里相等的 `0.1+0.2==0.3`，应该是编译器直接优化了。
 
