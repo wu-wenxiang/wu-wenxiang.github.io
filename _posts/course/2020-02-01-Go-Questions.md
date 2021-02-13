@@ -151,7 +151,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [基本] make 怎么创建 slice / map / chan？slice：`make([]int, len, [cap]) == make([]int, cap)[:len]`，map：`make(map[string]int)`，chan：`make(chan string)`
 
-1. [整数] 整数类型有几种？固定大小：uint8-32 / int8-32 / rune / byte，不固定：int / uint / uintptr（ 仅用于底层编程 ）
+1. [整数] 整数类型有几种？固定大小：uint8-32 / int8-32 / rune(int32) / byte，不固定：int / uint / uintptr（ 仅用于底层编程 ）
 
 1. [整数] 如何实现乘方运算？math.Pow(float64, float64)
 
@@ -171,21 +171,21 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [整数] 无符号整数用于什么场景？位运算 & 特定算术运算，一般不用于表示非负值
 
-1. [整数] fmt.Printf 怎么用 index，# 是什么意思？`"%#[1]d"`
+1. [整数] fmt.Printf 怎么用 index，# 是什么意思？`"%#[1]d"`，`fmt.Printf("%#[2]d", 1, 2)` 打印出 2，#0 的话是 badindex
 
-1. [整数] **单引号括起来的单个文本符号表示什么？**字符。rune / byte，`%d %c %q`
+1. [整数] **单引号括起来的单个文本符号表示什么？**字符。rune(int32) / byte(int8)，`%d %c %q`，%c 表示相应 Unicode 码点所表示的字符`Printf("%c", 0x4E2D)` => 中，%q 表示单引号围绕的字符字面值，由Go语法安全地转义`Printf("%q", 0x4E2D)` => '中'
 
-1. [整数] **ASCII 和字符转换？**`str(62)`，`%c %d`，`[]rune("hello"), []byte("hello")`。
+1. [整数] **ASCII 和字符转换？**`str(62)`，`%c %d`，`[]rune("hello"), []byte("hello")`。`a, b := []rune("我hello"), []byte("我hello");fmt.Printf("%+v%+v", a, b)` => `[25105 104 101 108 108 111][230 136 145 104 101 108 108 111]`
 
 1. [整数] 浮点数转换成整数的逻辑是什么？丢失小数部分。`x:=1.9;int(x)`，向上取整`math.Ceil(1.9)`，向下取整`math.Floor(1.9)`，四舍五入`math.Round(1.9)`
 
 1. [浮点] Go 支持支持几种浮点数类型？算术特性遵从什么标准？float32 / float64，IEEE 754 ( `a=0.1; a+0.2 != 0.3` )，注，字面常量这里相等的 `0.1+0.2==0.3`，应该是编译器直接优化了。
 
-1. [浮点] float32 和 float64 的精准度如何？32 有效数字大约 6 位，64 大约 15 位。绝大多数情况用 64，避免运算误差迅速累计放大。
+1. [浮点] float32 和 float64 的精准度如何？32 有效数字大约 6 位，64 大约 15 位。**绝大多数情况用 64**，避免运算误差迅速累计放大。
 
 1. [浮点] **%g, %f, %e 有和区别？**%g 自动保持精度+简洁，%f 无指数，%e 有指数。都可以通过谓词 %8.3f 掌握宽度和精度。
 
-1. [浮点] 如何表示最大的 64 位浮点数？正负无穷大（ 超出许可值，非零除以零 ）？数学上无意义的运算结果（ 0/0，sqrt(-1) ）？math.MaxFloat64，math.Inf(64)，-math.Inf(64)，math.NaN()
+1. [浮点] 如何表示最大的 64 位浮点数？正负无穷大（ 超出许可值，非零除以零 ）？数学上无意义的运算结果（ 0/0，sqrt(-1) ）？math.MaxFloat64，math.Inf(64)，-math.Inf(64)，math.NaN()。`func div0(f float64) float64 {return f/0};fmt.Printf("%+v %+v %+v\n", math.MaxFloat64, div0(1), div0(0))` => `1.7976931348623157e+308 +Inf NaN`
 
 1. [浮点] 如何将 NaN 作为信号值进行判断？math.IsNaN。NaN 的比较总为 false，但 != 除外，因为它与 == 的值总是反的
 
@@ -197,7 +197,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [布尔] 布尔值如何转换成字符串？%t
 
-1. [字符] **字符串转义？**`\a \b \f \n \r \t \v \' \" \\`
+1. [字符] **字符串转义？**`\d \b \f \n \r \t \v \' \" \\`，参考 [golang fmt 格式占位符](https://studygolang.com/articles/2644)
 
 1. [字符] **原始字符串怎么写，用于何处？**反引号，可以换行。用于正则表达式，路径，HTML/JSON 模版，多行的命令行提示信息。
 
