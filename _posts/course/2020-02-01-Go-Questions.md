@@ -343,7 +343,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [结构] **什么是结构体嵌套？有什么用？**便于直接取得成员的成员的值，类似继承语法（ 只要成员的成员开头大写，不管成员如何，快捷方式写法可以导出。w.circle.X 不可以导出，但 w.X 可以导出 ）。
 
-1. [结构] **什么是匿名成员？**成员没有名字，只有类型
+1. [结构] **什么是匿名成员？匿名成员有什么用？**成员没有名字，只有类型。用于实现继承。参考 [Nameless fields in Go structs?](https://stackoverflow.com/questions/28014591/nameless-fields-in-go-structs)，匿名成员可以用 T，也可以用 *T，参考 [Embedding when to use pointer](https://stackoverflow.com/questions/27733854/embedding-when-to-use-pointer/27733969#27733969)：An embedded type must be specified as a type name T or as a pointer to a non-interface type name *T, and T itself may not be a pointer type.
 
 1. [结构] "%#v" 有什么用？输出结构体时包含成员变量的名字
 
