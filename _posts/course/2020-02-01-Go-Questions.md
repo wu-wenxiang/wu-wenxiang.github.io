@@ -111,7 +111,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [流程] **相当于 Python 中的 `__str__` 方法如何实现？**`func (a T) String() string { return fmt.Sprintf('<T: %g>', a) }`
 
-1. [流程] **何时会调用到 String()？**%v（%v 相应值的默认格式。`Printf("%v", people) // {zhangsan}`，%+v 打印结构体时，会添加字段名 `Printf("%+v", people) // {Name:zhangsan}` %#v 相应值的Go语法表示，`Printf("#v", people) // main.Human{Name:"zhangsan"}`，%T 相应值的类型的Go语法表示`Printf("%T", people) // main.Human`），%s，fmt.Println。注意 %g 不会调到这个函数（%g 表示自动保持精度+简洁）
+1. [流程] **何时会调用到 String()？**%v（%v 相应值的默认格式。`Printf("%v", people) // {zhangsan}`，%+v 打印结构体时，会添加字段名 `Printf("%+v", people) // {Name:zhangsan}` %#v 相应值的Go语法表示，`Printf("%#v", people) // main.Human{Name:"zhangsan"}`，%T 相应值的类型的Go语法表示`Printf("%T", people) // main.Human`），%s，fmt.Println。注意 %g 不会调到这个函数（%g 表示自动保持精度+简洁）。上面的 %#v 对应的是 GoString，默认是带 package.Type{...}
 
 1. [流程] **包的文档注释写在哪里？**开头一句话总结性描述 & 每个包只有一个文件需要描述 & 一般每个包有独立的 doc.go
 
@@ -139,7 +139,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [流程] 怎么理解 switch 的作用域？条件对应一个块，每个 case 语句体对应一个块。
 
-1. [流程] switch 使用的时候有什么注意事项？switch 每一个 case 都默认带 break，有 fallthrough 相当于允许继续下一个判断，但是否继续要看下一个判断里有没有 fallthrough
+1. [流程] switch 使用的时候有什么注意事项？switch 每一个 case 都默认带 break，有 fallthrough 相当于允许继续下一个判断，但是否继续要看下一个判断里有没有 fallthrough。switch 里有一种特殊的写法，类似类型断言，element.(type)，表示 element 的类型，在其它地方不能用。
 
 1. [流程] if / for 和 err 怎么搭？判断条件中有 err，则常规代码写在 else 里。
 
