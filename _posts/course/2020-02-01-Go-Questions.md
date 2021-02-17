@@ -401,6 +401,12 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [包]  项目的大版本变更或者多版本一起维护时，go mod 应如何处理？[Go Modules: v2 and Beyond](https://blog.golang.org/v2-go-modules)
 
+1. [并发] goroutine 的一般用法是？`go f()` 新建一个调用 f 的 goroutine，与主协程并发，不等待。goroutine 类似 daemon 线程（主 goroutine 结束时，所有 goroutine 都暴力终结），但数量级有很大差异（百万 goroutine）。goroutine 的栈默认很小，只有几 k，又可以扩大到几 G。 goroutine 不能被杀死，只能通信告知令其自杀。
+
+1. [并发] goroutine 类似线程/进程中 Join 操作是？在 goroutine 中写 `c <- true`，在主 goroutine 中 `<- c` 取值。或者，主 goroutine 中 `wg.Add(1)` & `go func() { defer wg.Done() ... }`
+
+1. [并发] 管道的一般用法是？管道，可以多个值，也可以给多个 goroutine 用，但 close 只能一次。`for v := range c {...}` 用 range 必须用 close
+
 1. [系统] 怎么获取环境变量？`os.Getenv("GOLANG_PROJECT")`
 
 1. [系统] 怎么获取 CPU 信息？runtime.NumCPU() 可以获取逻辑 CPU。runtime.GOMAXPROCS(n) 能设置实际并发 goroutine 数量并返回之前设置，n<1 时不设置只返回之前的设置。goroutine 访问堆变量会遇到类似线程的竞争问题（GOMAXPROCS=1 时若带阻塞也一样有问题），访问栈变量就没事
