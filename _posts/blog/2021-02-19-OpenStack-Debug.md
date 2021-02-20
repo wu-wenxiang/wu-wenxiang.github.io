@@ -9,9 +9,11 @@ description:    通过一个典型的 Cinder 问题展示 OpenStack 问题排错
 
 ### 1.1 问题现象
 
+Web 页面上访问 cinder 服务报错 500
+
 ![](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/409ee9e7cf974eebb762f5b55318e882-cinder-error-500.png)
 
-Chrome 中对请求右键，Copy as cURL
+Chrome 开发者工具，选择对应的 API 请求，右键，Copy as cURL
 
 ```bash
 curl 'https://172.20.154.250/api/openstack/regionone/cinder/v3/4f6597fc276246b78b854d5044b020ed/os-services?all_projects=true' \
@@ -39,7 +41,7 @@ curl 'https://172.20.154.250/api/openstack/regionone/cinder/v3/4f6597fc276246b78
 {"computeFault": {"message": "The server has either erred or is incapable of performing the requested operation.", "code": 500}}
 ```
 
-注意，如果从本文中复制上面的 curl 命令发过去，返回会是正确的（写小结时发现的），如下：
+注意，如果从本文中复制上面的 curl 命令发过去，返回会是正确的（写小结时才发现的），如下：
 
 ```json
 {"services": [{"status": "enabled", "binary": "cinder-scheduler", "zone": "nova", "state": "up", "updated_at": "2021-02-20T10:24:00.000000", "cluster": null, "host": "node03.test.local", "disabled_reason": null}, {"status": "enabled", "binary": "cinder-scheduler", "zone": "nova", "state": "up", "updated_at": "2021-02-20T10:24:00.000000", "cluster": null, "host": "node01.test.local", "disabled_reason": null}, {"status": "enabled", "binary": "cinder-scheduler", "zone": "nova", "state": "up", "updated_at": "2021-02-20T10:24:00.000000", "cluster": null, "host": "node02.test.local", "disabled_reason": null}, {"status": "enabled", "binary": "cinder-volume", "zone": "nova", "frozen": false, "state": "up", "updated_at": "2021-02-20T10:24:00.000000", "cluster": null, "host": "control@rbd-1", "replication_status": "disabled", "active_backend_id": null, "disabled_reason": null, "backend_state": "up"}, {"status": "enabled", "binary": "cinder-backup", "zone": "nova", "state": "up", "updated_at": "2021-02-20T10:24:01.000000", "cluster": null, "host": "control", "disabled_reason": null}]}
@@ -74,7 +76,49 @@ cinder-api-access.log  cinder-api.log  cinder-backup.log  cinder-scheduler.log  
 
 刚开始看的时候，发现 cinder-shceduler.log 和 cinder-volume.log 等日志里有 MySQL lost connection。
 
-![](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/409ee9e7cf974eebb762f5b55318e882-cinder-error-mysql.png)
+```
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines [req-4dd3231a-09d0-4e6b-a001-224a1f33aa1e - - - - -] Database connection was found disconnected; reconnecting: DBConnectionError: (pymysql.err.OperationalError) (2013, 'Lost connection to MySQL server during query')
+[SQL: SELECT 1]
+(Background on this error at: http://sqlalche.me/e/e3q8)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines Traceback (most recent call last):
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib/python2.7/site-packages/oslo_db/sqlalchemy/engines.py", line 73, in _connect_ping_listener
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     connection.scalar(select([1]))
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib64/python2.7/site-packages/sqlalchemy/engine/base.py", line 920, in scalar
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     return self.execute(object_, *multiparams, **params).scalar()
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib64/python2.7/site-packages/sqlalchemy/engine/base.py", line 988, in execute
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     return meth(self, multiparams, params)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib64/python2.7/site-packages/sqlalchemy/sql/elements.py", line 287, in _execute_on_connection
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     return connection._execute_clauseelement(self, multiparams, params)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib64/python2.7/site-packages/sqlalchemy/engine/base.py", line 1107, in _execute_clauseelement
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     distilled_params,
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib64/python2.7/site-packages/sqlalchemy/engine/base.py", line 1253, in _execute_context
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     e, statement, parameters, cursor, context
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib64/python2.7/site-packages/sqlalchemy/engine/base.py", line 1471, in _handle_dbapi_exception
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     util.raise_from_cause(newraise, exc_info)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib64/python2.7/site-packages/sqlalchemy/util/compat.py", line 398, in raise_from_cause
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     reraise(type(exception), exception, tb=exc_tb, cause=cause)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib64/python2.7/site-packages/sqlalchemy/engine/base.py", line 1249, in _execute_context
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     cursor, statement, parameters, context
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib64/python2.7/site-packages/sqlalchemy/engine/default.py", line 552, in do_execute
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     cursor.execute(statement, parameters)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib/python2.7/site-packages/pymysql/cursors.py", line 170, in execute
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     result = self._query(query)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib/python2.7/site-packages/pymysql/cursors.py", line 328, in _query
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     conn.query(q)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib/python2.7/site-packages/pymysql/connections.py", line 517, in query
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib/python2.7/site-packages/pymysql/connections.py", line 732, in _read_query_result
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     result.read()
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib/python2.7/site-packages/pymysql/connections.py", line 1075, in read
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     first_packet = self.connection._read_packet()
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib/python2.7/site-packages/pymysql/connections.py", line 657, in _read_packet
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     packet_header = self._read_bytes(4)
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines   File "/var/lib/kolla/venv/lib/python2.7/site-packages/pymysql/connections.py", line 707, in _read_bytes
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines     CR.CR_SERVER_LOST, "Lost connection to MySQL server during query")
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines DBConnectionError: (pymysql.err.OperationalError) (2013, 'Lost connection to MySQL server during query')
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines [SQL: SELECT 1]
+2021-02-20 02:26:50.375 7 ERROR oslo_db.sqlalchemy.engines (Background on this error at: http://sqlalche.me/e/e3q8)
+```
 
 登陆到对应的 cinder-scheduler 容器中，用 telnet 访问 mysql 3306 端口，发现可以通。这里要注意，默认登陆进 cinder-scheduler 容器是 cinder 用户，需要 `docker exec --user root -it cinder-scheduler /bin/bash` 切换成 root 用户登陆进去，然后 `yum update`，`yum install telnet`，然后根据 /etc/cinder/cinder.config 里的 `connection = mysql+pymysql://cinder:a0NpMDCpO9kYXXy3DSxMiIAMbFRdh4AYHCRM5fpW@172.20.154.249:3306/cinder` 得知 mysql IP 和端口，telnet 确认端口通。
 
@@ -213,7 +257,7 @@ for hdr in hdr_string_list:
         break
 ```
 
-会发现 LOG.error 直接打印 hdr 打印不出来，但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [Difference between &#32; and &nbsp;](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
+然后重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来，但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
 
 #### 1.2.4 附带问题
 
@@ -227,10 +271,9 @@ Google，`"openstack-api-version" | "x-openstack-api-version"`，绝大多数都
 
 ![](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/409ee9e7cf974eebb762f5b55318e882-openstack-api-x-openstack-api-version.png)
 
-应该是巧合，没有深究。
+应该是文档有错，没有深究。
 
 ### 1.3 问题结论
 
 1. 根本原因是前端发 request 时，header 里没有 encode 导致后端 split 逻辑不能正常处理
 1. OpenStack 代码这里处理不善，前端错误不应返回 500，有改善空间
-
