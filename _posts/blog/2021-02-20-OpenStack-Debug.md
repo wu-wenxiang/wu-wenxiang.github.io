@@ -267,7 +267,7 @@ for hdr in hdr_string_list:
 [32, 118, 111, 108, 117, 109, 101, 160, 51, 46, 53, 57]
 >>> a[1:]
 'volume\xa03.59'
->>> a[1:].split()
+>>> a[1:].split() # 这里是 python3 console，split 没问题
 ['volume', '3.59']
 ```
 
@@ -281,7 +281,7 @@ Python3 里是可以正常 split 的，Python2 不行，并且复制文本到 Py
 [32, 118, 111, 108, 117, 109, 101, 194, 160, 51, 46, 53, 57]
 >>> a[1:]
 'volume\xc2\xa03.59'
->>> a[1:].split()
+>>> a[1:].split() # 生产环境中是 python2，split 不能处理 160 空格
 ['volume\xc2\xa03.59']
 
 >>> a = a[1:7]+a[8:]
