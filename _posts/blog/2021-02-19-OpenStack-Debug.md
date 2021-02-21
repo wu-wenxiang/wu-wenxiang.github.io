@@ -235,7 +235,7 @@ c0760120fa60   172.20.154.10:4000/kolla/centos-source-cinder-api:iaas-8.1.0     
 2021-02-20 16:04:09.473 22 INFO cinder.api.middleware.fault [req-1c1806d4-f3cb-46c4-a01c-e78094c6fbd9 c4128648bc484324a436ef95208e911e 4f6597fc276246b78b854d5044b020ed - default default] https://172.20.154.250:8776/v3/4f6597fc276246b78b854d5044b020ed/os-services?all_projects=true returned with HTTP 500
 ```
 
-Call Stack 很明显，`service, volume_version = hdr.split()` 有问题，`ValueError: need more than 1 value to unpack` string split 后，返回了长度为 1 的字符串。
+Call Stack 很明显，`service, volume_version = hdr.split()` 有问题，`ValueError: need more than 1 value to unpack` string split 后，返回了长度为 1 的字符串列表。
 
 接下来尝试加 log：
 
@@ -257,7 +257,7 @@ for hdr in hdr_string_list:
         break
 ```
 
-然后重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来，但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
+然后重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**当字符串中有非可显示字符时，LOG.error 就整句不打印**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
 
 #### 1.2.4 附带问题
 
