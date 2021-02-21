@@ -257,7 +257,7 @@ for hdr in hdr_string_list:
         break
 ```
 
-然后删除 pyc 文件 /var/lib/kolla/venv/lib/python2.7/site-packages/cinder/api/openstack/wsgi.pyc，重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**当字符串中有非可显示字符时，LOG.error 就整句不打印**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
+然后删除 pyc 文件 /var/lib/kolla/venv/lib/python2.7/site-packages/cinder/api/openstack/wsgi.pyc，重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**这里非常坑，当字符串中有非可显示字符时，LOG.error 就整句不打印，让人误以为修改未生效 -_-**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
 
 把 Chrome 里的直接复制出来的命令贴到 Sublime Text。然后用二进制工具分析，可以看到 header 里的 volume 3.59 之间的空格确实是 160。换成普通空格再 curl，问题不复现。
 
@@ -291,6 +291,17 @@ Python3 里是可以正常 split 的，Python2 不行，并且复制文本到 Py
 'volume\xa03.59'
 >>> a.split()
 ['volume\xa03.59']
+```
+
+在源文件中修改 debug 语句，发现 194 是正常的。因为用了 python3 console，copy 的时候漏掉了 194，应该是 python3 console 的处理逻辑
+
+```python
+for hdr in hdr_string_list:
+    if VOLUME_SERVICE in hdr:
+        LOG.error('xxxxxxxxxx %s xxxxxxxxx' % [ord(i) for i in hdr])
+        service, volume_version = hdr.split()
+        break
+# log: xxxxxxxxxx [118, 111, 108, 117, 109, 101, 194, 160, 51, 46, 53, 57] xxxxxxxxx
 ```
 
 #### 1.2.4 附带问题
