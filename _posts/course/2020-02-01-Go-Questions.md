@@ -53,7 +53,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [环境] 代码格式整理？gofmt（`gofmt -d <dir>`，预览格式化代码信息，`gofmt -w <dir>`，格式化代码） / golint（直接敲此命令）
 
-1. [环境] VSCode 怎么调试 golang 代码？Run and Debug，或者用单元测试 `import "testing"`，然后 run test / debug test
+1. [环境] VSCode 怎么调试 golang 代码？Run and Debug，或者用单元测试 `import "testing"`，然后 run test / debug test。如果要运行带 main 函数的 go 文件，可以 OUTPUT 下来菜单里选 go，configure json 选 Launch file，在 Debug Console 里可以看到标准输出
 
 1. [流程] **Go 语言中函数、变量、常量、类型、语句标签、包的命名规则是什么？**类 C、字母 => Unicode，Case
 
@@ -139,7 +139,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [流程] 怎么理解 switch 的作用域？条件对应一个块，每个 case 语句体对应一个块。
 
-1. [流程] switch 使用的时候有什么注意事项？switch 每一个 case 都默认带 break，有 fallthrough 相当于允许继续下一个判断，但是否继续要看下一个判断里有没有 fallthrough。switch 里有一种特殊的写法，类似类型断言，element.(type)，表示 element 的类型，在其它地方不能用。
+1. [流程] switch 使用的时候有什么注意事项？switch 每一个 case 都默认带 break，有 fallthrough 相当于允许继续下一个判断，但是否继续要看下一个判断里有没有 fallthrough。switch 里有一种特殊的写法，叫**类型分支**，类似类型断言，element.(type)，表示 element 的类型，用于实现特设多态（ad hoc polymorphism）。另一种多态就是 OO 里的子类型多态（subtype polymorphism）
 
 1. [流程] if / for 和 err 怎么搭？判断条件中有 err，则常规代码写在 else 里。
 
@@ -240,6 +240,8 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 1. [字符] 处理 URL 和文件路径？path，path/filepath
 
 1. [字符] **如何高速处理字符串？**bytes.Buffer / WriteRune / fmt.Fprint
+
+1. [字符] 如何实现旋转滚动效果？```for _, r := range `-\|/` {fmt.Printf("\r%c", r); time.Sleep(delay)}```
 
 1. [常量] **常量的基本语法？**const pi [float64] = 3.1415926，或者加括号，多行表示，const 可以结合 iota 完成递增逻辑。如果没有赋值，会复用前一行的表达式及其类型。参考 [iota: Golang 中优雅的常量](https://segmentfault.com/a/1190000000656284)
 
@@ -377,17 +379,26 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [函数] 高阶函数 [github.com/thoas/go-funk](https://github.com/thoas/go-funk)
 
+1. [函数] **函数的类型（函数签名）包含哪些元素？**形参列表和返回值列表。形参列表和返回值列表相同，可以认为这两个函数的类型或者签名相同。形参和返回值的名字不回影响到函数类型。
+
+1. [函数] 函数的形参可以有默认值么？不能。
+
+1. [函数] 函数可以接受命名传参么？不能。
+
+1. [函数] 什么是匿名函数？命名函数只能在包级别的作用域进行声明。函数字面量可以在表达式中指定函数变量。函数字面量像函数声明，但func 关键字后面没有函数的名称。它是一个表达式（可以直接调用），它的值就是匿名函数。**函数变量称之为闭包**。
+
+1. [方法] 方法和函数有什么区别？`func (s* Struct) funName() (ret) { ... }`，s.funName()
+
+1. [函数] 函数传参是值传递还是引用传递？值传递，比如数组，结构体，都是值复制。除非值本身是引用，比如指针，slice，map 等。
+
+1. [异常] **错误处理要注意什么？**`if err: = fun(); err != nil { 错误处理 }`，然后正常处理逻辑不要放在 else，而是放在外层作用域。
+
+1. [异常] **延迟函数是什么？**有什么用？延迟函数是类似 finally 的存在。一个普通的函数或者方法调用时，在前面加上 defer 就是延迟函数 `defer test()`。defer 一般用于成对的操作，比如打开文件和关闭，加缩和解锁。一般在成功获得资源（比如打开文件）之后，立即 `defer fun( # 释放资源 )`，如果放在 return 或者 panic 后面，defer 就无法执行了。defer 会在当前函数 / 方法的 return 语句之后执行，是退出当前函数 / 方法的最后一步操作。执行时可以更新函数的结果变量。比如声明时结果变量是 output int，return 4，def 里可以 output = 8，`defer func() {output = 8}()`，这是用闭包获取外层函数变量。然后返回就是 8。
+
+1. [异常] 宕机和恢复怎么处理？0/x ，x==0 时就会发生 panic，也可以通过 panic(bailout{}) 抛宕机异常。**若递归内层函数发生 panic，递归外层函数的 defer 被调用过的还是会生效的**。recover 会写在 defer 里，若 panic 发生，recover 会返回 panic 的参数；反之，若 panic 未发生，recover 执行时返回 nil。**一般写法是 switch(p) 里先 case nil，然后 case 预期宕机值，比如 bailout{}，最后 default，default 里继续 panic(p)**。有些情况下没有恢复动作，比如内层耗尽导致 Go 运行时发生严重错误，会直接终止进程。
 ### 进阶
 
-1. [方法] 
-
-1. [方法] 
-
-1. [方法] 
-
-1. [方法] 
-
-1. [方法] 
+1. [接口] **sort.Interface 怎么使用？**实现 Len() int / Less(i, j int) bool / Swap(i, j int) 三个方法（i/j 是下标），即可用 sort.Sort 实现原地排序
 
 1. [包] go mod 从什么版本开始支持？1.11/1.12 可以用 GO111MODULE=on 打开，1.13 默认打开 
 
@@ -401,14 +412,36 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [包]  项目的大版本变更或者多版本一起维护时，go mod 应如何处理？[Go Modules: v2 and Beyond](https://blog.golang.org/v2-go-modules)
 
-1. [并发] goroutine 的一般用法是？`go f()` 新建一个调用 f 的 goroutine，与主协程并发，不等待。goroutine 类似 daemon 线程（主 goroutine 结束时，所有 goroutine 都暴力终结），但数量级有很大差异（百万 goroutine）。goroutine 的栈默认很小，只有几 k，又可以扩大到几 G。 goroutine 不能被杀死，只能通信告知令其自杀。
+1. [并发] **goroutine 的一般用法是？**`go f()` 新建一个调用 f 的 goroutine，与主协程并发，不等待。goroutine 类似 daemon 线程（主 goroutine 结束时，所有 goroutine 都暴力终结），但数量级有很大差异（百万 goroutine）。goroutine 的栈默认很小，只有几 k，又可以扩大到几 G。 goroutine 不能被杀死，只能通信告知令其自杀。
 
-1. [并发] goroutine 类似线程/进程中 Join 操作是？在 goroutine 中写 `c <- true`，在主 goroutine 中 `<- c` 取值。或者，主 goroutine 中 `wg.Add(1)` & `go func() { defer wg.Done() ... }`
+1. [并发] **goroutine 类似线程/进程中 Join 操作是？**在 goroutine 中写 `c <- true`，在主 goroutine 中 `<- c` 取值。或者，主 goroutine 中 `wg.Add(1)` & `go func() { defer wg.Done() ... }`
 
-1. [并发] 管道的一般用法是？管道，可以多个值，也可以给多个 goroutine 用，但 close 只能一次。`for v := range c {...}` 用 range 必须用 close
+1. [并发] **管道的一般用法是？**管道，可以多个值，也可以给多个 goroutine 用，但 close 只能一次。`for v := range c {...}` range 会在 c close 且取完之前持续阻塞，如果 c 忘记关闭了，会容易引起 deadlock。
+
+1. [并发] **什么是有缓冲和无缓冲通道？**make(chan int) 和 make(chan int, 0) 容量为 0，表示无缓冲通道。make (chan int, 3)，返回容量为 3 的缓冲通道（**缓冲通道实现了一个计数信号量，计数上限为 1 的信号量称为二进制信号量 binary semaphore**）。无缓冲通道上发送操作会阻塞，直至另一个 goroutine 上在对应的通道上执行接收操作，此时值传送完，两个 goroutine 都可以继续。反之，如果接收操作先执行，接收方 goroutine 将阻塞，直到另一个 goroutine 在同一个通道上发送一个值。使用无缓冲通道导致发送和接收方 goroutine 同步化。
+
+1. [并发] 通道关闭后，后续针对这个通道的发送和接收操作会有怎样的结果？后续的发送操作会导致应用崩溃，后续的接收操作能正常。
+
+1. [并发] **怎么判断一个通道是否关闭？**x, ok := <- ch，ok 为 true 表示接收成功，false 表示当前的接收操作在一个关闭并且读完的通道上。利用这个特性，可以 for { ... } 读完通道上所有的值，然后 close(ch)，range 适用于这种场景（close 并读完才会结束 range 循环）。
+
+1. [并发] 何时应该关闭通道？关闭每一个通道不是必须的，**只有在通知接收方 goroutine，所有数据都已经发完，才需要关闭通道**。通道可以通过垃圾回收器根据它是否可以访问来决定是否回收它，而不是根据它是否关闭。每一个文件需要 close，而通道未必。
+
+1. [并发] 什么是单向通道，有什么用？ chan<- int 是一个只能发送的通道，<-chan int 是一个只能接收的通道。一般用于形参（实参 chan int 会隐式转换），用于防止 goroutine 中误用，类似只读形参效果。
+
+1. [并发] select 多路复用是什么？有什么用？类似 switch 语法，switch 换成 select，case 里 x := <- ch 或者 ch <- i。select 会一直等待，直到有一个 case 可以执行；如果多个情况都满足，select 随机选择一个，以保证每个通道有相同的机会被选中。
+
+1. [并发] select 怎么实现非阻塞通信？select 可以有一个默认的情况，default，用来指定没有其它通信发生时可以立即执行的操作。然后可以实现非阻塞 & 轮询
+
+1. [并发] 通道的零值是什么？有什么用？通道的零值是 nil。在 nil 通道上发送和接收会永远阻塞。在 select 对 nil 通道的 case 永远不会被选中，可以利用非阻塞 select 执行超时处理或者取消。
+
+1. [并发] 互斥锁和读写互斥锁各自用于什么场合？sync.Mutex 是普通互斥锁，仅在绝大部分 goroutine 都在获取读锁并且锁竞争比较激烈时（即，goroutine 一般都需要等待后才能获得锁），sync.RWMutex 才有优势。竞争不激烈时，RWMutex 比 Mutex 慢，因为 RWMutex 需要更复杂的内部簿记工作。
+
+1. [并发] 如何理解 goroutine 只保证在单个 goroutine 内的串行一致。`var x, y int; go func() { x=1; fmt.Print(y)}(); go func() { y=1; fmt.Print(x)}();` 可能输出 `y:0 x:0` 和 `x:0 y:0`
 
 1. [系统] 怎么获取环境变量？`os.Getenv("GOLANG_PROJECT")`
 
 1. [系统] 怎么获取 CPU 信息？runtime.NumCPU() 可以获取逻辑 CPU。runtime.GOMAXPROCS(n) 能设置实际并发 goroutine 数量并返回之前设置，n<1 时不设置只返回之前的设置。goroutine 访问堆变量会遇到类似线程的竞争问题（GOMAXPROCS=1 时若带阻塞也一样有问题），访问栈变量就没事
 
 1. [系统] 怎么 Sleep？time.Sleep(time.Millisecond * time.Duration(funk.RandomInt(500, 1000))) 不能乘 int，需要类型转换成 time.Duration，但可以乘无类型直接量 1
+
+1. [系统] Server 端 TCP 程序实现？`listener = net.Listen("tcp", "localhost:8000"); for { conn = listener.Accept(); go handleConn(conn)}` handleConn 里要先 defer conn.Close()
