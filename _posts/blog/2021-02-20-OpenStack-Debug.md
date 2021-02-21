@@ -47,7 +47,7 @@ curl 'https://172.20.154.250/api/openstack/regionone/cinder/v3/4f6597fc276246b78
 {"services": [{"status": "enabled", "binary": "cinder-scheduler", "zone": "nova", "state": "up", "updated_at": "2021-02-20T10:24:00.000000", "cluster": null, "host": "node03.test.local", "disabled_reason": null}, {"status": "enabled", "binary": "cinder-scheduler", "zone": "nova", "state": "up", "updated_at": "2021-02-20T10:24:00.000000", "cluster": null, "host": "node01.test.local", "disabled_reason": null}, {"status": "enabled", "binary": "cinder-scheduler", "zone": "nova", "state": "up", "updated_at": "2021-02-20T10:24:00.000000", "cluster": null, "host": "node02.test.local", "disabled_reason": null}, {"status": "enabled", "binary": "cinder-volume", "zone": "nova", "frozen": false, "state": "up", "updated_at": "2021-02-20T10:24:00.000000", "cluster": null, "host": "control@rbd-1", "replication_status": "disabled", "active_backend_id": null, "disabled_reason": null, "backend_state": "up"}, {"status": "enabled", "binary": "cinder-backup", "zone": "nova", "state": "up", "updated_at": "2021-02-20T10:24:01.000000", "cluster": null, "host": "control", "disabled_reason": null}]}
 ```
 
-原因是从这里复制之后，`openstack-api-version: volume 3.59` 中 volume 和 3.59 之间的空格的 ASCII 码不再是原来的 160，而是变成了正常的 32。160 不能被 split，这是此问题的 root cause。
+原因是从这里复制之后，`openstack-api-version: volume 3.59` 中 volume 和 3.59 之间的空格的 ASCII 码不再是原来的 194 160，而是变成了正常的 32。194 160 不能被 split，这是此问题的 root cause。
 
 ### 1.2 问题分析
 
@@ -257,8 +257,8 @@ for hdr in hdr_string_list:
         break
 ```
 
-然后删除 pyc 文件 /var/lib/kolla/venv/lib/python2.7/site-packages/cinder/api/openstack/wsgi.pyc，重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**这里非常坑，当字符串中有非可显示字符时，LOG.error 就整句不打印，让人误以为修改未生效 -_-**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 194 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以看起来是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)，参考 [Trim whitespace ASCII character “194” from string](https://stackoverflow.com/questions/42424555/trim-whitespace-ascii-character-194-from-string)：18
-It's more likely to be a two-byte 194 160 sequence, which is the UTF-8 encoding of a NO-BREAK SPACE codepoint (the equivalent of the `&nbsp`; entity in HTML).
+然后删除 pyc 文件 /var/lib/kolla/venv/lib/python2.7/site-packages/cinder/api/openstack/wsgi.pyc，重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**这里非常坑，当字符串中有非可显示字符时，LOG.error 就整句不打印，让人误以为修改未生效 -_-**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 194 160，不是常见的 32。查资料，194 160 是页面上的 `&nbsp;` 所产生的空格。所以看起来是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)，参考 [Trim whitespace ASCII character “194” from string](https://stackoverflow.com/questions/42424555/trim-whitespace-ascii-character-194-from-string)：18
+It's more likely to be a two-byte 194 160 sequence, which is the UTF-8 encoding of a NO-BREAK SPACE codepoint (the equivalent of the `&nbsp;` entity in HTML).
 
 把 Chrome 里的直接复制出来的命令贴到 Sublime Text。然后用二进制工具分析，可以看到 header 里的 volume 3.59 之间的空格确实是 194 160。换成普通空格再 curl，问题不复现。
 
@@ -294,7 +294,7 @@ Python3 里是可以正常 split 的，Python2 不行，并且复制文本到 Py
 ['volume\xa03.59']
 ```
 
-在源文件中修改 debug 语句，发现 194 是正常的。因为用了 python3 console，copy 的时候漏掉了 194，应该是 python3 console 的处理逻辑
+在源文件中修改 debug 语句，发现 194 是正常的。因为用了 python3 console，copy 过来的时候漏掉了 194，应该是 python3 console 对 UTF-8 编码的处理逻辑
 
 ```python
 for hdr in hdr_string_list:
@@ -305,7 +305,7 @@ for hdr in hdr_string_list:
 # log: xxxxxxxxxx [118, 111, 108, 117, 109, 101, 194, 160, 51, 46, 53, 57] xxxxxxxxx
 ```
 
-python3 对 194 处理也不好，因此换用 python3 未必能完全避免问题。但也不一定，因为 python3 默认用 utf-8 decode，所以 194和 160 会一起处理为空格，而不是像下面这样拼接。这可能也是 python3 console miss 掉 194 的原因。没有在生产环境中继续验证。但我猜想大概率 python3 是能 fix 此问题。
+如果 python3 直接处理 194，也处理也不好，因此换用 python3 未必能完全避免问题。但因为 python3 默认用 utf-8 decode，所以 194 和 160 会一起处理为空格，而不是像下面这样拼接。这应该也就是 python3 console miss 掉 194 的原因（没有在生产环境中继续验证）。猜想大概率 python3 能 fix 此问题。
 
 ```python
 >>> a = a[1:7]+chr(194)+a[7:]
@@ -333,11 +333,11 @@ python3 对 194 处理也不好，因此换用 python3 未必能完全避免问�
 
 #### 1.2.4 附带问题
 
-发现 openstack-api-version 改成 x-openstack-api-version 也能 fix 问题，并且 debug 时被意外值干扰，以为 160 会被转换成 32，后来试了多次没有重现（应该是被其它请求干扰）
+发现 `openstack-api-version` 改成 `x-openstack-api-version` 也能 fix 问题，并且 debug 时被意外值干扰，以为 194 160 会被转换成 32，后来试了多次没有重现（应该是被其它请求干扰）
 
-Research 源码，发现没有 x-openstack-api-version，只有 openstack-api-version。
+Research 源码，发现没有 `x-openstack-api-version`，只有 `openstack-api-version`。
 
-刚开始猜想是不是 HAProxy 会对 x- 开头的 header 做 encode 处理？但后来发现现象是巧合导致的误判。加 x- 之后，就是另一个 header 了，加 y- 也一样。
+刚开始猜想是不是 HAProxy 会对 `x-` 开头的 header 做 encode 处理？但后来发现现象是巧合导致的误判。加 `x-` 之后，就是另一个 header 了，加 `y-` 也一样。
 
 Google，`"openstack-api-version" | "x-openstack-api-version"`，绝大多数都是 "openstack-api-version"，"x-openstack-api-version" 只有寥寥几个，但诡异的是，这几个里面居然有官方文档 [https://docs.openstack.org/doc-contrib-guide/api-guides.html](https://docs.openstack.org/doc-contrib-guide/api-guides.html)，但仅此一处，其它官方文档里未见 `x-`
 
@@ -345,7 +345,7 @@ Google，`"openstack-api-version" | "x-openstack-api-version"`，绝大多数都
 
 应该是文档有错，没有深究。
 
-检查之前的文档版本，也是 openstack-api-version，但前端发请求时，header 里 volume 3.59 中间的空格是 32 不是 160，所以这个问题应该是新版本里前端代码的问题。
+检查之前的文档版本，也是 openstack-api-version，但前端发请求时，header 里 volume 3.59 中间的空格是 32 不是 194 160，所以这个问题应该是新版本里前端代码的问题。
 
 ```python
 >>> a = " volume 3.59"
@@ -357,6 +357,6 @@ Google，`"openstack-api-version" | "x-openstack-api-version"`，绝大多数都
 
 ### 1.3 问题结论
 
-1. 根本原因是前端发 request 时，header 里没有 encode 导致后端 split 逻辑不能正常处理
+1. 根本原因是前端发 request 时，header 里没有 encode，导致原来 ASCII 32 的空格变成 UTF-8 的 `&nbsp;`（Python2 默认按 ASCII 解析为 194 160，Python3 默认按 UTF-8 解析为 160），进而导致后端（Python2） split 逻辑不能正常处理
 1. OpenStack 代码这里处理不善，前端错误不应返回 500，有改善空间
 1. 如果 Cinder 后端换成 python3，此问题应该不能重现。
