@@ -257,13 +257,14 @@ for hdr in hdr_string_list:
         break
 ```
 
-然后删除 pyc 文件 /var/lib/kolla/venv/lib/python2.7/site-packages/cinder/api/openstack/wsgi.pyc，重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**这里非常坑，当字符串中有非可显示字符时，LOG.error 就整句不打印，让人误以为修改未生效 -_-**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
+然后删除 pyc 文件 /var/lib/kolla/venv/lib/python2.7/site-packages/cinder/api/openstack/wsgi.pyc，重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**这里非常坑，当字符串中有非可显示字符时，LOG.error 就整句不打印，让人误以为修改未生效 -_-**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 194 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以看起来是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)，参考 [Trim whitespace ASCII character “194” from string](https://stackoverflow.com/questions/42424555/trim-whitespace-ascii-character-194-from-string)：18
+It's more likely to be a two-byte 194 160 sequence, which is the UTF-8 encoding of a NO-BREAK SPACE codepoint (the equivalent of the `&nbsp`; entity in HTML).
 
-把 Chrome 里的直接复制出来的命令贴到 Sublime Text。然后用二进制工具分析，可以看到 header 里的 volume 3.59 之间的空格确实是 160。换成普通空格再 curl，问题不复现。
+把 Chrome 里的直接复制出来的命令贴到 Sublime Text。然后用二进制工具分析，可以看到 header 里的 volume 3.59 之间的空格确实是 194 160。换成普通空格再 curl，问题不复现。
 
 ```python
 >>> a = " volume 3.59"
->>> [ord(i) for i in a]
+>>> [ord(i) for i in a] # 因为本地 python3 console，ctrl-c & ctrl-v 过来会 miss 掉 194，后来才发现的
 [32, 118, 111, 108, 117, 109, 101, 160, 51, 46, 53, 57]
 >>> a[1:]
 'volume\xa03.59'
@@ -304,6 +305,32 @@ for hdr in hdr_string_list:
 # log: xxxxxxxxxx [118, 111, 108, 117, 109, 101, 194, 160, 51, 46, 53, 57] xxxxxxxxx
 ```
 
+python3 对 194 处理也不好，因此换用 python3 未必能完全避免问题。但也不一定，因为 python3 默认用 utf-8 decode，所以 194和 160 会一起处理为空格，而不是像下面这样拼接。这可能也是 python3 console miss 掉 194 的原因。没有在生产环境中继续验证。但我猜想大概率 python3 是能 fix 此问题。
+
+```python
+>>> a = a[1:7]+chr(194)+a[7:]
+>>> [ord(i) for i in a]
+[118, 111, 108, 117, 109, 101, 194, 160, 51, 46, 53, 57]
+>>> a.split() # python3 console 处理 194
+['volumeÂ', '3.59']
+```
+
+```python
+# python3
+>>> open('a.txt')
+<_io.TextIOWrapper name='a.txt' mode='r' encoding='UTF-8'>
+>>> [ord(i) for i in open('a.txt').read()]
+[32, 118, 111, 108, 117, 109, 101, 160, 51, 46, 53, 57]
+
+#python2
+>>> open('a.txt')
+<open file 'a.txt', mode 'r' at 0x105123660>
+>>> [ord(i) for i in open('a.txt').read()]
+[32, 118, 111, 108, 117, 109, 101, 194, 160, 51, 46, 53, 57]
+```
+
+可以看到同一个文件，python3 是不会解析出 194 的，应该是 194 和 160 一起 utf-8 decode 了。因此大概率 python3 能 fix 这个问题。
+
 #### 1.2.4 附带问题
 
 发现 openstack-api-version 改成 x-openstack-api-version 也能 fix 问题，并且 debug 时被意外值干扰，以为 160 会被转换成 32，后来试了多次没有重现（应该是被其它请求干扰）
@@ -332,3 +359,4 @@ Google，`"openstack-api-version" | "x-openstack-api-version"`，绝大多数都
 
 1. 根本原因是前端发 request 时，header 里没有 encode 导致后端 split 逻辑不能正常处理
 1. OpenStack 代码这里处理不善，前端错误不应返回 500，有改善空间
+1. 如果 Cinder 后端换成 python3，此问题应该不能重现。
