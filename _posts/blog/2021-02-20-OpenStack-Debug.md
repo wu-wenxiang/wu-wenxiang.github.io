@@ -259,6 +259,40 @@ for hdr in hdr_string_list:
 
 然后重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**当字符串中有非可显示字符时，LOG.error 就整句不打印**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
 
+把 Chrome 里的直接复制出来的命令贴到 Sublime Text。然后用二进制工具分析，可以看到 header 里的 volume 3.59 之间的空格确实是 160。换成普通空格再 curl，问题不复现。
+
+```python
+>>> a = " volume 3.59"
+>>> [ord(i) for i in a]
+[32, 118, 111, 108, 117, 109, 101, 160, 51, 46, 53, 57]
+>>> a[1:]
+'volume\xa03.59'
+>>> a[1:].split()
+['volume', '3.59']
+```
+
+**注意看前面的空格是 32 和后面空格却是 160**
+
+Python3 里是可以正常 split 的，Python2 不行，并且复制文本到 Python2 console 还会多一个 194 出来。去掉 194 也一样不能 split
+
+```python
+>>> a = " volume 3.59"
+>>> [ord(i) for i in a]
+[32, 118, 111, 108, 117, 109, 101, 194, 160, 51, 46, 53, 57]
+>>> a[1:]
+'volume\xc2\xa03.59'
+>>> a[1:].split()
+['volume\xc2\xa03.59']
+
+>>> a = a[1:7]+a[8:]
+>>> [ord(i) for i in a]
+[118, 111, 108, 117, 109, 101, 160, 51, 46, 53, 57]
+>>> a
+'volume\xa03.59'
+>>> a.split()
+['volume\xa03.59']
+```
+
 #### 1.2.4 附带问题
 
 发现 openstack-api-version 改成 x-openstack-api-version 也能 fix 问题，并且 debug 时被意外值干扰，以为 160 会被转换成 32，后来试了多次没有重现（应该是被其它请求干扰）
@@ -272,6 +306,16 @@ Google，`"openstack-api-version" | "x-openstack-api-version"`，绝大多数都
 ![](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/409ee9e7cf974eebb762f5b55318e882-openstack-api-x-openstack-api-version.png)
 
 应该是文档有错，没有深究。
+
+检查之前的文档版本，也是 openstack-api-version，但前端发请求时，header 里 volume 3.59 中间的空格是 32 不是 160，所以这个问题应该是新版本里前端代码的问题。
+
+```python
+>>> a = " volume 3.59"
+>>> [ord(i) for i in a]
+[32, 118, 111, 108, 117, 109, 101, 32, 51, 46, 53, 57]
+```
+
+**前后空格都是 32**
 
 ### 1.3 问题结论
 
