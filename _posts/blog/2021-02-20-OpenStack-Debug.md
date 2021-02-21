@@ -237,7 +237,7 @@ c0760120fa60   172.20.154.10:4000/kolla/centos-source-cinder-api:iaas-8.1.0     
 
 Call Stack 很明显，`service, volume_version = hdr.split()` 有问题，`ValueError: need more than 1 value to unpack` string split 后，返回了长度为 1 的字符串列表。
 
-接下来尝试加 log：
+接下来尝试对 /var/lib/kolla/venv/lib/python2.7/site-packages/cinder/api/openstack/wsgi.py 加 log：
 
 ```python
 for hdr in hdr_string_list:
@@ -257,7 +257,7 @@ for hdr in hdr_string_list:
         break
 ```
 
-然后重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**当字符串中有非可显示字符时，LOG.error 就整句不打印**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
+然后删除 pyc 文件 /var/lib/kolla/venv/lib/python2.7/site-packages/cinder/api/openstack/wsgi.pyc，重启容器 `docker restart cinder_api`，重现问题。会发现 LOG.error 直接打印 hdr 打印不出来（**当字符串中有非可显示字符时，LOG.error 就整句不打印**），但是 type / len 又没错。从 ord 看，"volume 3.59" 中间的空格是 160，不是常见的 32。查资料，160 是页面上的 `&nbsp;` 所产生的空格。所以 root cause 应该是前端代码没有正确 encode 导致的。参考 [`Difference between &#32; and &nbsp;`](https://stackoverflow.com/questions/11984029/difference-between-32-and-nbsp)
 
 把 Chrome 里的直接复制出来的命令贴到 Sublime Text。然后用二进制工具分析，可以看到 header 里的 volume 3.59 之间的空格确实是 160。换成普通空格再 curl，问题不复现。
 
