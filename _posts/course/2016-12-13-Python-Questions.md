@@ -7,6 +7,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 
 ## 问题分类
+
 - 核心知识
 	- **基础**: 开始，开发环境搭建，基本对象和变量，流程控制，文件，函数式编程
 	- **进阶**: 模块和包，类和实例，面向对象和设计模式，异常处理，正则表达式，装饰器，生成器
@@ -34,11 +35,12 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 ## 核心知识
 
 ### 基础
+
 1. [开始] **Python在编程语言世界中的处于什么样的位置？**[TIOBE](https://tiobe.com/tiobe-index/)
 
 1. [开始] **Python有什么样的特质和设计哲学？**简单优于繁复，明确优于晦涩，解决一个问题只用一种方法。
 
-1. [开始] **作为一个初入门者，我们应该怎样学习编程？**[如何成为一名黑客-Eric-S-Raymond](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E4%B8%80%E5%90%8D%E9%BB%91%E5%AE%A2-Eric-S-Raymond.pdf)
+1. [开始] **作为一个初入门者，我们应该怎样学习编程？**[如何成为一名黑客-Eric-S-Raymond](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/%E5%A6%82%E4%BD%95%E6%88%90%E4%B8%BA%E4%B8%80%E5%90%8D%E9%BB%91%E5%AE%A2-Eric-S-Raymond.pdf)
 
 1. [开始] **应该选择Python2还是Python3开始学习，以及进行开发？**[参考](https://wiki.python.org/moin/Python2orPython3)，用Python3
 
@@ -48,7 +50,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [开始] **有哪些优秀的Python学习资源可以参考？** [Python学习手册5th](https://book.douban.com/subject/30364619/)，[Python3标准库](https://book.douban.com/subject/30346181/)
 
-1. [环境] **在Windows下如何搭建Python开发环境？**[单独安装Python](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Python.md)，[一体化安装Anaconda](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Anaconda.md)，[IDE-Eclipse-Pydev](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Eclipse-Pydev.md)，[IDE-PyCharm](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-PyCharm.md)
+1. [环境] **在Windows下如何搭建Python开发环境？**[单独安装Python](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Installation-Python.md)，[一体化安装Anaconda](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Installation-Anaconda.md)，[IDE-Eclipse-Pydev](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Installation-Eclipse-Pydev.md)，[IDE-PyCharm](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Installation-PyCharm.md)
 
 1. [环境] 在Mac下如何搭建Python开发环境？
 
@@ -64,7 +66,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [环境] 如何使用VisualStudio进行开发和调试？[Download](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)
 
-1. [环境] 还有什么其它的Python调试套件？[Notepad++](http://www.cnblogs.com/zhcncn/p/3969419.html)，[Sublime](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Installation-Sublime.md)
+1. [环境] 还有什么其它的Python调试套件？[Notepad++](http://www.cnblogs.com/zhcncn/p/3969419.html)，[Sublime](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Installation-Sublime.md)
 
 1. [环境] **如何查阅Python帮助文档？** pydoc, help, chm
 
@@ -217,6 +219,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [函数] **如何使用高阶函数？Map/Filter/Reduce/Sort/Max/偏函数**，`from functools import reduce`
 
 ### 进阶
+
 1. [模块] 模块对象的定义和使用是怎样的？
 
 1. [模块] 顶层脚本和模块的区别是什么？
@@ -316,6 +319,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 ## 常见应用 
 
 ### Python的系统和进程管理中的应用
+
 1. [Bash] Bash编程有哪些优秀的参考书和资料？
 
 1. [Bash] **Bash变量的定义和使用方法是怎样的？如何在循环中定义变量？如何重新定义变量？**
@@ -389,6 +393,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [并行] 异步的底层实现是怎样的？使用时有哪些陷阱？
 
 ### DevOps
+
 1. [版本] 有哪些常见的版本控制工具？
 
 1. [版本] 集中式和分布式版本控制有什么区别？
@@ -474,7 +479,8 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [容器] **K8S是什么？应如何使用？**
 
 ### Web框架
-1. [ORM] MySQL的安装和基本操作是怎样的？[参考](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/Database.md)
+
+1. [ORM] MySQL的安装和基本操作是怎样的？[参考](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Database.md)
 
 1. [ORM] Sqlite3的原理和使用方法是怎样的？
 
@@ -563,6 +569,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [微信] Web站点如何使用微信扫码登录？
 
 ### 数据采集
+
 1. [爬虫] 爬虫的基本原理是什么？
 
 1. [爬虫] **urllib模块的基本使用方法是什么？登录，SSL**
@@ -580,6 +587,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [Scrapy] 如何使用Scrapy框架做整站爬取？
 
 ### 数据挖掘
+
 基本概念，常见类库，案例
 
 1. [概念] 什么是结构化数据？
@@ -631,23 +639,27 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 ### 云计算OpenStack
 
 ### PaaS云平台
+
 1. [GAE] GAE的基本使用方法是怎样的？
 
 1. [SAE] SAE的基本使用方法是怎样的？
 
 ### Office文档处理
+
 1. [Word] 如何实现对Word文档的读、写操作？
 
 1. [Excel] **如何实现对Excel文档的读、写操作？**
 
 ### Python-C
-1. [CType] Python如何调用C类库？[CType](https://github.com/wu-wenxiang/Training-Python-Public/tree/master/src/C-Extension)
+
+1. [CType] Python如何调用C类库？[CType](https://github.com/wu-wenxiang/training-python-public/tree/master/src/C-Extension)
 
 1. [调用] C语言如何使用Python对象？
 
-1. [实现] 如何实现一个基于C的Python模块？[CModule](https://github.com/wu-wenxiang/Training-Python-Public/tree/master/src/C-Extension)
+1. [实现] 如何实现一个基于C的Python模块？[CModule](https://github.com/wu-wenxiang/training-python-public/tree/master/src/C-Extension)
 
 ### PVM内存分析
+
 1. [PDB] Pdb的使用和局限性是怎样的？
 
 1. [Dump] 如何收集Dump？
@@ -657,6 +669,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [GDB] 如何使用Windbg分析PVM内存？
 
 ### IoT
+
 1. [树莓] **如何烧制树莓板？Win10/Raspbian**
 
 1. [GPIO] **如何使用Python控制GPIO口**
@@ -666,6 +679,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [Azure IoT DevKit] 如何使用DevKit将收集到的温度/湿度信息上传到Azure云端，并通过PowerBI显示出来？[参考](https://github.com/wu-wenxiang/Training-Python/tree/master/Python-Common/IoT/%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E5%81%9AIoT%E8%AE%BE%E5%A4%87)
 
 ### MineCraft
+
 1. [基础] MineCraft基础和Hook原理是什么？
 
 1. [绘制] 如何绘制三维图形？
@@ -675,9 +689,6 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 1. [现实] 如何在游戏中控制GPIO口？
 
 ### GUI
+
 1. [TK] TK的基本处理流程和布局方式是怎样的？
  
-
-
- 
-

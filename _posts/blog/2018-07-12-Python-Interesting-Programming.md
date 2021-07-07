@@ -6,9 +6,11 @@ description:    整理了一些有趣的编程练习，Python实现
 ---
 
 ## 前言
-- 完整代码在[这里](https://github.com/wu-wenxiang/Training-Python-Public/blob/master/doc/python-interesting-programming.txt)，纯净TXT版在[这里](https://raw.githubusercontent.com/wu-wenxiang/Training-Python-Public/master/doc/python-interesting-programming.txt)
+
+- 完整代码在[这里](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/python-interesting-programming.txt)
 
 ## 彩票中奖率问题：11选5
+
 - 题目：
 	- 彩票里面有个玩法叫11选5
 	- 1~11共11个数字，开奖号码为5个数字（不分前后顺序，不可复选）
@@ -147,6 +149,7 @@ description:    整理了一些有趣的编程练习，Python实现
 - 速度有点慢？并行处理了解一下？ :-)
 
 ## 读心术问题
+
 - 题目：
 	- 刘谦表演的读心术
 	- 提前准备好6张纸片，每张纸片上写了32个数字，不再变更
@@ -157,6 +160,7 @@ description:    整理了一些有趣的编程练习，Python实现
 - 二进制作弊大师了解一下？
 
 ## 股票信息获取和可视化问题
+
 - 题目：
 	- 根据股票代号爬取股票信息
 	- 绘制K线图
@@ -164,6 +168,7 @@ description:    整理了一些有趣的编程练习，Python实现
 - 绘图模块了解一下？
 
 ## 汉诺塔问题
+
 - 题目：
 	- 求汉诺塔问题的解法
 - 递归思想了解一下？
