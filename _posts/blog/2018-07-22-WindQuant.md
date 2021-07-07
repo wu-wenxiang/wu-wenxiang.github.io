@@ -52,14 +52,14 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 
 ### Register & Overview
 - 站点：[https://www.windquant.com/qntcloud/](https://www.windquant.com/qntcloud/)
-- ![WindQuant-Register.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-Register.png)
-- ![WindQuant-Overview.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-Overview.png)
+- ![WindQuant-Register.png](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-Register.png)
+- ![WindQuant-Overview.png](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-Overview.png)
 
 ### 在线编程
 - Hello, world
-- ![WindQuant-Debug.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-CodeBlock.png)
+- ![WindQuant-Debug.png](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-CodeBlock.png)
 - Debug
-- ![WindQuant-Debug.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-Debug.png)
+- ![WindQuant-Debug.png](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-WindQuant-Debug.png)
 - 帮助文档
 	- [Github](https://github.com/WindQuant/Official/tree/master/WAPIWrapper/WAPIWrapperPython)
 	- [帮助文档](http://www.dajiangzhang.com/document)  
@@ -140,19 +140,19 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 		idx = list(data_df.index)
 		plt.bar(idx, data_df['VOLUME'], width, color='b',edgecolor='w')
 		plt.title(u'Market Price')
-- ![Matplotlib绘图](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-Matplotlib.png)
+- ![Matplotlib绘图](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-Matplotlib.png)
 
 ## Wind API
 - WindQuant起源于Wind API，在WindQuant上的脚本基本都可以用WindAPI在本地运行。
 - 安装：
 	- 在[大奖章](http://www.dajiangzhang.com/document)下载Wind API，当前是2.0版本，2015年Release
-	- ![WindAPI-Download.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Download.png)
+	- ![WindAPI-Download.png](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Download.png)
 	- 安装
-	- ![WindAPI-Installation.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Installation.png)
+	- ![WindAPI-Installation.png](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Installation.png)
 	- 安装后，会自动弹出登录窗口
-	- ![WindAPI-Login.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Login.png)
+	- ![WindAPI-Login.png](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-Login.png)
 	- 如果要切换用户登陆，可以在登陆
-	- ![WindAPI-SwitchUser.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-SwitchUser.png) 
+	- ![WindAPI-SwitchUser.png](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-SwitchUser.png) 
 - 安装好，并完成登陆后，就可以在本地使用WindAPI了
 	- 代码
 
@@ -163,7 +163,7 @@ description:    介绍量化投资和万矿WindQuant的一些基本知识
 			wsd_data=w.wsd("000001.SZ", "open,high,low,close,volume,amt,chg,pct_chg", "2016-11-01", "2017-01-03", "")
 			print(wsd_data) 
 	- 效果如下
-	- ![WindAPI-PyCharm.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-PyCharm.png) 
+	- ![WindAPI-PyCharm.png](/images/weblink/8d2aaccebe604eb4947cd7d2953a5478-WindAPI-PyCharm.png) 
 
 ## 其它参考信息
 - [基于python的开源量化交易平台开发框架](https://github.com/vnpy/vnpy): http://www.vnpy.org
