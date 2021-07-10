@@ -6,6 +6,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 ---
 
 ## Startup
+
 - 单元测试的核心价值在于两点：
 	1. 更加精确地定义某段代码的作用，从而使代码的耦合性更低
 	1. 避免程序员写出不符合预期的代码，以及因新增功能而带来的Regression Bug
@@ -21,6 +22,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 ## 常见类库
 
 ### Unittest
+
 - Unittest的标准文档在这里：
 	1. [Python2](https://docs.python.org/2/library/unittest.html)
 	1. [Python3](https://docs.python.org/3/library/unittest.html)
@@ -136,6 +138,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 			    closeConnection()
 
 ### Mock
+
 - 简述
 	- [Mock](http://www.voidspace.org.uk/python/mock/) 类库是一个专门用于在unittest过程中制作（伪造）和修改（篡改）测试对象的类库，制作和修改的目的是避免这些对象在单元测试过程中依赖外部资源（网络资源，数据库连接，其它服务以及耗时过长等）。Mock是一个如此重要的类库，如果没有它，Unittest框架从功能上来说就是不完整的。所以不能理解为何它没有出现在Python2的标准库里，不过我们可以很高兴地看到在Python3中mock已经是unittest框架的一部分。
 - **猴子补丁**，[Monkey-patching](https://en.wikipedia.org/wiki/Monkey_patch) is the technique of swapping functions or methods with others in order to change a module, library or class behavior.
@@ -364,6 +367,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 		<MagicMock name='mock.__add__()' id='4537473552'>
 
 ### Unittest2
+
 - 简述
 	- Unittest2致力于将Python2.7及以后版本上unittest框架的新特性移植（backport）到Python2.4~Python2.6平台中。
 	- Backport是将一个软件补丁应用到比该补丁所对应的版本更老的版本的行为。
@@ -373,7 +377,8 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 	- [*unittest2 is a backport of Python 2.7’s unittest module which has an improved API and better assertions over the one available in previous versions of Python.*](http://docs.python-guide.org/en/latest/writing/tests/)
 	- [*unittest2py3k is the Python 3 compatible version of unittest2*](https://pypi.python.org/pypi/unittest2py3k)
 
-### py.test
+### pytest
+
 - 简述
 	- [pytest](http://pytest.org) 是另一种固件测试框架，它的API设计非常简洁优雅，完全脱离了XUnit的窠臼（unittest是XUnit在Python中的实现）。但这也正是它的缺点，unittest是标准库的一部分，用者甚众，与之大异难免曲高和寡。
 - py.test功能完备，并且可扩展，但是它语法很简单。创建一个测试组件和写一个带有诸多函数的模块一样容易，来看一个例子
@@ -457,6 +462,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 - 这里需要注意的地方是：setup_module被调用的位置。
 
 ### Nose
+
 - nose广为流传，它主要用于配置和运行各种框架下的测试用例，有更简洁友好的测试用例发现功能。nose的自动发现策略是会遍历文件夹，搜索特征文件（默认是搜索文件名中带test的文件）
 
 		$ nosetests
@@ -482,6 +488,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 - 其作者Jason Pellerin先生坦言他目前(2014年)并没有多余的时间进行personal projects的开发，每周对nose与nose2的实际开发时间大概只有30分钟，在这种情况下，nose与nose2都将很难再有大的改版与修正。
 
 ### Green
+
 - 不同与nose/nose2，[green](https://github.com/CleanCut/green)是单纯为了强化unittest中test runner功能而出现的工具。green所提供的只有一个功能强大、使用方便、测试报告美观的test runner。如果你的项目中的测试都是以传统unittest module撰写而成的话，green会是一个很好的test runner选择。
 - 使用green执行测试：
 
@@ -490,6 +497,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 		green
 
 ### Doctest
+
 - Doctest的标准文档在这里：
 	1. [Python2](https://docs.python.org/2/library/doctest.html)
 	1. [Python3](https://docs.python.org/3/library/doctest.html)
@@ -516,6 +524,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 - doctest还有一些高级用法，但基本上用不到，用到的时候再去查标准文档好了。 :)
 
 ### Mox
+
 - Mox是Java EasyMock框架在Python中的实现。它一个过时的，很像mock的类库。从现在开始，你**应该放弃学习Mox，在任何情况下都用Mock**就对了。
 - 参考 [Mox的官方文档](https://pypi.python.org/pypi/mox)：
 
@@ -532,6 +541,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 ## 其它类库
 
 ### tox
+
 - [官方文档](https://tox.readthedocs.io/en/latest/): 一个自动化测试框架
 	- checking your package installs correctly with different Python versions and interpreters
 	- running your tests in each of the environments, configuring your test tool of choice
@@ -548,9 +558,11 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 - To sdist-package, install and test your project against Python2.6 and Python2.7, just type: `tox`
 
 ### testr
+
 - [官方文档](http://testrepository.readthedocs.io/en/latest/): 是一个test runner。
 
-### Django的Unittest
+### Django 的 Unittest
+
 - [官方文档](https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/unit-tests/)
 - [官方文档](https://docs.djangoproject.com/ja/1.9/topics/testing/)推荐用Unittest：The preferred way to write tests in Django is using the unittest module built in to the Python standard library. 
 - [django.test.TestCase](https://docs.djangoproject.com/ja/1.9/topics/testing/overview/)继承了unittest.TestCase。
@@ -571,7 +583,8 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 			        self.assertEqual(lion.speak(), 'The lion says "roar"')
 			        self.assertEqual(cat.speak(), 'The cat says "meow"')
 
-### Flask的Unittest
+### Flask 的 Unittest
+
 - [官方文档](http://flask.pocoo.org/docs/0.11/testing/)中介绍：Flask provides a way to test your application by exposing the Werkzeug test Client and handling the context locals for you. You can then use that with your favourite testing solution. In this documentation we will use the unittest package that comes pre-installed with Python.
 	
 		app.test_client()
@@ -611,6 +624,7 @@ description:    总结了Python单元测试中常见的单元测试框架，比�
 		        self.assertEquals(response.json, dict(success=True))
 
 ## 建议和总结
+
 - 在项目中尽量不要mix多种功能类似的框架。
 	- 你可以选unittest + green，或者nose/nose2(依使用Python版本和项目的历史遗留而定) ，或者pytest，但是尽量不要混合使用。 
 - 关于Unittest

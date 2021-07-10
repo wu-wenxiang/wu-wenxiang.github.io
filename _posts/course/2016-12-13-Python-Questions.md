@@ -48,7 +48,7 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [开始] Python2和Python3，或者多个Python3版本如何在一个系统中共存？Native / Virtualenv / Docker
 
-1. [开始] **有哪些优秀的Python学习资源可以参考？** [Python学习手册5th](https://book.douban.com/subject/30364619/)，[Python3标准库](https://book.douban.com/subject/30346181/)
+1. [开始] **有哪些优秀的Python学习资源可以参考？** [Python学习手册5th](https://book.douban.com/subject/30364619/)，[Python3标准库](https://book.douban.com/subject/30346181/)，[Python 官网教程](https://docs.python.org/zh-cn/3/tutorial/)
 
 1. [环境] **在Windows下如何搭建Python开发环境？**[单独安装Python](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Installation-Python.md)，[一体化安装Anaconda](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Installation-Anaconda.md)，[IDE-Eclipse-Pydev](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Installation-Eclipse-Pydev.md)，[IDE-PyCharm](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/Installation-PyCharm.md)
 
@@ -608,9 +608,31 @@ description:    逆向法学习Python，一网打尽那些关于Python你需要�
 
 1. [概念] 什么是Apriori算法？适用于哪些场合？
 
-1. [类库] **如何理解和使用Numpy模块中的ndarray对象？** boardcast, 随机数生成，点乘，索引（布尔数组删选）
- 
-1. [类库] **如何理解和使用Pandas中的DataFrame对象？** 读写文件，columns，index，apple，根据Index定位
+1. [类库] **如何安装科学计算环境？**[scipy 安装](https://scipy.org/install.html)：[Anaconda](https://www.anaconda.com/download/) 或 `pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose`
+
+1. [类库] **Numpy 提供什么数据结构对象和能力？** ndarray（别名 array）：多维数组和各种派生对象（如掩码数组和矩阵），能力：用于数组快速操作的 API，包括数学、逻辑、形状操作、排序、选择、输入输出、离散傅立叶变换、基本线性代数，基本统计运算和随机模拟。[快速入门](https://www.numpy.org.cn/user/quickstart.html)
+
+1. [类库] Python 的标准库有哪些涉及数据类型的？[DataType](https://docs.python.org/3/library/datatypes.html)：array, collections, heapq, bisect
+
+1. [类库] NumPy ndarray 和原生 Python array 有何不同？固定大小，支持 numpy 和绝大多数科学计算类库 API（Python array 只处理一维数组并提供较少的功能）
+
+1. [类库] Numpy ndarray 有哪些重要的字段属性？ndim，shape，size，dtype，itemsize
+
+1. [类库] **如何创建 Numpy ndarray？**（zeros, ones, empty, array([...]), arange, linespace，fromfunction）, 随机数，以及 linspace 和 arange step 各自用于什么场景？
+
+1. [类库] **Numpy ndarray 有哪些基本操作？**[功能和方法概述](https://www.numpy.org.cn/user/quickstart.html#%E5%8A%9F%E8%83%BD%E5%92%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%BF%B0)：Broadcasting，叉乘，+=（会改变自身），b.sum(axis=x)，通函数（ufunc），slice 赋值标量，`[1:5][1]` 和 `[1:5,1]` 的差异（当提供的索引少于轴的数量时，缺失的索引被认为是完整的切片），`...` 索引，迭代和 flat 迭代，布尔数组筛选（`a[a==1]`）
+
+1. [类库] 如何改变 Numpy ndarray 的形状？ravel（c风格），reshape（-1），T，resize，array.shape=2,-1
+
+1. [类库] 如何堆叠两个 Numpy ndarray？hstack, vstack, column_stack, row_stack
+
+1. [类库] 如何拆分 Numpy ndarray？hsplit, vsplit, array_split
+
+1. [类库] 如何理解和使用 Numpy ndarray 对象的浅拷贝（view, 切片），深拷贝（array.copy，b.base is a）？
+
+1. [类库] **Pandas 提供什么数据结构对象和能力？** DataFrame 和 Series，DataFrame 是 Series 的容器，Series 则是标量的容器。可以在容器中以字典的形式插入或删除对象。[快速入门](https://www.pypandas.cn/docs/getting_started/)，[数据结构简介](https://www.pypandas.cn/docs/getting_started/dsintro.html)。
+
+1. [类库] **如何理解和使用Pandas中的DataFrame对象？** 读写文件，columns，index，apple，根据 Index 定位
 
 1. [类库] 如何使用Scipy解非线性方程组？
 

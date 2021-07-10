@@ -7,7 +7,7 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 
 ## Overview
 
-- 关联代码：[Github](https://github.com/wu-wenxiang/Training-DesignPattern-Public)
+- 关联代码：[Github](https://github.com/wu-wenxiang/Training-DesignPattern-Public) or [Gitee](https://gitee.com/wu-wen-xiang/training-design-pattern)
 
 ### 面向对象和设计模式
 
@@ -29,8 +29,8 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 1989/91年，James Coplien在也在利用相同的思想致力于C++的开发，并于1991年发表著作《Advanced C++ Programming Styles and Idioms》。
 - 还是在1988年，Erich Gamma获得博士学位后去往了美国。在那里，他结识了Richard Helm, Ralph Johnson, John Vlissides。他们合作出版了：《设计模式：可复用面向对象软件的基础》（Design Patterns - Elements of Reusable Object-Oriented Software）。书中案例采用Java和C++编写。
 - 在这之后，设计模式的思想很快传播开来并深刻影响了之后的软件开发领域。这四位作者也在软件开发领域里以**GoF**（“四人帮”，即**Gang of Four**）而闻名于世。有时，GoF也会用于代指《设计模式》这本书。
-	- ![Design-Pattern-GOF](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-GOF.png)
 
+	![Design-Pattern-GOF](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-GOF.png)
 
 ## 原则
 
@@ -54,7 +54,9 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 	- 这种耦合下，一个职责的变化可能会削弱这个类完成其它职责的能力，从而破坏原有设计
 	- 若将多个职责分开，各自对应到一个单独的类，可以令一个职责的变化只会涉及到一个类，不及其余
 	- 举例来说，MVC，数据模型/界面/业务逻辑，各自独立。
-	- ![Example.jpg](/image s/d3982739435445939afcf1c492cddf08-Example.jpg)
+
+		![Example.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Example.jpg)
+
 	- 简单的编程题（Python），循环逻辑/或逻辑/算法逻辑，各自独立。
 	
 			打印输出符合如下条件之一的100以内的自然数：
