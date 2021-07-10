@@ -10,8 +10,8 @@ description:    整理了sklearn模块中的机器学习算法
 - sklearn基于Numpy、SciPy和Matplotlib，大致分为6个子模块：
 - ![Sklearn-Table.png](/images/weblink/b65bd14fca944fbcbf582a5e0c60b3f5-Sklearn-Table.png)
 - 其中，分类、聚类、回归、降维四类算法各自适用于场景：
-- ![Sklearn-ML-Map.png](http://scikit-learn.org/stable/_static/ml_map.png)
-- 对应的代码在[Github](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/python-exec-public.py)
+- ![Sklearn-ML-Map.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-ml_map.png)
+- 对应的代码在：[Github](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/python-exec-public.py) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/python-exec-public.py)
 
 ## 预处理（Preprocessing）
 
@@ -26,7 +26,7 @@ description:    整理了sklearn模块中的机器学习算法
 - 二值化：连续值 => 离散值
 - 缺失处理：插值法（均值，朗格朗日）
 - 多项式变型：用于非线性回归预测
-- ![polynomial_interpolation](http://scikit-learn.org/stable/_images/sphx_glr_plot_polynomial_interpolation_001.png)
+- ![polynomial_interpolation](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-sphx_glr_plot_polynomial_interpolation_001.png)
 
 ## 分类（Classification）
 
@@ -44,19 +44,24 @@ description:    整理了sklearn模块中的机器学习算法
 
 - [参考](https://www.reddit.com/r/MachineLearning/comments/15zrpp/please_explain_support_vector_machines_svm_like_i/)
 - 本质上是建立核函数，令样本在高维空间上展开，然后可以一个平面分开（分类）
-- ![supported-vector-machine-1.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-supported-vector-machine-1.gif)
-- ![supported-vector-machine-2.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-supported-vector-machine-2.gif)
-- ![supported-vector-machine.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-supported-vector-machine.gif)
+
+	![supported-vector-machine-1.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-supported-vector-machine-1.gif)
+
+	![supported-vector-machine-2.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-supported-vector-machine-2.gif)
+
+	![supported-vector-machine.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-supported-vector-machine.gif)
 
 ### nearest neighbors
 
 - [参考](https://zh.wikipedia.org/wiki/%E6%9C%80%E8%BF%91%E9%84%B0%E5%B1%85%E6%B3%95)
-- ![knn.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-knn.png)
+
+	![knn.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-knn.png)
 
 ### 随机森林：random forest
 
 - 评价各个特征向量的权重
-- ![random-forest.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-random-forest.png)
+
+	![random-forest.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-random-forest.png)
 
 ## 回归（Regression）
 
@@ -68,9 +73,12 @@ description:    整理了sklearn模块中的机器学习算法
 - 形同SVM，但不用于分类，而用于回归，[参考](http://www.saedsayad.com/support_vector_machine_reg.htm)
 - 更正式一点的[参考](https://alex.smola.org/papers/2003/SmoSch03b.pdf)
 - 线性
-- ![svr-linear.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-svr-linear.png)
+
+	![svr-linear.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-svr-linear.png)
+
 - 非线形（加核函数）
-- ![svr-non-linear.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-svr-non-linear.png)
+
+	![svr-non-linear.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-svr-non-linear.png)
 
 ### Ridge & Lasso Regression
 
@@ -82,8 +90,10 @@ description:    整理了sklearn模块中的机器学习算法
 	- 如果惩罚项是参数的l2范数，就是脊回归(Ridge Regression)
 	- 如果惩罚项是参数的l1范数，就是套索回归（Lasso Regrission）
 - 正则化同时也是防止过拟合有效的手段，这在“多项式回归”中有详细的说明。
-- ![polynomial-ridge-regression.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-polynomial-ridge-regression.gif)
-- ![ridge-lasso-regression.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-ridge-lasso-regression.png)
+
+	![polynomial-ridge-regression.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-polynomial-ridge-regression.gif)
+
+	![ridge-lasso-regression.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-ridge-lasso-regression.png)
 
 ## 聚类（Clustering）
 
@@ -100,7 +110,9 @@ description:    整理了sklearn模块中的机器学习算法
 	- 第三步通过取分配给每个先前质心的所有样本的平均值来创建新的质心
 	- 计算旧的和新的质心之间的差异，并且算法重复这些最后的两个步骤，直到该值小于阈值
 	- 换句话说，算法重复这个步骤，直到质心不再显著移动
-	- ![kMeans-clustering.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-kMeans-clustering.jpg)
+
+		![kMeans-clustering.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-kMeans-clustering.jpg)
+
 - 适用场景
 	- K-means算法通常可以应用于维数、数值都很小且连续的数据集
 	- 比如：从随机分布的事物集合中将相同事物进行分组
@@ -114,7 +126,8 @@ description:    整理了sklearn模块中的机器学习算法
 	- 通过对所有数据点组成的图进行切图
 	- 让切图后不同的子图间边权重和尽可能的低，而子图内的边权重和尽可能的高
 	- 从而达到聚类的目的
-- ![spectral-clustering.jpg](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-spectral-clustering.jpg)
+
+	![spectral-clustering.jpg](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-spectral-clustering.jpg)
 
 ### mean-shift clustering
 
@@ -126,7 +139,8 @@ description:    整理了sklearn模块中的机器学习算法
 		- Iterate until there is no change of points within B distance
 	1. Merge all cluster prototypes that are close by
 	1. It is possible to use a different kernel in step 2, to give a higher weight to points closer to the cluster prototype center
-- ![mean-shift-clustering.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-mean-shift-clustering.gif)
+
+	![mean-shift-clustering.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-mean-shift-clustering.gif)
 
 ## 降维（Dimensionality reduction）
 
@@ -140,7 +154,8 @@ description:    整理了sklearn模块中的机器学习算法
 - 但是这样投影以后对数据的区分作用并不大，反而可能使得数据点揉杂在一起无法区分
 - 这也是PCA存在的最大一个问题，这导致使用PCA在很多情况下的分类效果并不好
 - 具体可以看下图所示，若使用PCA将数据点投影至一维空间上时，PCA会选择2轴，这使得原本很容易区分的两簇点被揉杂在一起变得无法区分；而这时若选择1轴将会得到很好的区分结果。
-- ![PCA.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-PCA.gif)
+
+	![PCA.gif](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-PCA.gif)
 
 ## LDA（Linear Discriminant Analysis）
 
@@ -155,7 +170,9 @@ description:    整理了sklearn模块中的机器学习算法
 - Locally linear embedding 是一种非线性降维算法，它能够使降维后的数据较好地保持原有流形结构。
 - LLE可以说是流形学习方法最经典的工作之一，很多后续的流形学习、降维方法都与LLE有密切联系。
 - 如下图，使用LLE将三维数据（b）映射到二维（c）之后，映射后的数据仍能保持原有的数据流形（红色的点互相接近，蓝色的也互相接近），说明LLE有效地保持了数据原有的流行结构。
-- ![locally-linear-embedding.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-locally-linear-embedding.png)
+
+	![locally-linear-embedding.png](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-locally-linear-embedding.png)
+
 - 但是LLE在有些情况下也并不适用，如果数据分布在整个封闭的球面上，LLE则不能将它映射到二维空间，且不能保持原有的数据流形。那么我们在处理数据中，首先假设数据不是分布在闭合的球面或者椭球面上。
 
 ### non-negative matrix factorization（非负矩阵分解）
@@ -175,7 +192,8 @@ description:    整理了sklearn模块中的机器学习算法
 - 在数学上，从计算的观点看，分解结果中存在负值是正确的，但负值元素在实际问题中往往是没有意义的。
 - 例如图像数据中不可能有负值的像素点；在文档统计中，负值也是无法解释的。
 - 通俗点说，VQ是用一张完整的图像直接代表源脸部图像；PCA是将几个完整人脸加减压成一张脸；而NMF是取甲的眼睛，乙的鼻子，丙的嘴巴直接拼成一张脸。
-- ![nmf.jpg](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-nmf.jpg)
+
+	![nmf.jpg](/images/weblink/cc248ddcba014c3cb4a2bb4cf75eb863-nmf.jpg)
 
 ## 模型选择（Model selection）
 
