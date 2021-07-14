@@ -640,9 +640,9 @@ description:    逆向法学习 Python，一网打尽那些关于 Python 你需�
 
 1. [类库] 如何使用 Scipy 做数值积分？
 
-1. [类库] **如何使用 Matplotlib 绘制解析几何图形？**[参考](https://www.matplotlib.org.cn/)
+1. [类库] **如何使用 Matplotlib 绘制解析几何图形？**[教程](https://www.matplotlib.org.cn/tutorials/)，[图例库](https://www.matplotlib.org.cn/gallery/)
 
-1. [类库] **如何使用 Scikit-Lean 完成回归、分类、聚类运算？** [参考](http://blog.wuwenxiang.net/Machine-Learning)
+1. [类库] **如何使用 Scikit-Learn 完成回归、分类、聚类运算？** [参考](http://blog.wuwenxiang.net/Machine-Learning)，[官方文档](https://sklearn.apachecn.org/)，[Gitee](https://apachecn.gitee.io/sklearn-doc-zh)
 
 1. [案例] 什么是适用于消费类数据的 RFM 模型？[Recency/Frequency/Monetary](https://searchdatamanagement.techtarget.com/definition/RFM-analysis)
 
