@@ -630,7 +630,7 @@ description:    逆向法学习 Python，一网打尽那些关于 Python 你需�
 
 1. [类库] 如何理解和使用 Numpy ndarray 对象的浅拷贝（view, 切片），深拷贝（array.copy，b.base is a）？
 
-1. [类库] **Pandas 提供什么数据结构对象和能力？** DataFrame 和 Series，DataFrame 是 Series 的容器，Series 则是标量的容器。可以在容器中以字典的形式插入或删除对象。[快速入门](https://www.pypandas.cn/docs/getting_started/)，[数据结构简介](https://www.pypandas.cn/docs/getting_started/dsintro.html)。
+1. [类库] **Pandas 提供什么数据结构对象和能力？** DataFrame 和 Series，DataFrame 是 Series 的容器，Series 则是标量的容器。可以在容器中以字典的形式插入或删除对象。[快速入门](https://www.pypandas.cn/docs/getting_started/)，[数据结构简介](https://www.pypandas.cn/docs/getting_started/dsintro.html)，CheatSheet：[Github](https://github.com/wu-wenxiang/training-python-public/blob/master/doc/pdf/Pandas-Cheat-Sheet.pdf) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/pdf/Pandas-Cheat-Sheet.pdf)
 
 1. [类库] **如何理解和使用 Pandas 中的 DataFrame 对象？** 生成对象，describe，选择（列、切片、`loc[:,['A','B']]`、iloc），运算，Merge，Grouping，读写文件（数据库），columns，index，根据 Index 定位
 
@@ -640,7 +640,8 @@ description:    逆向法学习 Python，一网打尽那些关于 Python 你需�
 
 1. [类库] 如何使用 Scipy 做数值积分？
 
-1. [类库] **如何使用 Matplotlib 绘制解析几何图形？**[教程](https://www.matplotlib.org.cn/tutorials/)，[图例库](https://www.matplotlib.org.cn/gallery/)
+1. [类库] **如何使用 Matplotlib 绘制解析几何图形？**[教程](https://www.matplotlib.org.cn/tutorials/)，[图例库](https://www.matplotlib.org.cn/gallery/)，CheatSheet（[Github](
+https://github.com/wu-wenxiang/training-python-public/blob/master/doc/pdf/Matplotlib-Cheat-Sheet.pdf) 或 [Gitee](https://gitee.com/wu-wen-xiang/training-python/blob/master/doc/pdf/Matplotlib-Cheat-Sheet.pdf)），[官方快速入门](https://matplotlib.org/stable/tutorials/introductory/usage.html)，[官方图例](https://matplotlib.org/stable/gallery/index.html)
 
 1. [类库] **如何使用 Scikit-Learn 完成回归、分类、聚类运算？** [参考](http://blog.wuwenxiang.net/Machine-Learning)，[官方文档](https://sklearn.apachecn.org/)，[Gitee](https://apachecn.gitee.io/sklearn-doc-zh)
 
