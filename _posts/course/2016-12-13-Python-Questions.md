@@ -634,7 +634,7 @@ description:    逆向法学习 Python，一网打尽那些关于 Python 你需�
 
 1. [类库] **如何理解和使用 Pandas 中的 DataFrame 对象？** 生成对象，describe，选择（列、切片、`loc[:,['A','B']]`、iloc），运算，Merge，Grouping，读写文件（数据库），columns，index，根据 Index 定位
 
-1. [类库] Pandas 如何把一列字符串数据变成时间数据？如何计算时间差？`pd.to_datetime('2014/03/31') - pd.to_datetime(data1['FFP_DATE'])` 如何把时间差变成整数？`df['ts'].dt.day` 如何把字符串变成数字？`pd.to_numeric()`
+1. [类库] Pandas 如何把一列字符串数据变成时间数据？如何计算时间差？`pd.to_datetime('2014/03/31') - pd.to_datetime(data1['FFP_DATE'])` 如何把时间差变成整数？`df['ts'].dt.days` 如何把字符串变成数字？`pd.to_numeric()`
 
 1. [类库] Pandas 数据如何处理时间序列绘图？设置时间列为 index，然后 `df.plot(); plt.show()`，如果要汇总可以用 resample
 
