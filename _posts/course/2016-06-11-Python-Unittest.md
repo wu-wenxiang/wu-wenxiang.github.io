@@ -56,25 +56,25 @@ description:    总结了 Python 单元测试中常见的单元测试框架，�
 
     - 用 Assert，**不要**用 FailUnless（它们已经被废弃）
 
-        ![Deprecated.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-Deprecated.png)
+        ![Deprecated.png](/images/weblink/1faa032c59274913b7473091b5c42fa7-Deprecated.png)
 
     - 常用的 Assert
 
-        ![NormalAssert.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-NormalAssert.png)
+        ![NormalAssert.png](/images/weblink/1faa032c59274913b7473091b5c42fa7-NormalAssert.png)
 
     - 特殊的 Assert
 
-        ![SpecificAssert.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-SpecificAssert.png)
+        ![SpecificAssert.png](/images/weblink/1faa032c59274913b7473091b5c42fa7-SpecificAssert.png)
 
         For example:
 
         `assertAlmostEqual(1.1, 3.3-2.15, places=1)`
 
-        ![SpecificEqual.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-SpecificEqual.png)
+        ![SpecificEqual.png](/images/weblink/1faa032c59274913b7473091b5c42fa7-SpecificEqual.png)
 
     - AssertException
 
-        ![AssertException.png](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1faa032c59274913b7473091b5c42fa7-AssertException.png)
+        ![AssertException.png](/images/weblink/1faa032c59274913b7473091b5c42fa7-AssertException.png)
 
         - assertRaises
             - `assertRaises(exception, callable, *args, **kwds)`
