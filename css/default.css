@@ -79,19 +79,19 @@ pre ol{margin-left:25px;list-style-type:decimal;}
     background-position:50% 50%;
 }
 .blog .aside{
-    background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-jieti.jpeg');
+    background-image:url('/images/weblink/1426a7be556245a0b68defe10ea6ee5a-jieti.jpeg');
 }
 .about .aside{
-    background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-dengshan.jpg');
+    background-image:url('/images/weblink/1426a7be556245a0b68defe10ea6ee5a-dengshan.jpg');
 }
 .project .aside{
-    background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-gonglu.jpeg');
+    background-image:url('/images/weblink/1426a7be556245a0b68defe10ea6ee5a-gonglu.jpeg');
 }
 .essay .aside{
-    background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-sky.jpg');
+    background-image:url('/images/weblink/1426a7be556245a0b68defe10ea6ee5a-sky.jpg');
 }
 .course .aside{
-    background-image:url('https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/1426a7be556245a0b68defe10ea6ee5a-Africa.jpg')
+    background-image:url('/images/weblink/1426a7be556245a0b68defe10ea6ee5a-Africa.jpg')
 }
 .index-content .section { margin-left:30%; padding-top:80px; padding-right:15%; ;}
 .index-content .artical-list { width:70%; margin:0 auto; }

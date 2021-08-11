@@ -11,7 +11,7 @@ description:    通过一个典型的 Cinder 问题展示 OpenStack 问题排错
 
 Web 页面上访问 cinder 服务报错 500
 
-![](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/409ee9e7cf974eebb762f5b55318e882-cinder-error-500.png)
+![](/images/weblink/409ee9e7cf974eebb762f5b55318e882-cinder-error-500.png)
 
 Chrome 开发者工具，选择对应的 API 请求，右键，Copy as cURL
 
@@ -341,7 +341,7 @@ Research 源码，发现没有 `x-openstack-api-version`，只有 `openstack-api
 
 Google，`"openstack-api-version" | "x-openstack-api-version"`，绝大多数都是 "openstack-api-version"，"x-openstack-api-version" 只有寥寥几个，但诡异的是，这几个里面居然有官方文档 [https://docs.openstack.org/doc-contrib-guide/api-guides.html](https://docs.openstack.org/doc-contrib-guide/api-guides.html)，但仅此一处，其它官方文档里未见 `x-`
 
-![](https://raw.githubusercontent.com/wu-wenxiang/Media-WebLink/master/qiniu/409ee9e7cf974eebb762f5b55318e882-openstack-api-x-openstack-api-version.png)
+![](/images/weblink/409ee9e7cf974eebb762f5b55318e882-openstack-api-x-openstack-api-version.png)
 
 应该是文档有错，没有深究。
 

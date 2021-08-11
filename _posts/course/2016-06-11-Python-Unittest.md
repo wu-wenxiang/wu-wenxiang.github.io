@@ -448,7 +448,7 @@ description:    总结了 Python 单元测试中常见的单元测试框架，�
     - [*unittest2 is a backport of Python 2.7’s unittest module which has an improved API and better assertions over the one available in previous versions of Python.*](http://docs.python-guide.org/en/latest/writing/tests/)
     - [*unittest2py3k is the Python 3 compatible version of unittest2*](https://pypi.python.org/pypi/unittest2py3k)
 
-### py.test
+### pytest
 
 - 简述
     - [pytest](http://pytest.org) 是另一种固件测试框架，它的 API 设计非常简洁优雅，完全脱离了 XUnit 的窠臼（unittest 是 XUnit 在 Python 中的实现）。但这也正是它的缺点，unittest 是标准库的一部分，用者甚众，与之大异难免曲高和寡。
@@ -547,6 +547,7 @@ description:    总结了 Python 单元测试中常见的单元测试框架，�
 
 - nose 广为流传，它主要用于配置和运行各种框架下的测试用例，有更简洁友好的测试用例发现功能。nose 的自动发现策略是会遍历文件夹，搜索特征文件（默认是搜索文件名中带 test 的文件）
 
+    ```console
     $ nosetests
     F.
     ======================================================================
@@ -563,6 +564,8 @@ description:    总结了 Python 单元测试中常见的单元测试框架，�
     Ran 2 tests in 0.004s
 
     FAILED (failures=1)
+    ```
+
 - 很可惜，[官网](https://nose.readthedocs.io/en/latest/)说：Nose has been in maintenance mode for the past several years and will **likely cease** without a new person/team to take over maintainership. New projects should consider using [Nose2](http://nose2.readthedocs.io/en/latest/), py.test, or just plain unittest/unittest2.
 - Nose2 是 Nose 的原班人马开发。[nose2 is being developed by the same people who maintain nose.](http://nose2.readthedocs.io/en/latest/differences.html)
 - Nose2 是基于 unittest2 plugins 分支开发的，但并不支持 python2.6 之前的版本。Nose2 致力于做更好的 Nose，它的 Plugin API 并不兼容之前 Nose 的 API，所以如果你 migration from Nose，必须重写这些 plugin。*nose2 implements a new plugin API based on the work done by Michael Foord in unittest2’s plugins branch. This API is greatly superior to the one in nose, especially in how it allows plugins to interact with each other. But it is different enough from the API in nose that supporting nose plugins in nose2 will not be practical: plugins must be rewritten to work with nose2.*
@@ -571,12 +574,14 @@ description:    总结了 Python 单元测试中常见的单元测试框架，�
 
 ### Green
 
-- 不同与 nose/nose2，[green](https://github.com/CleanCut/green)是单纯为了强化 unittest 中 test runner 功能而出现的工具。green 所提供的只有一个功能强大、使用方便、测试报告美观的 test runner。如果你的项目中的测试都是以传统 unittest module 撰写而成的话，green 会是一个很好的 test runner 选择。
-- 使用 green 执行测试：
+- 不同与nose/nose2，[green](https://github.com/CleanCut/green)是单纯为了强化unittest中test runner功能而出现的工具。green所提供的只有一个功能强大、使用方便、测试报告美观的test runner。如果你的项目中的测试都是以传统unittest module撰写而成的话，green会是一个很好的test runner选择。
+- 使用green执行测试：
 
+    ```bash
     pip install green
     cd path/to/project
     green
+    ```
 
 ### Doctest
 
