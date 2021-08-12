@@ -30,6 +30,7 @@ description:    总结了 Python 单元测试中常见的单元测试框架，�
 - Unittest 框架的单元测试类用例通过继承 unittest.TestCase 来实现，看起来像是这样：
 
     ```python
+    # test_fun.py
     import unittest
 
     def fun(x):
@@ -38,6 +39,10 @@ description:    总结了 Python 单元测试中常见的单元测试框架，�
     class MyTest(unittest.TestCase):
         def test(self):
             self.assertEqual(fun(3), 4)
+    ```
+
+    ```bash
+    python -m unittest test_fun
     ```
 
 - Unittest 一共包含 4 个概念：
@@ -591,6 +596,7 @@ description:    总结了 Python 单元测试中常见的单元测试框架，�
 - Doctest 看起来像是在交互式运行环境中的输出，事实上也确实如此 :)
 
     ```python
+    # test_square.py
     def square(x):
         """Squares x.
 
@@ -605,6 +611,10 @@ description:    总结了 Python 单元测试中常见的单元测试框架，�
     if __name__ == '__main__':
         import doctest
         doctest.testmod()
+    ```
+
+    ```console
+    python -m doctest test_square.py -v
     ```
 
 - Doctest 的作用是作为函数/类/模块等单元的解释和表述性文档。所以它们有如下特点：
