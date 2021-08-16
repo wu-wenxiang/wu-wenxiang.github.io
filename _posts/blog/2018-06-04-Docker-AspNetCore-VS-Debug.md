@@ -7,11 +7,11 @@ description:    介绍 ASP.NET Core + Docker 在Win/Linux环境中的部署和�
 
 ## 开发
 - 开发环境：VS2017，VSCode也可以
-	- 本地：Win10 + Docker CE
-	- 远端：Server 2016 或者 CentOS 7.4，Ubuntu 18.04 也行。
+    - 本地：Win10 + Docker CE
+    - 远端：Server 2016 或者 CentOS 7.4，Ubuntu 18.04 也行。
 - [Code Demo](https://github.com/wu-wenxiang/Training-AspDotNetCore-Docker-Public/tree/master/Docker-AspDotNetCore/AspDotNetCore-WebApi-Docker-Linux-RemoteDebug)，放在Github
-	- Test: `http://localhost:5000/api/values`
-	- Return: `["value1","value2"]`
+    - Test: `http://localhost:5000/api/values`
+    - Return: `["value1","value2"]`
 - 开发时，可以先正常创建ASP.NET或者ASP.NET Core项目，然后再添加Docker Support。Debug按钮后面使用`IISExpress`还是`Docker`，取决于Solution的`Start Project`是ASP.NET/ASP.NET Core项目，还是Docker-Composer。
 - Dockerfile中，Asp.net的官方Base Image默认是`FROM microsoft/aspnetcore:2.0`，这里取决于`docker-compose.dcproj`文件，`DockerTargetOS `是Linux还是Windows，类似这样`<DockerTargetOS>Linux</DockerTargetOS>`。如果`DockerTargetOS`是Windows，默认是Nano，反之，是Debian9，Stretch。[参考](https://github.com/aspnet/aspnet-docker/tree/master/2.0)。注意，Latest images for 2.1 and newer are now available on [microsoft/dotnet](https://hub.docker.com/r/microsoft/dotnet/).
 
@@ -19,10 +19,10 @@ description:    介绍 ASP.NET Core + Docker 在Win/Linux环境中的部署和�
 - 如果不涉及Docker，Windows环境中可以使用 WebDeploy 推送到VM上，参考[官方文档](https://github.com/aspnet/Tooling/blob/AspNetVMs/docs/create-asp-net-vm-with-webdeploy.md)。
 - 涉及Docker，推荐通过[Docker Hub](https://hub.docker.com/)，或者Private Registery Server。Docker Hub需要Create Account，**如果在创建用户时Signup按钮一直是灰色的不能点击，请翻墙**，XXX。
 - 将Docker Image上传到[Docker Hub](https://hub.docker.com/)或者Private Hub后，可以在远程服务器（Win/Linux）上Pull下来Run，这样就完成了部署。
-	- VS Deployment: Container Registry: Docker Hub
-	- Publish
-	- Then on CentOS, pull: `sudo docker pull maodouzi/aspdotnetcorewebapi: 20180605014624`, not latest
-	- Then run: `sudo docker run -p 8080:80 -p 8081:22 -it maodouzi/aspdotnetcorewebapi:20180605014624`, remember open 8080/8081 ACL in Azure portal.
+    - VS Deployment: Container Registry: Docker Hub
+    - Publish
+    - Then on CentOS, pull: `sudo docker pull maodouzi/aspdotnetcorewebapi: 20180605014624`, not latest
+    - Then run: `sudo docker run -p 8080:80 -p 8081:22 -it maodouzi/aspdotnetcorewebapi:20180605014624`, remember open 8080/8081 ACL in Azure portal.
 - 也可以将编译好的DLL发送到Remote Linux Server，在Linux Server上完成Docker Build工作，参考[这里](https://www.cnblogs.com/keepcodingforever/p/6698862.html)。
 
 ## 本地调试

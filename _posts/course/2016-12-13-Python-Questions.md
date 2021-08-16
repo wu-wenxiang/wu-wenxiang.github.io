@@ -9,24 +9,24 @@ description:    逆向法学习 Python，一网打尽那些关于 Python 你需�
 ## 问题分类
 
 - 核心知识
-	- **基础**: 开始，开发环境搭建，基本对象和变量，流程控制，文件，函数式编程
-	- **进阶**: 模块和包，类和实例，面向对象和设计模式，异常处理，正则表达式，装饰器，生成器
+    - **基础**: 开始，开发环境搭建，基本对象和变量，流程控制，文件，函数式编程
+    - **进阶**: 模块和包，类和实例，面向对象和设计模式，异常处理，正则表达式，装饰器，生成器
 - 常见应用
-	- **系统运维**: Bash，Python 与 Bash 联合编程，文件和目录，系统监控，网络协议，并行处理
-	- **DevOps**: 版本控制，测试，日志处理，部署，自动化管理，容器，APM
-	- **Web开发**: ORM模型，Web架构和接口，MVC，WebService，Flask，Django，微信
-	- **数据采集**: 爬虫，Scrapy 框架
-	- **数据挖掘**: 基本概念，常见类库，案例分析
+    - **系统运维**: Bash，Python 与 Bash 联合编程，文件和目录，系统监控，网络协议，并行处理
+    - **DevOps**: 版本控制，测试，日志处理，部署，自动化管理，容器，APM
+    - **Web开发**: ORM模型，Web架构和接口，MVC，WebService，Flask，Django，微信
+    - **数据采集**: 爬虫，Scrapy 框架
+    - **数据挖掘**: 基本概念，常见类库，案例分析
 - 其它应用
-	- **云计算OpenStack**: 架构，安装，使用，排错 
-	- **PaaS云平台**: GAE, SAE
-	- **Office文档处理**: Word，Excel
-	- **Python-C**: Python 调用 C-Lib，C 实现 Python-Module
-	- **PVM内存分析和调试**：pdb，dump，windbg，gdb
-	- **IoT**: 树莓板，GPIO，Azure IoT DevKit
-	- **MineCraft**: MineCraft, 绘制三维图形，捕捉玩家位置，虚拟连接现实
-	- **GUI**: TK
-	- **区块链**: BitCoin, IoT via BitCoin
+    - **云计算OpenStack**: 架构，安装，使用，排错
+    - **PaaS云平台**: GAE, SAE
+    - **Office文档处理**: Word，Excel
+    - **Python-C**: Python 调用 C-Lib，C 实现 Python-Module
+    - **PVM内存分析和调试**：pdb，dump，windbg，gdb
+    - **IoT**: 树莓板，GPIO，Azure IoT DevKit
+    - **MineCraft**: MineCraft, 绘制三维图形，捕捉玩家位置，虚拟连接现实
+    - **GUI**: TK
+    - **区块链**: BitCoin, IoT via BitCoin
 
 ---------------------------------------
 ---------------------------------------
@@ -262,7 +262,7 @@ description:    逆向法学习 Python，一网打尽那些关于 Python 你需�
 
 1. [对象] **Python 如何实现一个符合开放封闭原则的简单工厂模式？**
 
-1. [对象] 设计模式的基本原则和六大原则是什么？23 种设计模式分为哪 3 类，每个设计模式用于什么场景？参考：[设计模式摘录](http://blog.wuwenxiang.net/Design-Pattern) 
+1. [对象] 设计模式的基本原则和六大原则是什么？23 种设计模式分为哪 3 类，每个设计模式用于什么场景？参考：[设计模式摘录](http://blog.wuwenxiang.net/Design-Pattern)
 
 1. [异常] **异常处理的语法是怎样的？else 部分在什么时候会被执行？**
 
@@ -316,7 +316,7 @@ description:    逆向法学习 Python，一网打尽那些关于 Python 你需�
 
 1. [生成] 有哪些常见的协程类库？如何使用？
 
-## 常见应用 
+## 常见应用
 
 ### Python 的系统和进程管理中的应用
 
@@ -400,7 +400,7 @@ description:    逆向法学习 Python，一网打尽那些关于 Python 你需�
 
 1. [版本] **如何使用 Git 进行版本控制？CLI & Tortoise**
 
-1. [版本] 应如何理解Git中的rebase概念？ 
+1. [版本] 应如何理解Git中的rebase概念？
 
 1. [测试] **如何编写基于 XUnit 的单元测试案例？**
 
@@ -559,7 +559,7 @@ description:    逆向法学习 Python，一网打尽那些关于 Python 你需�
 1. [微信] 订阅号和服务号有什么区别？各自的应用场景是什么？
 
 1. [微信] 微信的身份认证机制是怎样的？
- 
+
 1. [微信] 微信订阅号的开发和调试步骤是怎样的？
 
 1. [微信] 微信服务号的支付功能是怎样实现的？
@@ -722,4 +722,3 @@ https://github.com/wu-wenxiang/training-python-public/blob/master/doc/pdf/Matplo
 ### GUI
 
 1. [TK] TK 的基本处理流程和布局方式是怎样的？
- 

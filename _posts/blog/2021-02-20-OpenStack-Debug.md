@@ -231,7 +231,7 @@ c0760120fa60   172.20.154.10:4000/kolla/centos-source-cinder-api:iaas-8.1.0     
 2021-02-20 16:04:09.469 22 ERROR cinder.api.middleware.fault   File "/var/lib/kolla/venv/lib/python2.7/site-packages/cinder/api/openstack/wsgi.py", line 306, in set_api_version_request
 2021-02-20 16:04:09.469 22 ERROR cinder.api.middleware.fault     service, volume_version = hdr.split()
 2021-02-20 16:04:09.469 22 ERROR cinder.api.middleware.fault ValueError: need more than 1 value to unpack
-2021-02-20 16:04:09.469 22 ERROR cinder.api.middleware.fault 
+2021-02-20 16:04:09.469 22 ERROR cinder.api.middleware.fault
 2021-02-20 16:04:09.473 22 INFO cinder.api.middleware.fault [req-1c1806d4-f3cb-46c4-a01c-e78094c6fbd9 c4128648bc484324a436ef95208e911e 4f6597fc276246b78b854d5044b020ed - default default] https://172.20.154.250:8776/v3/4f6597fc276246b78b854d5044b020ed/os-services?all_projects=true returned with HTTP 500
 ```
 

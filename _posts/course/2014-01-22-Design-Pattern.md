@@ -14,12 +14,12 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 面向对象（Object-oriented, OO）之于23种设计模式，犹如兵法之于36计
 - 兵法千变万化，取其常见者，整理成36计；同样的，设计模式是**面向对象思想的具体表现**
 - 离开了具体的计谋来谈兵法，兵法就虚无缥缈；离开了设计模式来谈面向对象也是如此
-	- 设计模式使得面向对象的程序设计思想**便于描述和理解**
-	- 讨论时程序架构时说“工厂模式”，如同讨论战局时说“美人计”或“围魏救赵”，一言即明
+    - 设计模式使得面向对象的程序设计思想**便于描述和理解**
+    - 讨论时程序架构时说“工厂模式”，如同讨论战局时说“美人计”或“围魏救赵”，一言即明
 - 在简单的战局用了过于复杂，或者不适合的计谋，会适得其反；设计模式亦然
-	- 用错了设计模式不至于“军败身死”，刚开始学习的同学**不妨多试**
-	- 了解每种设计模式的优缺点、设计初衷和应用场景，然后就能恰到好处地使用它们了
-	- 要达到这种“中庸”的境界，需要在[Github](https://github.com/)上不断地修炼
+    - 用错了设计模式不至于“军败身死”，刚开始学习的同学**不妨多试**
+    - 了解每种设计模式的优缺点、设计初衷和应用场景，然后就能恰到好处地使用它们了
+    - 要达到这种“中庸”的境界，需要在[Github](https://github.com/)上不断地修炼
 
 ### 历史
 
@@ -30,7 +30,7 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 还是在1988年，Erich Gamma获得博士学位后去往了美国。在那里，他结识了Richard Helm, Ralph Johnson, John Vlissides。他们合作出版了：《设计模式：可复用面向对象软件的基础》（Design Patterns - Elements of Reusable Object-Oriented Software）。书中案例采用Java和C++编写。
 - 在这之后，设计模式的思想很快传播开来并深刻影响了之后的软件开发领域。这四位作者也在软件开发领域里以**GoF**（“四人帮”，即**Gang of Four**）而闻名于世。有时，GoF也会用于代指《设计模式》这本书。
 
-	![Design-Pattern-GOF](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-GOF.png)
+    ![Design-Pattern-GOF](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-GOF.png)
 
 ## 原则
 
@@ -41,67 +41,67 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 原文是：Software entities should be open for extension,but closed for modification
 - 翻译：**软件应该对（功能）扩展开放，对（代码）修改关闭**，模块应尽量在不修改原代码的情况下进行扩展。
 - 具体的方法论：
-	- 根据敏捷开发原则，不要为代码添加基于猜测、实际不需要的功能，代码**刚刚够用**即可
-	- 对于新增功能，只新增代码，不修改代码
-	- 如果做不到，就选用合适的设计模式进行**重构**（Refactoring）
+    - 根据敏捷开发原则，不要为代码添加基于猜测、实际不需要的功能，代码**刚刚够用**即可
+    - 对于新增功能，只新增代码，不修改代码
+    - 如果做不到，就选用合适的设计模式进行**重构**（Refactoring）
 - 本原则是面向对象设计中“**可复用设计**”的基石，是最重要的原则，其它衍生原则是实现开闭原则的手段。
 
 ### 六大衍化原则
 
 - **单一职责原则（Single Responsibility Principle，SRP）**
-	- 设计目的单一的类，一个类只负责一个职责，把这个职责最到最好（紧内聚）
-	- 如果一个类承担的职责过多，等于将这些职责耦合在一起
-	- 这种耦合下，一个职责的变化可能会削弱这个类完成其它职责的能力，从而破坏原有设计
-	- 若将多个职责分开，各自对应到一个单独的类，可以令一个职责的变化只会涉及到一个类，不及其余
-	- 举例来说，MVC，数据模型/界面/业务逻辑，各自独立。
+    - 设计目的单一的类，一个类只负责一个职责，把这个职责最到最好（紧内聚）
+    - 如果一个类承担的职责过多，等于将这些职责耦合在一起
+    - 这种耦合下，一个职责的变化可能会削弱这个类完成其它职责的能力，从而破坏原有设计
+    - 若将多个职责分开，各自对应到一个单独的类，可以令一个职责的变化只会涉及到一个类，不及其余
+    - 举例来说，MVC，数据模型/界面/业务逻辑，各自独立。
 
-		![Example.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Example.jpg)
+        ![Example.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Example.jpg)
 
-	- 简单的编程题（Python），循环逻辑/或逻辑/算法逻辑，各自独立。
-	
-			打印输出符合如下条件之一的100以内的自然数：
-			1. 能被30整除
-			2. 个位+十位=10
-			3. 个位-十位=5
+    - 简单的编程题（Python），循环逻辑/或逻辑/算法逻辑，各自独立。
 
-			Run:
-			[0, 5, 16, 19, 27, 28, 30, 37, 38, 46, 49, 55, 60, 64, 73, 82, 90, 91]
-			
-			Code:
-			funList = [lambda x: x%30==0,
-			           lambda x: x%10+x/10==10,
-			           lambda x: x%10-x/10==5]
-			
-			def testFun(i):
-			    return any(fun(i) for fun in funList)
-			
-			print(list(filter(testFun, range(100))))
+            打印输出符合如下条件之一的100以内的自然数：
+            1. 能被30整除
+            2. 个位+十位=10
+            3. 个位-十位=5
+
+            Run:
+            [0, 5, 16, 19, 27, 28, 30, 37, 38, 46, 49, 55, 60, 64, 73, 82, 90, 91]
+
+            Code:
+            funList = [lambda x: x%30==0,
+                       lambda x: x%10+x/10==10,
+                       lambda x: x%10-x/10==5]
+
+            def testFun(i):
+                return any(fun(i) for fun in funList)
+
+            print(list(filter(testFun, range(100))))
 - **里氏替换原则（Liskov Substitution Principle，LSP）**
-	- 1987年，Barbara Liskov（美国首位计算机女博士、第二位女图灵奖得主）在会议演讲中首先提出：
-		- `Let q(x) be a property provable about objects x of type T`
-		- `Then q(y) should be true for objects y of type S where S is a subtype of T`
-	- 罗伯特·马丁（Robert Martin）对原文的解读：子类对象能够替换其基类对象被使用
-	- 换言之：**子类必须能够替换基类，否则不应当设计其为子类**
-	- 1994年，Liskov与周以真（Jeannette Wing）在1994年发表论文并提出的以上的里氏替换原则。
-	- 周以真是著名的华裔女性计算机科学家，以定义“计算思维”闻名，曾任卡内基—梅隆大学计算机学院院长，微软研究院副总裁，2017年离职
+    - 1987年，Barbara Liskov（美国首位计算机女博士、第二位女图灵奖得主）在会议演讲中首先提出：
+        - `Let q(x) be a property provable about objects x of type T`
+        - `Then q(y) should be true for objects y of type S where S is a subtype of T`
+    - 罗伯特·马丁（Robert Martin）对原文的解读：子类对象能够替换其基类对象被使用
+    - 换言之：**子类必须能够替换基类，否则不应当设计其为子类**
+    - 1994年，Liskov与周以真（Jeannette Wing）在1994年发表论文并提出的以上的里氏替换原则。
+    - 周以真是著名的华裔女性计算机科学家，以定义“计算思维”闻名，曾任卡内基—梅隆大学计算机学院院长，微软研究院副总裁，2017年离职
 - **依赖倒置原则（Dependency Inversion Principle，DIP）**
-	- 高层模块不应该依赖于低层模块，两者都应该依赖于抽象（**接口，Interface**）
-	- 抽象（接口）不应该依赖于细节；细节应该依赖于抽象（接口），谓之依赖倒置
+    - 高层模块不应该依赖于低层模块，两者都应该依赖于抽象（**接口，Interface**）
+    - 抽象（接口）不应该依赖于细节；细节应该依赖于抽象（接口），谓之依赖倒置
 - **接口隔离原则（Interface Segregation Principles，ISP）**
-	- Client在调用一个庞大臃肿的接口时，会涉及一些实际不用的方法。Client不应该依赖于它不使用的方法
-	- 将庞大臃肿的接口拆分成更小的和更具体的接口，这样Client能只调用他们感兴趣的方法
-	- 将单个臃肿接口拆分成多个紧内聚接口，能更好地复用这些子接口，也便于重构、更改
+    - Client在调用一个庞大臃肿的接口时，会涉及一些实际不用的方法。Client不应该依赖于它不使用的方法
+    - 将庞大臃肿的接口拆分成更小的和更具体的接口，这样Client能只调用他们感兴趣的方法
+    - 将单个臃肿接口拆分成多个紧内聚接口，能更好地复用这些子接口，也便于重构、更改
 - **组合重用原则（Composite/Aggregate Reuse Principle，CARP）**
-	- 尽量使用组合，而不是使用继承来达到重用的目的。
-	- 继承是一种紧耦合，不仅有遗产，还有债务
-	- 组合：Has-A，继承：Is-A
-	- 桥接（Bridge）模式
+    - 尽量使用组合，而不是使用继承来达到重用的目的。
+    - 继承是一种紧耦合，不仅有遗产，还有债务
+    - 组合：Has-A，继承：Is-A
+    - 桥接（Bridge）模式
 - **最少知道原则（Least Knowledge Principle，LKP）**
-	- 也叫迪米特法则（Law of Demeter，LoD），Only talk to your immediate friends
-	- Demeter是希腊神话中司掌农业之神，她的爱女被冥王拐走，伤心欲绝，出此警言
-	- 迪米特法则不希望类之间都建立直接联系，每个类应减少对其他类的依赖，以降低耦合
-	- 过度应用迪米特法则会令系统中存在大量中介类，在一定程度上增加了系统的复杂度
-	- 门面模式（Facade）和中介模式（Mediator），都是迪米特法则应用的例子
+    - 也叫迪米特法则（Law of Demeter，LoD），Only talk to your immediate friends
+    - Demeter是希腊神话中司掌农业之神，她的爱女被冥王拐走，伤心欲绝，出此警言
+    - 迪米特法则不希望类之间都建立直接联系，每个类应减少对其他类的依赖，以降低耦合
+    - 过度应用迪米特法则会令系统中存在大量中介类，在一定程度上增加了系统的复杂度
+    - 门面模式（Facade）和中介模式（Mediator），都是迪米特法则应用的例子
 
 ## 设计模式详述
 
@@ -119,12 +119,12 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 定义一个创建目标对象的接口，由子类决定需要实例化哪一个类
 - 在工厂方法中完成目标对象的实例化
 
-	![Design-Pattern-Factory.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Factory.jpg)
+    ![Design-Pattern-Factory.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Factory.jpg)
 
 - Factory以集中的方式处理Target类的实例化过程：
-	- 客户端不需要知道各个Target的类名，而只需知道对应的工厂名
-	- 这样解耦合了对象如何实现/来自哪里这些细节
-	- 可以在实例化时进行控制逻辑，比如记录日志等
+    - 客户端不需要知道各个Target的类名，而只需知道对应的工厂名
+    - 这样解耦合了对象如何实现/来自哪里这些细节
+    - 可以在实例化时进行控制逻辑，比如记录日志等
 - 实际的例子：[工厂模式](https://milovantomasevic.com/courses/python-design-patterns-factory_method/)
 
 ### 抽象工厂模式（Abstract Factory）
@@ -158,37 +158,37 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 保证一个类只有一个实例，并提供一个访问它的全局访问点
 - ![Design-Pattern-Singleton.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Singleton.jpg)
 - 实现时要注意：
-	- 构造方法私有化，最好在类定义时加上Sealed，避免产生派生类
-	- 添加静态字段，字段类型就是这个单例类
-	- 添加静态构造方法，返回上述的静态字段
-	- 分为饿汉模式和懒汉模式
+    - 构造方法私有化，最好在类定义时加上Sealed，避免产生派生类
+    - 添加静态字段，字段类型就是这个单例类
+    - 添加静态构造方法，返回上述的静态字段
+    - 分为饿汉模式和懒汉模式
 - 饿汉模式
-	- 在定义静态字段时直接初始化
-	- 这样类在初次被引用到时会被加载到DotNet Runtime，会完成实例化
-	- 这种方法不存在线程竞争问题（Race导致出现多个实例）
+    - 在定义静态字段时直接初始化
+    - 这样类在初次被引用到时会被加载到DotNet Runtime，会完成实例化
+    - 这种方法不存在线程竞争问题（Race导致出现多个实例）
 - 懒汉模式
-	- 在静态方法中判断静态字段是否被初始化（如果没有就new一个），然后返回静态字段
-	- 这种方法存在线程竞争问题，需要加锁
-		
-			lock(object)
-			{
-			    if (instance == null) 
-			    {
-			        instance = new Singleton()
-			    }
-			}
-	- 为了Performance，需要双重锁定
-		
-			if (instance == null)
-			{
-			    lock(object)
-			    {
-			        if (instance == null) 
-			        {
-			            instance = new Singleton()
-			        }
-			    }
-			}
+    - 在静态方法中判断静态字段是否被初始化（如果没有就new一个），然后返回静态字段
+    - 这种方法存在线程竞争问题，需要加锁
+
+            lock(object)
+            {
+                if (instance == null)
+                {
+                    instance = new Singleton()
+                }
+            }
+    - 为了Performance，需要双重锁定
+
+            if (instance == null)
+            {
+                lock(object)
+                {
+                    if (instance == null)
+                    {
+                        instance = new Singleton()
+                    }
+                }
+            }
 
 ### 适配器模式（Adapter）
 
@@ -200,11 +200,11 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 这个模式一般用于软件项目开发后期或者维护器，或者用于集成不同的Provider
 - .NET中DataAdapter类，Fill方法将数据源里的数据同步到DataSet，Update方法将DataSet中的数据同步到数据源
 - 适配器模式用于解决接口不匹配的问题，可类比扁鹊三兄弟。
-	- 如果实现能定义好统一的接口，不匹配的问题就不会发生
-	- 有小的接口不统一这类问题发生时，及时重构，问题不至于扩大
-	- 只有碰到了无法改变原有设计和代码的情况时，才考虑适配
-	- 事后补救不如事中控制，事中控制又不如事前规划
-	- ![Bianque.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Bianque.jpg)
+    - 如果实现能定义好统一的接口，不匹配的问题就不会发生
+    - 有小的接口不统一这类问题发生时，及时重构，问题不至于扩大
+    - 只有碰到了无法改变原有设计和代码的情况时，才考虑适配
+    - 事后补救不如事中控制，事中控制又不如事前规划
+    - ![Bianque.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Bianque.jpg)
 
 ### 桥接模式（Bridge）
 
@@ -215,12 +215,12 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 组合重用原则（Composite/Aggregate Reuse Principle，CARP）
 - Abstraction类的实例对象，可以调用成员方法SetImplementor来将ConreteImplementA或者B的实例对象替换掉，替换成任何一个实现了Implement接口的类的实例对象。
 - C#客户端代码：
-	
-		Abstraction ab = new Abstraction();
-		ab.SetImplementor(new ConcreteImplementA());
-		ab.Operation();
-		ab.SetImplementor(new ConcreteImplementB());
-		ab.Operation();
+
+        Abstraction ab = new Abstraction();
+        ab.SetImplementor(new ConcreteImplementA());
+        ab.Operation();
+        ab.SetImplementor(new ConcreteImplementB());
+        ab.Operation();
 
 ### 组合模式（Composite）
 
@@ -232,13 +232,13 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - ![Design-Pattern-Composite.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Composite.jpg)
 - Leaf类中也有add/remove/getChild方法，但不做事即可。
 - C#客户端代码：
-	
-		Composite root = new Composite("Root");
-		root.add(new Leaf("Leaf A"));
-		compX = new Composite("Composite X");
-		root.add(compX);
-		compX.add(new Leaf("Leaf B"));
-		root.operation();
+
+        Composite root = new Composite("Root");
+        root.add(new Leaf("Leaf A"));
+        compX = new Composite("Composite X");
+        root.add(compX);
+        compX.add(new Leaf("Leaf B"));
+        root.operation();
 
 ### 装饰模式（Decorator）
 
@@ -249,17 +249,17 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - ![Design-Pattern-Decorator.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Decorator.jpg)
 - 装饰器模式可以用于抽象一些Common的逻辑（MiddleWare），比如为所有Library方法统计时间（离开时间戳-进入时间戳），或者在进入和离开Library方法时记录日志
 - C#客户端代码：
-	
-		ConcreteComponent c = new ConcreteComponent();
-		ConcreteDecoratorA d1 = new ConcreteDecoratorA();
-		ConcreteDecoratorB d2 = new ConcreteDecoratorB();
-		d1.SetComponent(c);
-		d2.SetComponent(d1);
-		d2.Operation();
+
+        ConcreteComponent c = new ConcreteComponent();
+        ConcreteDecoratorA d1 = new ConcreteDecoratorA();
+        ConcreteDecoratorB d2 = new ConcreteDecoratorB();
+        d1.SetComponent(c);
+        d2.SetComponent(d1);
+        d2.Operation();
 - ConcreteDecoratorA::Operation方法的实现
-	
-		base.Operation();
-		AddedBehavior();
+
+        base.Operation();
+        AddedBehavior();
 
 ### 外观模式（Facade）
 
@@ -269,9 +269,9 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 定义一个高层接口，为子系统中的一组接口提供一个一致的外观，即对外统一接口
 - ![Design-Pattern-Facade.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Facade.jpg)
 - 外观模式在开发初、中、后都可以应用：
-	- 开发之初，应该有意识地分层，比如MVC，层与层之间用Facade模式
-	- 开发中，子系统不断重构，越发复杂，此时Facade模式可以减少彼此间依赖
-	- 开发末，类似Adapter作用，亦可用Facade模式
+    - 开发之初，应该有意识地分层，比如MVC，层与层之间用Facade模式
+    - 开发中，子系统不断重构，越发复杂，此时Facade模式可以减少彼此间依赖
+    - 开发末，类似Adapter作用，亦可用Facade模式
 
 ### 享元模式（Flyweight）
 
@@ -302,27 +302,27 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - ![Design-Pattern-Chain-of-Responsiblity.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Chain-of-Responsiblity.jpg)
 - 链中的对象自己也并不知道链的结构，但它们都有一个指向后继者的引用。
 - C#客户端代码
-	
-		Handler h1 = new ConcreateHandler1();
-		Handler h2 = new ConcreateHandler2();
-		Handler h3 = new ConcreateHandler3();
-		h1.SetSuccessor(h2);
-		h2.SetSuccessor(h3);
-		int[] requests = { 1, 2, 3, 4, 5 };
-		foreach (int request in requests)
-		{
-		    h1.HandleRequest(request);
-		}
+
+        Handler h1 = new ConcreateHandler1();
+        Handler h2 = new ConcreateHandler2();
+        Handler h3 = new ConcreateHandler3();
+        h1.SetSuccessor(h2);
+        h2.SetSuccessor(h3);
+        int[] requests = { 1, 2, 3, 4, 5 };
+        foreach (int request in requests)
+        {
+            h1.HandleRequest(request);
+        }
 - ConCreateHandler1::handleRequest代码
-	
-		if (request >= 0 && request < 10)
-		{
-		    // DoSomething
-		}
-		else if (succssor != null)
-		{
-		    successor.HandleRequest(request); // 转移到下一跳处理
-		}
+
+        if (request >= 0 && request < 10)
+        {
+            // DoSomething
+        }
+        else if (succssor != null)
+        {
+            successor.HandleRequest(request); // 转移到下一跳处理
+        }
 
 ### 命令模式（Command）
 
@@ -333,18 +333,18 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - ![Command.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Command.jpg)
 - Command实例对象要设定其接收者Receiver，Invoker对象通过SetCommand收集Command对象
 - C#客户端代码
-	
-		Reveiver r = new Receiver();
-		Command c = new ConcreteCommand(r);
-		Invoker i = new Invoker();
-		i.SetCommand(c);
-		i.ExecuteCommand();
+
+        Reveiver r = new Receiver();
+        Command c = new ConcreteCommand(r);
+        Invoker i = new Invoker();
+        i.SetCommand(c);
+        i.ExecuteCommand();
 - Invoker::ExecuteCommand代码
-	
-		command.Excute();
+
+        command.Excute();
 - ConcreteCommand::Excute方法
-	
-		receiver.Action();
+
+        receiver.Action();
 
 ### 解释器模式（Interpreter）
 
@@ -354,10 +354,10 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 该解释器用来根据文法表示来解释语言中的句子
 - ![Interpreter.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Interpreter.jpg)
 - C#客户端代码
-	
-		Context context = new Context();
-		TerminalExpression exp = new TerminalExpression();
-		exp.Interpret(context);
+
+        Context context = new Context();
+        TerminalExpression exp = new TerminalExpression();
+        exp.Interpret(context);
 - 每一个Expression类对应了一种文法规则
 - Context类包含解释器之外的一些全局信息
 
@@ -371,11 +371,11 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - Aggregate对象提供Count和Index接口，Iterator提供Next方法，内部有一个current字段，每次调用Next方法时current会减一。简言之，迭代器带游标，只迭代一次
 - .NET中，迭代器对应的接口是IEumerator，包含Current属性，MoveNext方法，Reset方法
 - foreach与while的对应关系
-	
-		foreach (string item in a) {}
-		// 等同于
-		IEnumerator<String> e = a.GetEnumerator();
-		while (e.MoveNext()) {}
+
+        foreach (string item in a) {}
+        // 等同于
+        IEnumerator<String> e = a.GetEnumerator();
+        while (e.MoveNext()) {}
 
 ### 中介者模式（Mediator）
 
@@ -390,8 +390,8 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 当系统中出现了多对多交互复杂的对象群时，先不要急着用中介者模式，而是要反思系统设计是否合理
 - WinForm设计中，Form窗体上有多个Button/Label等对象，Button/Label对象之间的交互（事件传递）都是由Form窗体来作中介，而事件处理则是个Button/Label对象自己处理
 - 中介者模式适用于如下场合
-	- 一组定义良好但是通信方式复杂的对象，比如WebForm
-	- 定制一个分布在多个类中的行为，而又不想生成太多子类
+    - 一组定义良好但是通信方式复杂的对象，比如WebForm
+    - 定制一个分布在多个类中的行为，而又不想生成太多子类
 
 ### 备忘录模式（Memento）
 
@@ -400,14 +400,14 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 保存一个对象的某个状态，以便在适当的时候恢复对象
 - ![Memento.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Memento.jpg)
 - 客户端代码
-	
-		GameRole hero = new Originator();
-			
-		CareTaker stateAdmin = new CareTaker();
-		stateAdmin.Memento = hero.CreateMemento();
-			
-		hero.DoSomthing();
-		hero.SetMemento(stateAdmin.Memento);
+
+        GameRole hero = new Originator();
+
+        CareTaker stateAdmin = new CareTaker();
+        stateAdmin.Memento = hero.CreateMemento();
+
+        hero.DoSomthing();
+        hero.SetMemento(stateAdmin.Memento);
 - Originator（发起人）通过CreateMemento方法创建一个备份，通过SetMemento方法从恢复到某个备份的内容
 - Caretaker（管理者）负责保存好Mementor，但不能对备忘录内容进行操作或者检查
 - Originator看到Mementor的宽接口，Caretaker只看到窄接口，只能将备忘录传递给其它对象
@@ -424,25 +424,25 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 在上述结构中，Subject依赖于Observer接口的update()方法
 - 在.NET中，这种依赖关系可以不是Hardcode的，而是在客户端代码中动态指定
 
-		ConcreteSubject s1 = new ConcreteSubject();
-		ConcreteObserver o1 = new ConcreteObserver(s1);
-		ConcreteObserver o2 = new ConcreteObserver(s1);
-		
-		s1.Update += new EventHandler(o1.DoThingA); // 事件 += 委托“实例”
-		s1.Update += new EventHandler(o2.DoThingB);
-		s1.SubjectState = "TestSubjectState";
-		s1.Notify();
+        ConcreteSubject s1 = new ConcreteSubject();
+        ConcreteObserver o1 = new ConcreteObserver(s1);
+        ConcreteObserver o2 = new ConcreteObserver(s1);
+
+        s1.Update += new EventHandler(o1.DoThingA); // 事件 += 委托“实例”
+        s1.Update += new EventHandler(o2.DoThingB);
+        s1.SubjectState = "TestSubjectState";
+        s1.Notify();
 - ConcreteSubject类实现
 
-		delegate void EventHandler(); // 委托是一个特殊的“引用方法”类
-		class ConcreteSubject : Subject
-		{
-		    public event EventHandler Update; // 定义委托事件
-		    public void Notify()
-		    {
-		        Update(); //事件当函数调用，会遍历运行其委托实例列表中所有元素
-		    }
-		}
+        delegate void EventHandler(); // 委托是一个特殊的“引用方法”类
+        class ConcreteSubject : Subject
+        {
+            public event EventHandler Update; // 定义委托事件
+            public void Notify()
+            {
+                Update(); //事件当函数调用，会遍历运行其委托实例列表中所有元素
+            }
+        }
 
 ### 状态模式（State）
 
@@ -454,35 +454,35 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - 应用场景：一个对象状态的判断逻辑表达式过于复杂的情况，将状态判断逻辑转移到表示不同状态的一系列类中
 - C#客户端代码
 
-		Context c = new Context(new ConcreteStateA());
-		c.Request(); 
-		c.Request();	
+        Context c = new Context(new ConcreteStateA());
+        c.Request();
+        c.Request();
 - Context::Request()
 
-		state.Handle(this);
+        state.Handle(this);
 - ConcreteState::Handle(Context context)
 
-		// doSomthing;
-		context.state = new ConcreteStateA();
+        // doSomthing;
+        context.state = new ConcreteStateA();
 - Context实例只管Request，Context::Request()调用state的Handle
 - 所有与状态相关的代码都实现在ConcreteState中，比如
 
-		public override void handle (Context c)
-		{
-		    if (c.Hour < 12)
-		    {
-		        // doSomething; // 符合状态，做事
-		    }
-		    else
-		    {
-		        c.SetState(new NextState()); // 切换状态
-		        c.handler(); // 做事
-		    }
-		}
+        public override void handle (Context c)
+        {
+            if (c.Hour < 12)
+            {
+                // doSomething; // 符合状态，做事
+            }
+            else
+            {
+                c.SetState(new NextState()); // 切换状态
+                c.handler(); // 做事
+            }
+        }
 
 ### 策略模式（Strategy）
 
-- Encapsulates an algorithm inside a class 
+- Encapsulates an algorithm inside a class
 - Define a family of algorithms, encapsulate each one, and make them interchangeable
 - Strategy lets the algorithm vary independently from clients that use it.
 - 定义一系列算法，把它们一个个封装起来，使它们之间可相互替换
@@ -512,27 +512,27 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - ![Visitor.jpg](/images/weblink/d3982739435445939afcf1c492cddf08-Design-Pattern-Visitor.jpg)
 - C#客户端代码
 
-		class ObjectStructure
-		{
-		    public IList<Element> elements = new List<Element>();
-		    
-		    public void Accept(Visitor visitor)
-		    {
-		        foreach (Element e in elements)
-		        {
-		            e.Accept(visitor);
-		        }
-		    }
-		}
-		
-		ObjectStructure o = new ObjectStructure();
-		o.elements.add(new ConcreteElementA());
-		o.elements.add(new ConcreteElementB());
-		ConcreteVisitor1 v1 = new ConcreteVisitor1();
-		ConcreteVisitor2 v2 = new ConcreteVisitor2();
-		
-		o.Accept(v1);
-		o.Accept(v2);
+        class ObjectStructure
+        {
+            public IList<Element> elements = new List<Element>();
+
+            public void Accept(Visitor visitor)
+            {
+                foreach (Element e in elements)
+                {
+                    e.Accept(visitor);
+                }
+            }
+        }
+
+        ObjectStructure o = new ObjectStructure();
+        o.elements.add(new ConcreteElementA());
+        o.elements.add(new ConcreteElementB());
+        ConcreteVisitor1 v1 = new ConcreteVisitor1();
+        ConcreteVisitor2 v2 = new ConcreteVisitor2();
+
+        o.Accept(v1);
+        o.Accept(v2);
 
 ## 附录：一些基础知识
 
@@ -541,71 +541,71 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 - Overload（重载）是指同一个类中，方法名相同而参数（类型或者个数）不同
 - Override（重写）是指在父子类中，方法名和参数都相同的virtual方法
 - 封装（Encapsulation）
-	- 用于解耦合，令类的实例对象成自包含实体。
-	- 清晰接口（不变）
-	- 隐藏实现（变化）
+    - 用于解耦合，令类的实例对象成自包含实体。
+    - 清晰接口（不变）
+    - 隐藏实现（变化）
 - 继承（Inheritance）
-	- is-A
-	- 只有virutal方法可以被override
-	- 构造方法不能被override
-	- 子类方法调用父类方法，用base()，可以简写
-	
-			class B : A
-			{
-			    public B() : base()
-			    {}
-			}		
-	- 继承增加了耦合，为了减少重复代码
+    - is-A
+    - 只有virutal方法可以被override
+    - 构造方法不能被override
+    - 子类方法调用父类方法，用base()，可以简写
+
+            class B : A
+            {
+                public B() : base()
+                {}
+            }
+    - 继承增加了耦合，为了减少重复代码
 - 多态（Polymorphism）
-	- 多态的原理是，当virtual方法被调用时，无论对象是否被转换成其父类，都只有对象继承链最末端的方法会被调用
-	- virtual方法是按照运行时的类型，而非编译时类型进行动态绑定调用的
+    - 多态的原理是，当virtual方法被调用时，无论对象是否被转换成其父类，都只有对象继承链最末端的方法会被调用
+    - virtual方法是按照运行时的类型，而非编译时类型进行动态绑定调用的
 - 抽象类
-	- 抽象类必须被继承，不能实例化
-	- 抽象方法，必须被重写（在继承时）
-	- 抽象类是对类的抽象
+    - 抽象类必须被继承，不能实例化
+    - 抽象方法，必须被重写（在继承时）
+    - 抽象类是对类的抽象
 - 接口
-	- 接口时**公共**方法与属性的组合
-	- 接口无字段，不实现，无static属性
-	- 接口是对行为的抽象
+    - 接口时**公共**方法与属性的组合
+    - 接口无字段，不实现，无static属性
+    - 接口是对行为的抽象
 - 装箱/拆箱
-	- boxing，值类型 -> 引用类型
-	- unboxing，引用类型 -> 值类型
-	- 举例
-	
-			int i = 123;
-			object o = (object)  // boxing
-			o = 123;
-			i = (int) o;  // unboxing
+    - boxing，值类型 -> 引用类型
+    - unboxing，引用类型 -> 值类型
+    - 举例
+
+            int i = 123;
+            object o = (object)  // boxing
+            o = 123;
+            i = (int) o;  // unboxing
 - 范型
-	- collction：用于数据存储和检索的类，统称collection，包括stack/queue/list/hash
-	- 范型是具有占位符（参数类型）的类、结构、接口和方法
-	- ArrayList类似Python中的list
-	- List<T>是ArrayList的范型等效类，如果类型不匹配，编译时就能检查出来
+    - collction：用于数据存储和检索的类，统称collection，包括stack/queue/list/hash
+    - 范型是具有占位符（参数类型）的类、结构、接口和方法
+    - ArrayList类似Python中的list
+    - List<T>是ArrayList的范型等效类，如果类型不匹配，编译时就能检查出来
 - 委托
-	- 委托是对函数的封装
-	- 举例
-	
-			public delegate void DelegateA();
-			
-			public void FunctionA()
-			{
-				// do something;
-			}
-			
-			DelegateA f1 = new DelegateA(FunctionA);
-			f1();
+    - 委托是对函数的封装
+    - 举例
+
+            public delegate void DelegateA();
+
+            public void FunctionA()
+            {
+                // do something;
+            }
+
+            DelegateA f1 = new DelegateA(FunctionA);
+            f1();
 - 事件
-	- 事件是委托的一种特殊形式
-	- 事件时观察者模式Observor在.NET中的一种实现方式
-	- 事件的写法：`public event DelegateA EventA;`，这表示
-		- 事件发生时（调用`EventA();`）
-		- 执行被委托的方法（EventA是一个List，`EventA += new DelegateA(FunctionA);`）
-	- 如果在EventA被调用时传参数，可以
-	
-			public delegate void DelegateA(object sender, EventArgsA args);
-			public event DelegateA EventA;
-			
-			public FunctionB()
-			{
-			    EventA(this, new EventArgs()); // 这两个参数会传给所有绑在EventA上的委托实例
-			}
+    - 事件是委托的一种特殊形式
+    - 事件时观察者模式Observor在.NET中的一种实现方式
+    - 事件的写法：`public event DelegateA EventA;`，这表示
+        - 事件发生时（调用`EventA();`）
+        - 执行被委托的方法（EventA是一个List，`EventA += new DelegateA(FunctionA);`）
+    - 如果在EventA被调用时传参数，可以
+
+            public delegate void DelegateA(object sender, EventArgsA args);
+            public event DelegateA EventA;
+
+            public FunctionB()
+            {
+                EventA(this, new EventArgs()); // 这两个参数会传给所有绑在EventA上的委托实例
+            }
