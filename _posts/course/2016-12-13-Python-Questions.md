@@ -669,7 +669,7 @@ https://github.com/wu-wenxiang/training-python-public/blob/master/doc/pdf/Matplo
 
 ### 云计算OpenStack
 
-
+参考 <https://blog.wuwenxiang.net/OpenStack-Questions>
 
 ### PaaS云平台
 
