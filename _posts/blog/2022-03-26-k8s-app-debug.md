@@ -389,7 +389,7 @@ spec:
 
 这里要厘清整个网络拓扑，但往往很难第一时间厘清。
 
-`[pod-console: 172.25.127.32] - [vm-4: 10.1.0.11] - ? - [caasnode2: 10.1.0.12] - [svc-apiserver: 10.96.98.148] - [pod-apiserver: 172.25.235.30]`，apiserver
+`[pod-console: 172.25.127.32] - [vm-4: 10.1.0.11] - ? - [vm5: 10.1.0.12] - [svc-apiserver: 10.96.98.148] - [pod-apiserver: 172.25.235.30]`，apiserver
 pod 被重启过，地址可能会变化，与之前抓包的记录不符。
 
 此时，我们可以从两个 pod 上的包抓起。在 pod 上抓包可以用 tcpdump，但 pod 中未必安装了 tcpdump 工具。即便安装了，从 pod 中把网络包导出也不容易。因此我们推荐先找到 pod 的虚拟网卡，然后在主机节点上直接对虚拟网卡抓包。参考：<https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#81-%E7%9B%91%E6%8E%A7%E6%97%A5%E5%BF%97%E6%8E%92%E9%94%99>。如果是对 docker 容器抓包，可以参考：<https://gitee.com/dev-99cloud/training-kubernetes/blob/master/doc/class-01-Kubernetes-Administration.md#17-docker-%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B>
