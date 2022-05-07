@@ -60,3 +60,14 @@ description:    整理 Linux 环境下排查问题的常用工具
     # 在不同的 namespaces 或者宿主机节点上，需要 FQDN 长名
     nslookup hello-python-service.default.svc.cluster.local 10.96.0.10
     ```
+
+## 便携式 http server
+
+参考：<https://docs.python.org/3/library/http.server.html>
+
+```python
+python -m http.server  # 默认启动在 0.0.0.0:8000
+python -m http.server 9000
+python -m http.server --bind 127.0.0.1
+python -m http.server --directory /tmp/
+```
