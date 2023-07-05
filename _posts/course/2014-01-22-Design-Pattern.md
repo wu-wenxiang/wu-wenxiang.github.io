@@ -69,8 +69,8 @@ description:    整理了23种设计模式的What/Why/How，基于C#和Python
 
             Code:
             funList = [lambda x: x%30==0,
-                       lambda x: x%10+x/10==10,
-                       lambda x: x%10-x/10==5]
+                       lambda x: x%10+x//10==10,
+                       lambda x: x%10-x//10==5]
 
             def testFun(i):
                 return any(fun(i) for fun in funList)
