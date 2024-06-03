@@ -6,6 +6,7 @@ description:    介绍 ASP.NET Core + Docker 在Win/Linux环境中的部署和�
 ---
 
 ## 开发
+
 - 开发环境：VS2017，VSCode也可以
     - 本地：Win10 + Docker CE
     - 远端：Server 2016 或者 CentOS 7.4，Ubuntu 18.04 也行。
@@ -16,6 +17,7 @@ description:    介绍 ASP.NET Core + Docker 在Win/Linux环境中的部署和�
 - Dockerfile中，Asp.net的官方Base Image默认是`FROM microsoft/aspnetcore:2.0`，这里取决于`docker-compose.dcproj`文件，`DockerTargetOS `是Linux还是Windows，类似这样`<DockerTargetOS>Linux</DockerTargetOS>`。如果`DockerTargetOS`是Windows，默认是Nano，反之，是Debian9，Stretch。[参考](https://github.com/aspnet/aspnet-docker/tree/master/2.0)。注意，Latest images for 2.1 and newer are now available on [microsoft/dotnet](https://hub.docker.com/r/microsoft/dotnet/).
 
 ## 部署
+
 - 如果不涉及Docker，Windows环境中可以使用 WebDeploy 推送到VM上，参考[官方文档](https://github.com/aspnet/Tooling/blob/AspNetVMs/docs/create-asp-net-vm-with-webdeploy.md)。
 - 涉及Docker，推荐通过[Docker Hub](https://hub.docker.com/)，或者Private Registery Server。Docker Hub需要Create Account，**如果在创建用户时Signup按钮一直是灰色的不能点击，请翻墙**，XXX。
 - 将Docker Image上传到[Docker Hub](https://hub.docker.com/)或者Private Hub后，可以在远程服务器（Win/Linux）上Pull下来Run，这样就完成了部署。
@@ -26,12 +28,14 @@ description:    介绍 ASP.NET Core + Docker 在Win/Linux环境中的部署和�
 - 也可以将编译好的DLL发送到Remote Linux Server，在Linux Server上完成Docker Build工作，参考[这里](https://www.cnblogs.com/keepcodingforever/p/6698862.html)。
 
 ## 本地调试
+
 - Win10 Docker CE非常方便，可以在Linux Container和Win Container之间切换，方法参考[这里](https://stackoverflow.com/questions/46779911/asp-net-core-docker-build-error)。
 - Browser访问的起始路径在`docker-compose.dcproj`文件中定义：`<DockerServiceUrl>{Scheme}://localhost:{ServicePort}/api/values</DockerServiceUrl>`
 - 参考：[官方视频教程](https://channel9.msdn.com/Events/Visual-Studio/Visual-Studio-2017-Launch/T115)
 - 参考：[官方调试文档](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/visual-studio-tools-for-docker?view=aspnetcore-2.1)
 
 ## 远程调试
+
 - 对Win-Docker，远程调试可以参考：[Github文档](https://github.com/riskfirst/debugging-aspnet-core-windows-docker)
 - 对Linux-Docker环境，远程调试的原理是在Docker Container上开一个SSH端口，VS通过SSH端口Attach到对应的进程，借助[vs-debugger](https://aka.ms/getvsdbgsh)完成调试，参考[文档](https://github.com/Microsoft/MIEngine/wiki/Offroad-Debugging-of-.NET-Core-on-Linux---OSX-from-Visual-Studio)。
 - 注意事项1：SSH端口，首先确保Docker Container上可以SSH登录；其次，VS上进行配置，先创建RemoteConnection, Tools > Options > Crossplatform > Connection Manager ，参考[StackOverflow](https://stackoverflow.com/questions/48661857/how-to-debug-a-net-core-app-runnig-in-linux-docker-container-from-visual-studio)。配置完成后，可以在VS上Attach Process，选Remote/SSH即可，参考[文档](https://blogs.msdn.microsoft.com/devops/2017/01/26/debugging-net-core-on-unix-over-ssh/)。
