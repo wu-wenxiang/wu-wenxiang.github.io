@@ -23,7 +23,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 ### 基础
 
-1. [开始] **Go 在编程语言世界中的处于什么样的位置**？[TIOBE](https://tiobe.com/tiobe-index/)，10-20名，2 次入选年度语言
+1. [开始] **Go 在编程语言世界中的处于什么样的位置**？[TIOBE](https://tiobe.com/tiobe-index/)，2024 年开始进入前 10 名，2 次入选年度语言
 
 1. [开始] Go 源于什么需求而被创造？在软件规模日趋复杂时，兼顾代码**易用性、健壮性和性能**。C++（ MySQL / MongoDB ）未能平衡代码易用性和健壮性，Java（ Hadoop ）不够高性能，其它为高并发而生的语言：Erlang（ RabbitMQ ），Scala（ Apache Spark ），Rust
 
@@ -35,11 +35,11 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [开始] **和其它高级语言相比，Go 有哪些特性**？ GC，包系统，一等公民函数，词法作用域，系统调用接口，默认用 UTF-8 编码的不可变字符串
 
-1. [开始] **和其它高级语言相比，Go 没有哪些特性**？ 隐式数据类型强制转换（ 浮点数赋值给整数不可以，`int(3.65)`不可以，`float64(3.65)`可以，但`int(float64(3.65))`不行，因为`constant 1.9 truncated to integer`，参考后面的**无类型常量**，但是赋值给变量之后就行`x=float64(3.65);int(x)`；也不可以直接运算，比如 `int(3) + float64(3)`，要显式转换成相同类型，并且转换数值过大导致溢出时行为不保证 ），构造和析构函数，运算符重载，形参默认值，继承，**范型**，**异常**，宏，函数注解，线程局部变量存储（ 依赖编译器判断是否放在线程栈上 & GC ），切片语法糖，map / filter / reduce
+1. [开始] **和其它高级语言相比，Go 没有哪些特性**？ 隐式数据类型强制转换（ 浮点数赋值给整数不可以，`int(3.65)`不可以，`float64(3.65)`可以，但`int(float64(3.65))`不行，因为`constant 1.9 truncated to integer`，参考后面的**无类型常量**，但是赋值给变量之后就行 `x=float64(3.65);int(x)`；也不可以直接运算，比如 `int(3) + float64(3)`，要显式转换成相同类型，并且转换数值过大导致溢出时行为不保证 ），构造和析构函数，运算符重载，形参默认值，继承，**范型**（23 年开始有了），**异常**，宏，函数注解，线程局部变量存储（ 依赖编译器判断是否放在线程栈上 & GC ），切片语法糖，map / filter / reduce，也没有 Java 的切面编程和类型模式匹配。
 
 1. [开始] Go 的语法兼容性如何？保证向后（下）兼容（ 旧版本 Go 写的程序，能用新版本的编译器和库 ）
 
-1. [开始] Go 有什么缺点？[go-is-not-good](https://github.com/ksimka/go-is-not-good)
+1. [开始] Go 有什么缺点？[go-is-not-good](https://github.com/ksimka/go-is-not-good)。主要是：过于简单（70 风格）；不过现在范型也有了；错误处理还是很原始；defer 被滥用（小心点就好了）；原生 json 库使用不方便；……
 
 1. [开始] **有哪些优秀的 Go 学习资源可以参考**？ 最好的是 [Learning Go Go 语言学习指南：惯例模式与编程实践](https://book.douban.com/subject/35902219/)，其它还有：[TGPL](https://book.douban.com/subject/27044219/)（ [源码](https://github.com/adonovan/gopl.io/) ），[Learning basic Golang in one day](https://github.com/go-training/training)，[Training Meterials](https://github.com/golang/go/wiki/Training)，[官方文档](https://golang.org/doc/#references)，[标准库中文版](https://books.studygolang.com/The-Golang-Standard-Library-by-Example/)
 
@@ -53,7 +53,7 @@ description:    逆向法学习 Golang，关于 Golang 需要能回答出的问�
 
 1. [环境] 如何搭建 Goland 开发和调试环境？[Debugging code](https://www.jetbrains.com/help/go/debugging-code.html)，[Debugging containerized Go applications](https://blog.jetbrains.com/go/2018/04/30/debugging-containerized-go-applications/)
 
-1. [环境] 代码格式整理？gofmt（`gofmt -d <dir>`，预览格式化代码信息，`gofmt -w <dir>`，格式化代码） / golint（直接敲此命令）
+1. [环境] 代码格式整理？**gofmt**（`gofmt -d <dir>`，预览格式化代码信息，`gofmt -w <dir>`，格式化代码） / golint（直接敲此命令）
 
 1. [环境] VSCode 怎么调试 golang 代码？Run and Debug，或者用单元测试 `import "testing"`，然后 run test / debug test。如果要运行带 main 函数的 go 文件，可以 OUTPUT 下来菜单里选 go，configure json 选 Launch file，在 Debug Console 里可以看到标准输出
 
